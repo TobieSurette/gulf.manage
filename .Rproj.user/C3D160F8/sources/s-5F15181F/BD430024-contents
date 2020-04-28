@@ -1,0 +1,90 @@
+\name{msg.str}
+
+\alias{msg.str}
+\alias{msg.str.data.frame}
+\alias{msg.str.ascii}
+
+\title{
+   Return a Message String
+}
+
+\description{
+   Returns a message string to a file or the \code{R} console. This function is used
+   to build message strings for a data frame. Auxiliary variables, such as index 
+   keys, may be included. These are appended to the message string. In particular, 
+   this function is used to report error messages.
+}
+
+\usage{
+   # Generic 'msg.str' method:
+   msg.str(x)
+
+   # 'data.frame' 'msg.str' method:
+   msg.str(x, msg = NULL, key = NULL, variables = NULL,
+           print = TRUE, verbose = FALSE, file = NULL, append = TRUE, ...)
+           
+   # 'ascii' 'msg.str' method:
+   msg.str(x, msg = NULL, key = NULL, ...)           
+                 
+}
+
+\arguments{
+   \item{x}{An object or an \sQuote{ascii} object.}
+
+   \item{msg}{A character string specifying the message string to be returned. If 
+              left unspecified, only the key is printed.}
+
+   \item{key}{A character vector specifying the index key to be used.}
+   
+   \item{variables}{A character vector of column names to be printed as auxiliary
+                    information.}
+
+   \item{print}{A logical value specifying whether to print to the \code{R} console.
+                The default is \code{TRUE}.}
+   
+   \item{verbose}{A logical value specifying whether the returned message should
+                  be printed in long form (i.e. multiple lines). The default is 
+                  \code{FALSE}.}
+                  
+   \item{file}{File name if message is to be printed to file.}
+   
+   \item{append}{Whether to append to existing file or start a new file.}
+}
+
+\details{
+   The first letter in the message is captialized.
+   
+   
+}
+
+\value{
+   Returns a character vector containing output messages.
+}
+
+\author{
+   Tobie Surette \email{Tobie.Surette@dfo-mpo.gc.ca} \cr
+   Pablo Vergara \email{Pablo.Vergara@dfo-mpo.gc.ca}
+}
+
+\seealso{
+   \code{\link[gulf]{ascii Class Methods}}
+}
+
+\examples{
+   # Read 2011 September survey set card (first tem records):
+   x <- read.card(year = 2011)[1:10, ]
+   
+   # Print set number values:
+   msg.str(x, key = "set.number")
+   
+   # Print message which includes depth:
+   msg.str(x, msg = paste("has a depth of", depth(x)), key = "set.number")
+   
+   
+   # Include an auxiliary variable and print in long form:
+   msg.str(x, msg = paste("has a depth of", depth(x)), 
+           key = c("year", "set.number"), var = "cruise.number", verbose = TRUE)
+   
+   # Use default 'key' from 'ascii' object 'x':
+   msg.str(x)
+}

@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2440157535",
+    "hash" : "718352228",
     "id" : "6D0DB466",
-    "lastKnownWriteTime" : 1588003547,
-    "last_content_update" : 1588003547521,
+    "lastKnownWriteTime" : 1588058876,
+    "last_content_update" : 1588058876338,
     "path" : "~/Desktop/gulf.manage/README.md",
     "project_path" : "README.md",
     "properties" : {
-        "cursorPosition" : "28,0",
-        "scrollLine" : "21"
+        "cursorPosition" : "21,3",
+        "scrollLine" : "16"
     },
     "relative_order" : 1,
     "source_on_save" : false,

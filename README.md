@@ -5,15 +5,15 @@ This package contains functions useful for validating, correcting and accessing 
 
 ## Checking data frame contents:
 
-The contents of a data frame may be examined using a number of standard methods, such as \code{\link[base]{summary.data.frame}} and \code{\link[utils]{str}}. A slightly more detailed summary is available via \code{\link[gulf.utils]{describe}}, which also includes decriptions of unique and missing values and index keys.
+The contents of a data frame may be examined using a number of standard methods, such as **summary** and **str**. A slightly more detailed summary is available via **describe*}}**, which also includes decriptions of unique and missing values and index keys.
 
-The list of unique values for a given field may also be obtained using the \code{\link[base]{unique}} function. Similarly, the frequencies of unique values can be obtained via the \code{\link[base]{table}} function.
+The list of unique values for a given field may also be obtained using the **unique** function. Similarly, the frequencies of unique values can be obtained via the **table** function.
 
-Another useful function includes the \code{\link[gulf.utils]{lexicon}} function which returns the list of unique words in a vector of character strings. This may be used to check for spelling variations in a comment field, for example. 
+Another useful function includes the **lexicon** function which returns the list of unique words in a vector of character strings. This may be used to check for spelling variations in a comment field, for example. 
 
 ## Exporting to Excel 
 
-Data can be quickly exported to MS Excel via the \code{\link[gulf.utils]{excel}} function. 
+Data can be quickly exported to MS Excel via the **excel** function. 
 
 ## String substitutions:
 ```

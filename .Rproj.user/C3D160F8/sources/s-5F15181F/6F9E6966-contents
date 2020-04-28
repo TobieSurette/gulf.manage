@@ -1,0 +1,13 @@
+verify.key.ascii <- function(x, key = NULL, ...){
+   # VERIFY.KEY.ASCII - Verify an 'ascii' object's index key.
+
+   msg <- NULL # Initialize error message variable:
+
+   # Define 'key' argument if none is given:
+   if (is.null(key)) key <- key(x)
+
+   # Use 'data.frame' method:
+   msg <- verify.key.data.frame(x, key = key, ...)
+
+   return(msg)
+}
