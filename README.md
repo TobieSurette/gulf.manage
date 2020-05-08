@@ -5,20 +5,22 @@ This package contains functions useful for validating, correcting and accessing 
 
 ## Checking data frame contents:
 
-The contents of a data frame may be examined using a number of standard methods, such as **summary** and **str**. A slightly more detailed summary is available via **describe*}}**, which also includes decriptions of unique and missing values and index keys.
+The contents of a data frame may be examined using a number of standard methods, such as `summary` and `str`. A slightly more detailed summary is available via `describe`, which also includes decriptions of unique and missing values and index keys.
 
-The list of unique values for a given field may also be obtained using the **unique** function. Similarly, the frequencies of unique values can be obtained via the **table** function.
+The list of unique values for a given field may also be obtained using the `unique` function. Similarly, the frequencies of unique values can be obtained via the `table` function.
 
-Another useful function includes the **lexicon** function which returns the list of unique words in a vector of character strings. This may be used to check for spelling variations in a comment field, for example. 
+Another useful function includes the `lexicon` function which returns the list of unique words in a vector of character strings. This may be used to check for spelling variations in a comment field, for example. 
 
 ## Exporting to Excel 
 
-Data can be quickly exported to MS Excel via the **excel** function. 
+Data can be quickly exported to MS Excel via the `excel` function. 
 
-## String substitutions:
+## Search and replace:
+
+Character strings 
 ```
-str <- gsub("^[ ]", "", str)  # Remove starting blanks from string.
-str <- gsub(" $", "", str)    # Remove end blanks from string.
+str <- gsub("^[ ]", "", str)  # Remove starting spaces from string.
+str <- gsub(" $", "", str)    # Remove end spaces from string.
 ```
 
 ## Parsing structured strings:
@@ -43,5 +45,3 @@ Why use such a convoluted process? Because the function definition is *very* fle
 month <- as.numeric(unlist(lapply(strsplit(str, sep = ","), function(x) x[2])))
 day <- as.numeric(unlist(lapply(strsplit(str, sep = ","), function(x) x[3])))
 ```
-
-
