@@ -1,9 +1,9 @@
 {
-    "path" : "~/Desktop/gulf.manage",
-    "sortOrder" : [
+    "path": "~/Desktop/gulf.manage/R",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

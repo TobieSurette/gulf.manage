@@ -1,6 +1,0 @@
-str
-summary.data.frame
-str
-unique
-Another useful function includes the \code{\link[gulf.utils]{lexicon}} function which returns the list of unique words in a vector of character strings. This may be used to check for spelling variations in a comment field, for example. tabl;e
-table

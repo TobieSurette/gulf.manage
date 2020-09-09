@@ -12,9 +12,8 @@ check.esonar <- function(x, key = TRUE, coordinates = TRUE, time = TRUE, match =
    return(msg)
 }
 
-verify.coordinates.esonar <- function(x, ...){
-   # VERIFY.COORDINATES - Check coordinates for a 'esonar' object.
-
+check.coordinates.esonar <- function(x, ...){
+   # CHECK.COORDINATES - Check coordinates for a 'esonar' object.
    msg <- NULL
 
    if (!is.null(header(x))){
