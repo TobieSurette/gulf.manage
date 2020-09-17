@@ -19,15 +19,14 @@
 #' # String output:
 #' m <- msg(x, "Sampling was performed.")
 #' 
-#' @export msg
-#' @export msg.default
-#' @export msg.data.frame
-#' 
 #' @return Character string of concatenated data fields and messages (invisible).
 #' 
+
+#' @export msg
 msg <- function(x, ...) UseMethod("msg")
 
 #' @describeIn msg Default msg method.
+#' @export
 msg.default <- function(x, msg = "", echo = FALSE, ...){
    if (is.null(dim(x))){
       v <- paste0("'", x, "'")
@@ -44,6 +43,7 @@ msg.default <- function(x, msg = "", echo = FALSE, ...){
 }
 
 #' @describeIn msg Generate message from data frame entries.
+#' @export
 msg.data.frame <- function(x, msg = "", key, names, echo = FALSE, ...){
    # Convenience functions:
    q <- function(x) return(paste0("'", x, "'"))  # Add quotes.

@@ -1,22 +1,16 @@
-#' Check Snow Crab Set Data
+#' Check Trawl Tow Identifiers
 #' 
-#' @description Checks snow crab survey set/tow data for errors or inconsistencies.
+#' @description Checks tow IDs from snow crab survey set/tow data for errors or inconsistencies.
 #' 
-#' @name check.scsset
-#' 
+#' @examples
+#' x <- read.scsset(2020)
+#' check.tow.number(x)
 
-#' 
-library(gulf.data)
-
-x <- read.scsset(2018)
-
-#' @rdname check.tow.id
 #' @export check.tow.id
-check.tow.id <- function(x) UseMethod("check.tow.id")
+check.tow.id <- function(x, ...) UseMethod("check.tow.id")
 
-#' @rdname check.tow.id
-#' @export 
-check.tow.id.scsset <- function(x){
+#' @rawNamespace S3method(check.tow.id, scsset)
+check.tow.id.scsset <- function(x, ...){
    # Check that tow IDs follows the standard nomenclature:
    regular <- grep("^G[CP][0-9][0-9][0-9][F][R]*", x$tow.id)
    alternates <- grep("^G[CP][0-9][0-9][0-9][A][1-3]*", x$tow.id)
@@ -41,19 +35,4 @@ check.tow.id.scsset <- function(x){
    }   
 }
 
-#' @rdname check.tow.id
-#' @export check.tow.number
-check.tow.number <- function(x) UseMethod("check.tow.number")
 
-#' @rdname check.tow.id
-#' @export 
-check.tow.number.scsset <- function(x){
-   # Determine which tows are missing on from a list of tow numbers on a given day:
-   r <- aggregate(x["tow.number"], by = list(date = date(x)), function(x) setdiff(1:max(x), sort(x)))
-   r <- r[unlist(lapply(r$tow.number, length)) > 0, ]
-   if (nrow(r) > 0){
-      for (i in 1:nrow(r)){
-         cat(paste0("Date = '", as.character(r$date[i]), "', missing tow number(s) ", paste(r$tow.number[[i]], collapse = ", "),  ".\n"))
-      }
-   }
-}

@@ -13,24 +13,21 @@
 #' x <- rpois(20, 5)
 #' check.key(x) # Checks for repeat entries.
 #' 
-x <- data.frame(year = sample(2010:2014, 20, replace = TRUE),
-                site = sample(LETTERS[1:5], 20, replace = 20),
-                count = rpois(20, 5),
-                value = rnorm(20))
-x$year[sample(1:nrow(x), 3)] <- NA
-
-check.key(x, key = c("year", "site"))
-
-#' 
-#' 
-#' @export check.key
-#' @export check.key.default
-#' @export check.key.data.frame
+#' x <- data.frame(year = sample(2010:2014, 20, replace = TRUE),
+#'                 site = sample(LETTERS[1:5], 20, replace = 20),
+#'                 count = rpois(20, 5),
+#'                 value = rnorm(20))
+#' x$year[sample(1:nrow(x), 3)] <- NA
+#' check.key(x, key = c("year", "site"))
 #' 
 #' @return A character vector of error messages (invisible). 
-#'
+
+# #' @describeIn check.key Generic \code{check.key} method.
+#' @export check.key
 check.key <- function(x, ...) UseMethod("check.key")
 
+# #' @describeIn check.key Default \code{check.key} method. Checks that entries are unique.
+#' @rawNamespace S3method(check.key,default)
 check.key.default <- function(x, echo = TRUE, ...){
    v <- NULL
    if (is.null(dim(x))){
@@ -41,6 +38,8 @@ check.key.default <- function(x, echo = TRUE, ...){
    invisible(v)
 }
 
+# #' @describeIn check.key Checks that data frame variable entries are unique.
+#' @rawNamespace S3method(check.key,data.frame)
 check.key.data.frame <- function(x, key, ...){
    v <- NULL
 

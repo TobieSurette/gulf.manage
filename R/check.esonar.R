@@ -1,7 +1,9 @@
-# VERIFY.ESONAR - Checks an 'esonar' object for errors.
+#' Check \strong{eSonar} Data
+#' 
+#' @description Checks an 'esonar' object for errors.
+
+#' @export
 check.esonar <- function(x, key = TRUE, coordinates = TRUE, time = TRUE, match = TRUE, ...){
-
-
    msg <- NULL
 
    if (key)             msg <- c(msg, verify.key(x, key = c("year", "month", "day", "hour", "minute", "second"), ...))
@@ -12,6 +14,7 @@ check.esonar <- function(x, key = TRUE, coordinates = TRUE, time = TRUE, match =
    return(msg)
 }
 
+#' @export check.coordinates.esonar 
 check.coordinates.esonar <- function(x, ...){
    # CHECK.COORDINATES - Check coordinates for a 'esonar' object.
    msg <- NULL
@@ -56,9 +59,9 @@ check.coordinates.esonar <- function(x, ...){
    return(msg)
 }
 
-verify.time.esonar <- function(x, ...){
-   # VERIFY.TIME - Checks a 'esonar' object time errors.
-
+# VERIFY.TIME - Checks a 'esonar' object time errors.
+#' @export check.time.esonar
+check.time.esonar <- function(x, ...){
    msg <- NULL
 
    # Check time values:
@@ -74,9 +77,9 @@ verify.time.esonar <- function(x, ...){
    return(msg)
 }
 
-verify.match.esonar <- function(x, set.card, ...){
-   # VERIFY.MATCH.ESONAR - Checks that a 'esonar' object's entries have matches in a target object.
-
+# .MATCH.ESONAR - Checks that a 'esonar' object's entries have matches in a target object.
+#' @export check.key.esonar
+check.key.esonar <- function(x, set.card, ...){
    msg <- NULL
 
    # Define set card if missing:
