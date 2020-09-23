@@ -12,8 +12,8 @@ check.tow.id <- function(x, ...) UseMethod("check.tow.id")
 #' @rawNamespace S3method(check.tow.id, scsset)
 check.tow.id.scsset <- function(x, ...){
    # Check that tow IDs follows the standard nomenclature:
-   regular <- grep("^G[CP][0-9][0-9][0-9][F][R]*", x$tow.id)
-   alternates <- grep("^G[CP][0-9][0-9][0-9][A][1-3]*", x$tow.id)
+   regular <- grep("^G[CP][0-9]{3,3}[F][R]*", x$tow.id)
+   alternates <- grep("^G[CP][0-9]{3,3}[A][1-3]*", x$tow.id)
    index <- setdiff(1:nrow(x), c(regular, alternates))
    if (length(index) > 0){
       cat("Tows '", paste0(x$tow.id[index], collapse = "', '"), "' do not follow the standard snow crab station nomenclature.\n") 
