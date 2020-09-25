@@ -19,6 +19,9 @@ check.tow.id.scsset <- function(x, ...){
       cat("Tows '", paste0(x$tow.id[index], collapse = "', '"), "' do not follow the standard snow crab station nomenclature.\n") 
    }
    
+   # Define 'year':
+   x$year <- as.numeric(substr(x$date, 1, 4))
+   
    # Check for proper tow ID sequencing:
    f <- function(x, suffix = c("F", "FR", "A1", "A2", "A3")){
       index <- match(substr(x, 6, 10), suffix)
@@ -33,6 +36,15 @@ check.tow.id.scsset <- function(x, ...){
          cat(paste0("Year = ", r$year[i], ", station/grid = '", as.character(r$station[i]), "', is missing tow ID(s) '", paste(r$tow.id[[i]], collapse = "', '"),  "'.\n"))
       }
    }   
+   
+   # Check for doubly valid stations:
+   t <- table(substr(x$tow.id[x$valid == 1], 3, 5))
+   t <- t[t > 1]
+   if (length(t) > 0) for (i in 1:length(t)) cat(paste0("Station '", names(t[i]), "' has ", t[i], " valid tows.\n"))
+      
+   # Check for stations with no valid tows:
+   s <- setdiff(1:max(as.numeric(substr(x$tow.id, 3, 5))), as.numeric(substr(x$tow.id[x$valid == 1], 3, 5)))
+   if (length(s) > 0) cat(paste0("Station(s) ", paste(s, collapse = ", "), " have no valid tows.\n"))
 }
 
 

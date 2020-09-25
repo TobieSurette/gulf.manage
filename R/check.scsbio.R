@@ -4,17 +4,9 @@
 #' 
 #' @param x Object.
 #' 
-#' @export check
-#' 
-#' @section Functions:
-#' \describe{
-#'   \item{}
-#' }
-#' 
 #' @examples 
 #' check(read.scsbio(2020))
 
-#' @rdname check
 #' @export
 check.scsbio <- function(x, ...){
    # Males with female information:
