@@ -4,19 +4,11 @@
 #' 
 #' @param x Object.
 #' 
-#' 
-#' @section Functions:
-#' \describe{
-#'   \item{}
-#' }
-#' 
 #' @examples 
 #' check(read.scsset(2020))
 
 #' @export
-#' 
-
-check.scsset(x, ...){
+check.scsset <- function(x, ...){
    check.key(x)
    check.tow.id(x)
    check.tow.number(x)

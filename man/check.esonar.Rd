@@ -2,10 +2,36 @@
 % Please edit documentation in R/check.esonar.R
 \name{check.esonar}
 \alias{check.esonar}
+\alias{check.esonar.scsset}
+\alias{check.tow.id.esonar}
+\alias{check.time.esonar}
+\alias{check.key.esonar}
 \title{Check \strong{eSonar} Data}
 \usage{
-\method{check}{esonar}(x, key = TRUE, coordinates = TRUE, time = TRUE, match = TRUE, ...)
+check.esonar(x, ...)
+
+\method{check}{esonar.scsset}(x, ...)
+
+\method{check}{tow.id.esonar}(x, ...)
+
+\method{check}{time.esonar}(x, ...)
+
+\method{check}{key.esonar}(x, ...)
+}
+\arguments{
+\item{x}{Data object.}
 }
 \description{
-Checks an 'esonar' object for errors.
+Checks an 'esonar' object for connectivity or data errors.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{esonar.scsset}: Check that \code{scsset} records have corresponding \code{esonar} data.
+
+\item \code{tow.id.esonar}: Check that \code{esonar} tow IDs are consistent.
+
+\item \code{time.esonar}: Check 'esonar' object times for missing entries or errors.
+
+\item \code{key.esonar}: Check index key for an \code{esonar} object.
+}}
+
