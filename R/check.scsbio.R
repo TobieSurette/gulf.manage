@@ -66,7 +66,7 @@ check.scsbio <- function(x, ...){
    if (length(index) > 0) cat(paste0("   Records with emtpy tow ID : ", length(index), "\n"))
 
    # Check tow ID from tow data against that found in the biological data:
-   if ("year" %in% names(x)) x$date <- as.character(date(x))
+   if ("year" %in% names(x)) x$date <- as.character(gulf.utils::date(x))
    s <- read.scsset(year = as.numeric(unique(substr(x$date,1,4))))
    vars <- c("date", "tow.number")
    tows <- unique(x[vars])

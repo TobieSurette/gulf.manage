@@ -14,7 +14,7 @@ check.tow.number <- function(x, ...) UseMethod("check.tow.number")
 #' @rawNamespace S3method(check.tow.number, scsset)
 check.tow.number.scsset <- function(x, ...){
    # Determine which tows are missing on from a list of tow numbers on a given day:
-   r <- aggregate(x["tow.number"], by = list(date = date(x)), function(x) setdiff(1:max(x), sort(x)))
+   r <- aggregate(x["tow.number"], by = list(date = gulf.utils::date(x)), function(x) setdiff(1:max(x), sort(x)))
    r <- r[unlist(lapply(r$tow.number, length)) > 0, ]
    if (nrow(r) > 0){
       for (i in 1:nrow(r)){

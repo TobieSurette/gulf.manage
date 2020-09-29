@@ -11,7 +11,7 @@ check.esonar <- function(x, ...) UseMethod("check.esonar")
 #' @describeIn check.esonar Check that \code{scsset} records have corresponding \code{esonar} data.
 #' @rawNamespace S3method(check.esonar,scsset)
 check.esonar.scsset <- function(x, ...){
-   year <- unique(as.numeric(substr(date(x), 1, 4)))
+   year <- unique(as.numeric(substr(gulf.utils::date(x), 1, 4)))
    files <- locate.esonar(year = year)
    tow.id <- unlist(lapply(strsplit(files, "/"), function(x) x[length(x)]))
    tow.id <- toupper(unlist(lapply(strsplit(tow.id, "[.]"), function(x) x[1])))
@@ -33,7 +33,7 @@ check.tow.id.esonar <- function(x, ...){
 #' @export check.time.esonar
 check.time.esonar <- function(x, ...){
    t <- time(x)
-   year <- as.numeric(substr(unique(date(x)), 1, 4))
+   year <- as.numeric(substr(unique(gulf.utils::date(x)), 1, 4))
    tow.id <- tow.id(x)
    
    # Check for missing time stamps:
@@ -51,7 +51,7 @@ check.time.esonar <- function(x, ...){
 check.key.esonar <- function(x, ...){
    index <- which(any(duplicated(time(x))))
    if (length(index) > 0){
-      year <- as.numeric(substr(unique(date(x)), 1, 4))
+      year <- as.numeric(substr(unique(gulf.utils::date(x)), 1, 4))
       cat(paste0("Year = ", year, ", tow ID = '", tow.id(x), "' has ", length(index), " duplicated time entries.\n"))
    }
 }

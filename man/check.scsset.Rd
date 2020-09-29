@@ -12,13 +12,6 @@
 \description{
 Functions for validating \code{scsset} data objects for issues.
 }
-\section{Functions}{
-
-\describe{
-  \item{}
-}
-}
-
 \examples{
 check(read.scsset(2020))
 }

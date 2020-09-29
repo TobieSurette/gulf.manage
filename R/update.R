@@ -28,7 +28,7 @@ update.scsset <- function(x, year, path = getwd(), package = TRUE, ...){
    
    # Get current year:
    if (missing(year)){
-      tmp <- strsplit(as.character(date()), " ")[[1]]
+      tmp <- strsplit(as.character(gulf.utils::date()), " ")[[1]]
       year <- as.numeric(tmp[length(tmp)])
    } 
    
@@ -43,7 +43,7 @@ update.scsset <- function(x, year, path = getwd(), package = TRUE, ...){
       x <- read.scsset(year[i], source = "ascii")
 
       # Add year column for row matching:
-      x$year <- as.numeric(substr(as.character(date(x)), 1, 4))
+      x$year <- as.numeric(substr(as.character(gulf.utils::date(x)), 1, 4))
 
       # Trawl haul times:
       index <- match(x[c("year", "tow.id")], haul.times[c("year", "tow.id")])
@@ -80,7 +80,7 @@ update.scsbio <- function(year, path = getwd(), ...){
       x <- read.scsbio(year[i], ...)
       
       # Add date:
-      x <- cbind(data.frame(date = as.character(date(x)), stringsAsFactors = FALSE), x)
+      x <- cbind(data.frame(date = as.character(gulf.utils::date(x)), stringsAsFactors = FALSE), x)
       x <- x[setdiff(names(x), c("year", "month", "day"))]
       
       # Add tow ID:
