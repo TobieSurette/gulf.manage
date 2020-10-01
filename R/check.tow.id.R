@@ -9,6 +9,7 @@
 #' @export check.tow.id
 check.tow.id <- function(x, ...) UseMethod("check.tow.id")
 
+#' @describeIn check.tow.id Check that \code{scsset} tow IDs are consistent.
 #' @rawNamespace S3method(check.tow.id, scsset)
 check.tow.id.scsset <- function(x, ...){
    # Check that tow IDs follows the standard nomenclature:
@@ -47,4 +48,21 @@ check.tow.id.scsset <- function(x, ...){
    if (length(s) > 0) cat(paste0("Station(s) ", paste(s, collapse = ", "), " have no valid tows.\n"))
 }
 
+#' @describeIn check.tow.id Check that \code{esonar} tow IDs are consistent.
+#' @rawNamespace S3method(check.tow.id,esonar)
+check.tow.id.esonar <- function(x, ...){
+   t <- c(tow.id(x), tow.id(x, method = "time"), tow.id(x, method = "latlon"))
+   if (length(unique(t)) > 1){
+      cat(paste0("Tow.id mis-match : file = '", t[1], "', time = '", t[2], "', lat-lon = '", t[3], "'.\n"))
+   }   
+}
+
+#' @describeIn check.tow.id Check that \code{star.oddi} tow IDs are consistent.
+#' @rawNamespace S3method(check.tow.id,esonar)
+check.tow.id.star.oddi <- function(x, ...){
+   t <- c(tow.id(x), tow.id(x, method = "time"))
+   if (length(unique(t)) > 1){
+      cat(paste0("Tow.id mis-match : file = '", t[1], "', time = '", t[2], "'.\n"))
+   }   
+}
 

@@ -2,13 +2,31 @@
 % Please edit documentation in R/check.tow.id.R
 \name{check.tow.id}
 \alias{check.tow.id}
+\alias{check.tow.id.scsset}
+\alias{check.tow.id.esonar}
+\alias{check.tow.id.star.oddi}
 \title{Check Trawl Tow Identifiers}
 \usage{
 check.tow.id(x, ...)
+
+\method{check}{tow.id.scsset}(x, ...)
+
+\method{check}{tow.id.esonar}(x, ...)
+
+\method{check}{tow.id.star.oddi}(x, ...)
 }
 \description{
 Checks tow IDs from snow crab survey set/tow data for errors or inconsistencies.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{tow.id.scsset}: Check that \code{scsset} tow IDs are consistent.
+
+\item \code{tow.id.esonar}: Check that \code{esonar} tow IDs are consistent.
+
+\item \code{tow.id.star.oddi}: Check that \code{star.oddi} tow IDs are consistent.
+}}
+
 \examples{
 x <- read.scsset(2020)
 check.tow.number(x)
