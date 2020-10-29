@@ -9,6 +9,12 @@
 
 #' @export
 check.scsbio <- function(x, ...){
+   # Remove stars '*' from empty character strings:
+   vars <- c("shell.condition", "shell.condition.mossy", "eggs.remaining", "maturity", "durometer")
+   vars <- vars[vars %in% names(x)]
+   for (i in 1:length(vars)) x[, vars[i]] <- gsub("[*]", "", x[, vars[i]])
+   for (i in 1:length(vars)) x[which(x[, vars[i]] == ""), vars[i]] <- NA
+   
    # Males with female information:
    index <- which(x$sex == 1 & (!is.na(x$abdomen.width) | !is.na(x$gonad.colour) | !is.na(x$egg.colour)| !is.na(x$eggs.remaining)))
    if (length(index) > 0) cat(paste0("   Males with female observations : ", length(index), "\n"))
@@ -66,11 +72,14 @@ check.scsbio <- function(x, ...){
    if (length(index) > 0) cat(paste0("   Records with emtpy tow ID : ", length(index), "\n"))
 
    # Check tow ID from tow data against that found in the biological data:
-   if ("year" %in% names(x)) x$date <- as.character(gulf.utils::date(x))
-   s <- read.scsset(year = as.numeric(unique(substr(x$date,1,4))))
-   vars <- c("date", "tow.number")
+   if (!("date" %in% names(x))) x$date <- as.character(gulf.utils::date(x))
+   s <- read.scsset(year = unique(gulf.utils::year(x)))
+   if (!("tow.id" %in% names(x))) x$tow.id <- tow.id(x)
+   index <- which(is.na(x$tow.id) | (x$tow.id == ""))
+   if (length(index) > 0) x$tow.id[index] <- tow.id(x[index, ])
+   vars <- c("date", "tow.number", "tow.id")
    tows <- unique(x[vars])
-   index <- match(tows, s[vars])
+   index <- gulf.utils::match(tows, s[vars])
    if (any(is.na(index))){
       index <- which(is.na(index))
       str <- NULL
@@ -92,9 +101,9 @@ check.scsbio <- function(x, ...){
    }
 
    # Check that there is no biological data associated with non-valid tows:
-   vars <- c("date", "tow.number")
+   vars <- c("date", "tow.id", "tow.number")
    tows <- unique(x[vars])
-   index <- match(tows, s[vars])
+   index <- gulf.utils::match(tows, s[vars])
    index <- which(s$valid[index] != 1)
    if (length(which(s$valid[index] != 1)) > 0)
      cat(paste0("   Tow number : '", tows$tow.number[index], "' on ", tows$date[which(s$valid[index] != 1)], " corresponds to an invalid tow.\n"))
