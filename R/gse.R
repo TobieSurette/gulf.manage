@@ -1,169 +1,145 @@
-#' GSE Data Functions
+#'  Data Functions
 #'
-#' @description Convert from Groundfish Survey Entry (GSE) format to Groundfish Survey Data (GSD) format.
-#'
-#' This function reformats the raw data from a GSE database into a standard
-#' format.  It renames fields, parses variables, converts coordinates to a
-#' decimal-degree format, adds auxiliary fields and homogenizes the index keys
-#' between each table.
-#'
-#' The Gulf Survey Data format separates the data into three tables.
-#' Information pertaining to individual sets are stored in the \code{set}
-#' table. Data on individual catches separated by species are stored in the
-#' \code{cat} table.  Data on individual specimens are stored in the \code{bio}
-#' table. Note that there is no length-frequency summary table, though it may
-#' be derived the above tables.
+#' @description Functions to convert and reformat data from Groundfish Survey Entry (GSE) and 
+#'              Ecosystrem Survey Entry (GSE) to standardized formats. The Gulf Survey Data format separates the 
+#'              data into three tables. Information pertaining to individual sets are stored in the \code{set}
+#'              table. Data on individual catches separated by species are stored in the \code{cat} table.  Data on 
+#'              individual specimens are stored in the \code{bio} table. Note that there is no length-frequency summary 
+#'              table, though it may be derived the above tables.
 #'
 #' @param x List with fields \code{set}, \code{basket}, \code{catch} and \code{detail}, which are data tables 
-#'          imported from a GSE Oracle database.
+#'          imported from a GSE or ESE Oracle database.
 #' @param survey Research survey, see \code{\link[gulf.metadata]{project}} for options.
 #'             
-#' @return List with \code{set}, \code{cat} and \code{bio} fields, which are
-#' data frames of set, catch and biological data.
+#' @return List with \code{set}, \code{cat} and \code{bio} fields, which are data frames of set, catch and biological data.
 #' 
-#' @seealso \code{\link[gulf]{read.gse}}, \code{\link[gulf]{gsd2card}}
 #' @examples
 #' # Convert imported data to 'gsd' format:
 #' y <- gse2gsd(x)
+#' z <- gsd2oracle(y)
 
-#' @describeIn gse Convert GSE tables to a Gulf survey data object.
+#' @describeIn gse Convert GSE (Gulf Survey Entry) or ESE (Ecological Survey Entry) data to a Gulf survey data object.
 #' @export
-gse2gsd <- function(x, survey, sort = TRUE){
-   survey <- gulf.metadata::project(survey)
+ese2gsd <- function(x, survey, sort = TRUE){
+   # Set variable names to lowercase:
+   x <- lapply(x, function(x){ names(x) <- gsub("_", ".", tolower(names(x))); return(x) })
+   
+   # Eliminate variables with no data:
+   fun <- function(x) return(x[, unlist(lapply(x, function(x) return(!all(is.na(x)))))])
+   x <- lapply(x, fun)
+   
+   # Generate 'cruise' variable:
+   for (i in 1:length(x)){
+      if ("mission" %in% names(x[[i]])) 
+         x[[i]]$cruise <- paste0(substr(x[[i]]$mission,1,1), substr(x[[i]]$mission,nchar(x[[i]]$mission)-2,nchar(x[[i]]$mission)))
+   }
+   
+   # Rename variables:
+   for (i in 1:length(x)){
+      str <- names(x[[i]])
+      str[str %in% c("setno")] <- "set.number"
+      str[str %in% c("spec")] <- "species"
+      str[str %in% c("specimen.id")] <- "specimen"
+      str[str %in% c("note", "comments")] <- "comment"
+      str[str %in% c("slat")] <- "latitude.start"
+      str[str %in% c("slong")] <- "longitude.start"
+      str[str %in% c("elat")] <- "latitude.stop"
+      str[str %in% c("elong")] <- "longitude.stop"
+      str[str %in% c("curnt")] <- "current"
+      str[str %in% c("start.depth")] <- "depth.start"
+      str[str %in% c("end.depth")] <- "depth.end"
+      str[str %in% c("experiment.type.code")] <- "experiment"
+      str[str %in% c("aux")] <- "auxiliary"
+      str[str %in% c("warpout")] <- "warp"
+      str[str %in% c("strat")] <- "stratum"
+      str[str %in% c("start.date")] <- "date"
+      str[str %in% c("end.time")] <- "stop.time"
+      str[str %in% c("force")] <- "wind.force"
+      str[str %in% c("basket.weight")] <- "weight"  
+      str[str %in% c("lobster.carapace.condition")] <- "carapace.condition"
+      str[str %in% c("lobster.egg.condition")] <- "egg.condition"
 
-   # Create set data frame:
-   y <- list(set = NULL, cat = list(), bio = list())
+      names(x[[i]]) <- str
+   }
+   
+   # Rename tables:
+   names(x) <- gsub("catch", "cat", names(x))
+   names(x) <- gsub("detail", "bio", names(x))
+   
+   #survey <- gulf.metadata::project(survey)
 
    # Define index keys for each table:
    key.set <- c("date", "cruise", "set.number")
    key.cat <- c("date", "cruise", "set.number", "species", "size.class")
-   key.bio <- c("date", "cruise", "set.number", "species", "fish.number")
+   key.bio <- c("date", "cruise", "set.number", "species", "specimen")
 
    # Copy data into appropriate fields:
-   y$set <- data.frame(cruise = paste0(substr(x$set[ ,"MISSION"],1,1), substr(x$set[ ,"MISSION"],8,10)), stringsAsFactors = FALSE)
-   y$set$stratum <- x$set[ ,"STRAT"]
-   y$set$set.number <- x$set[ ,"SETNO"]
-   y$set$date <- paste0(substr(x$set$START_DATE, nchar(x$set$START_DATE)-3, nchar(x$set$START_DATE)), "-", 
-                       substr(x$set$START_DATE, nchar(x$set$START_DATE)-5, nchar(x$set$START_DATE)-4), "-",
-                       substr(x$set$START_DATE, 1, nchar(x$set$START_DATE)-6))
-   y$set$date[y$set$date != ""] <- as.character(gulf.utils::date(y$set$date[y$set$date != ""]))
-   y$set$experiment <- x$set[,"EXPERIMENT_TYPE_CODE"]
-   y$set$start.time <- paste0(gsub(" ", "0", substr(format(x$set$START_TIME, width = 4), 1, 2)), ":",
-                              gsub(" ", "0", substr(format(x$set$START_TIME, width = 4), 3, 4)), ":00")
-   y$set$end.time <- paste0(gsub(" ", "0", substr(format(x$set$END_TIME, width = 4), 1, 2)), ":",
-                            gsub(" ", "0", substr(format(x$set$END_TIME, width = 4), 3, 4)), ":00")  
+   x$set$date <- paste0(substr(x$set$date, nchar(x$set$date)-3, nchar(x$set$date)), "-", 
+                        substr(x$set$date, nchar(x$set$date)-5, nchar(x$set$date)-4), "-",
+                        substr(x$set$date, 1, nchar(x$set$date)-6))
+   x$set$date[grep("NA", x$set$date)] <- "" 
+   x$set$date[x$set$date != ""] <- as.character(gulf.utils::date(x$set$date[x$set$date != ""]))
+   x$set$start.time <- paste0(gsub(" ", "0", substr(format(x$set$start.time, width = 4), 1, 2)), ":",
+                              gsub(" ", "0", substr(format(x$set$start.time, width = 4), 3, 4)), ":00")
+   x$set$stop.time <- paste0(gsub(" ", "0", substr(format(x$set$stop.time, width = 4), 1, 2)), ":",
+                             gsub(" ", "0", substr(format(x$set$stop.time, width = 4), 3, 4)), ":00")  
    
-   y$set$duration <- as.numeric(difftime(as.POSIXct(paste(y$set$date, y$set$end.time)), as.POSIXct(paste(y$set$date, y$set$start.time)), units = "mins"))
-   y$set$gear <- x$set$GEAR
-   y$set$auxiliary <- x$set[, "AUX"]
-   y$set$speed <- round(x$set[, "SPEED"]*10)/10
-   y$set$speed.method <- x$set[, "HOWS"]
-   y$set$latitude.start <- x$set[, "SLAT"]
-   y$set$longitude.start <- x$set[, "SLONG"]
-   y$set$latitude.end <- x$set[, "ELAT"]
-   y$setlongitude.end <- x$set[, "ELONG"]
-   y$set$depth.start <- x$set[, "START_DEPTH"]
-   y$set$depth.end <- x$set[, "END_DEPTH"]
-   y$set$distance <- round(x$set[, "DIST"] * 100)/100
-   y$set$distance.method <- x$set[, "HOWD"]
-   y$set$wind.direction <- x$set[, "WIND"]
-   y$set$wind.force <- x$set[, "FORCE"]
-   y$set$tide <- x$set[, "CURNT"]
-   y$set$warp.port <- x$set[, "WARPOUT"]
-   y$set$warp.starboard <- x$set[, "WARPOUT"]
-   y$set$station.number <- x$set$STATION
-   y$set$block.number <- NA
-   y$set$comment <- x$set[, "NOTE"]
-   y$set$comment[is.na(y$set$comment)] <- ""
-   y$set$comment <- gsub(",", ";", y$set$comment)
-   y$set <- sort(y$set, by = key.set)
+   x$set$duration <- as.numeric(difftime(as.POSIXct(paste(x$set$date, x$set$stop.time)), as.POSIXct(paste(x$set$date, x$set$start.time)), units = "mins"))
+   x$set$comment[is.na(x$set$comment)] <- ""
+   x$set$comment <- gsub(",", ";", gulf.utils::deblank(x$set$comment))
+   x$set <- x$set[, !(names(x$set) %in% c("end.date"))]
+   x$set <- sort(x$set, by = key.set)
 
    # Change BASKETS GSE table field names:
-   temp <- names(x$basket)
-   temp[temp == "SETNO"] <- "set.number"
-   temp[temp == "SPEC"] <- "species"
-   temp[temp == "SIZE_CLASS"] <- "size.class"
-   names(x$basket) <- temp
-   x$basket$cruise <- paste0(substr(x$basket[ ,"MISSION"],1,1), substr(x$basket[ ,"MISSION"],8,10))
-   index <- match(x$basket$set.number, y$set$set.number)
-   x$basket$date <- y$set$date[index]
+   x$basket$date <- x$set$date[match(x$basket$set.number, x$set$set.number)]
+   x$basket <- x$basket[!is.na(x$basket$weight), ] 
    
    # Create catch data frame:
-   x$basket <- x$basket[!is.na(x$basket[, "BASKET_WEIGHT"]), ] 
-   # x$basket[is.na(x$basket[,"SAMPLED"]), ]
-   temp <- x$basket[which(x$basket[,"SAMPLED"] == "Y"), ] # Isolate the sampled baskets.
-   temp <- stats::aggregate(list(weight.sampled = temp[, "BASKET_WEIGHT"]), by = temp[key.cat], sum)
-   y$cat <- stats::aggregate(list(weight.caught = x$basket[, "BASKET_WEIGHT"]), by = x$basket[, key.cat], sum)
-   y$cat$weight.sampled <- temp$weight.sampled[match(y$cat[key.cat], temp[key.cat])]
-   temp <- stats::aggregate(list(number.basket = rep(1,dim(x$basket)[1])), by = x$basket[key.cat], sum)
-   y$cat$number.basket <- temp$number.basket[match(y$cat[key.cat], temp[key.cat])]
-   y$cat$weight.sampled[is.na(y$cat$weight.sampled)] <- 0
-   y$cat$weight.unit <- "kg"
+   x$cat$date <- x$set$date[match(x$cat$set.number, x$set$set.number)]
+   tmp <- stats::aggregate(list(weight.caught = x$basket$weight), by = x$basket[key.cat], sum)
+   x$cat$weight.caught <- tmp$weight.caught[match(x$cat[key.cat], tmp[key.cat])]
+   index <- which(x$basket$sampled == "Y")
+   tmp <- stats::aggregate(list(sample.weight = x$basket$weight[index]), by = x$basket[index, key.cat], sum)
+   x$cat$weight.sampled <- tmp$sample.weight[match(x$cat[key.cat], tmp[key.cat])] 
+   tmp <- stats::aggregate(list(n = x$basket$set.number), by = x$basket[key.cat], length)
+   x$cat$number.basket <- tmp$n[match(x$cat[key.cat], tmp[key.cat])]
+   x$cat$weight.sampled[is.na(x$cat$weight.sampled)] <- 0
+   x$cat$comment[is.na(x$cat$comment)] <- ""
+   x$cat$comment <- gsub(",", ";", gulf.utils::deblank(x$cat$comment))
+   x$cat <- sort(x$cat, by = key.cat)
    
-   # Merge catch table comments:
-   temp <- names(x$catch)
-   temp[temp == "SPEC"] <- "species"
-   temp[temp == "SETNO"] <- "set.number"
-   temp[temp == "SPEC_COMMENT"] <- "comment"
-   temp[temp == "SIZE_CLASS"] <- "size.class"
-   names(x$catch) <- temp
-   index <- match(y$cat[c("set.number", "species", "size.class")], x$catch[c("set.number", "species", "size.class")])
-   y$cat$comment <- x$catch$NOTE[index]
-   y$cat$comment[is.na(y$cat$comment)] <- ""
-   y$cat$number.caught <- y$cat$comment <- x$catch$NUMBER_CAUGHT[index]
-   y$cat <- sort(y$cat, by = key.cat)
-
+   
    # Create biological data frame:
-   y$bio <- x$detail[!is.na(x$detail[, "LENGTH"]), ] # Remove fish with no recorded lengths.
-
-   # Change DETAIL GSE table field names:
-   temp <- names(x$detail)
-   temp[temp == "SETNO"] <- "set.number"
-   temp[temp == "SPEC"] <- "species"
-   temp[temp == "SIZE_CLASS"] <- "size.class"
-   temp[temp == "LENGTH"] <- "length"
-   temp[temp == "SEX"] <- "sex"
-   temp[temp == "WEIGHT"] <- "weight"
-   temp[temp == "MATURITY"] <- "maturity"
-   temp[temp == "FISHNO"] <- "fish.number"
-   temp[temp == "AGE_MAT"] <- "age.material"
-   temp[temp == "DET_COMMENT"] <- "comment"
-   names(x$detail) <- temp
-
-   # Add index variables which are not present ('year', 'vessel.code' and/or 'cruise.number'):
-   x$detail <- merge(x$detail, y$set[, key.set], by = intersect(key.set, names(x$detail)), all.x = TRUE)
-   y$bio <- x$detail
-
-   y$bio <- y$bio[!is.na(y$bio$length), ]
-   # Add auxiliary variables:
-   y$bio[, "width"] <- NA
-   y$bio[, "shell.condition"] <- NA
-   y$bio[, "egg.condition"] <- NA
-   y$bio[, "length.unit"] <- "cm"
-   y$bio <- set(y$bio, list(species = c(2513, 2520, 2521, 2523, 2526, 2527, 2550, 4321, 4322, 4349, 2539, 6411, 4211)), length.unit = "mm")
-   y$bio[, "length.interval"] <- 1
-   y$bio[, "measurement.type"] <- 2
-   if (survey %in% c("rv" , "ns")){
-      y$bio <- set(y$bio, list(species = 60), length.interval = 0.5)
-      y$bio <- set(y$bio, list(species = 60), measurement.type = 1)
+   x$bio$date <- x$set$date[match(x$bio$set.number, x$set$set.number)]
+   x$bio$not.intact[is.na(x$bio$not.intact)] <- 0
+   x$bio$length.unit <- "cm"
+   x$bio$length.unit[x$bio$species %in% c(2513, 2520, 2521, 2523, 2526, 2527, 2550, 4321, 4322, 4349, 2539, 6411, 4211)] <- "mm"
+   x$bio$length.interval <- 1
+   x$bio$measurement.type <- 2
+   if (survey %in% c("rvs" , "nss")){
+      x$bio$length.interval[y$bio$species == 60] <- 0.5
+      x$bio$measurement.type[y$bio$species == 60] <- 1
    }
-   y$bio[, "weight.unit"] <- "g"
+   x$bio$weight.unit <- "g"
+   x$bio$comment[is.na(x$bio$comment)] <- ""
+   x$bio$comment <- gsub(",", ";", gulf.utils::deblank(x$bio$comment))
+   x$bio <- sort(x$bio, by = key.bio)
 
-   y$bio <- sort(y$bio, by = key.bio)
-
-   return(y)
+   return(x)
 }
 
-#' @describeIn gse Convert from to GSD to ASCII Data Card Format
+#' @describeIn gse Convert GSE tables to a Gulf survey data object.
 #' @export
-gsd2card <- function(x, survey = "rv"){
-   # GSD2CARD - Convert a Gulf survey data object to survey card format.
+gse2gsd <- ese2gsd
 
+#' @describeIn gse Convert from to GSD to Oracle import format.
+#' @export
+gsd2oracle <- function(x, survey = "rv"){
    # Define index keys:
-   key.set <- c("year", "vessel.code", "cruise.number", "set.number")
-   key.cat <- c("year", "vessel.code", "cruise.number", "set.number", "species", "size.class")
-   key.bio <- c("year", "vessel.code", "cruise.number", "set.number", "species", "size.class", "fish.number")
-   key.len <- c("year", "vessel.code", "cruise.number", "set.number", "species", "size.class", "sex", "start.length")
+   key.set <- c("date", "cruise", "set.number")
+   key.cat <- c("date", "cruise", "set.number", "species", "size.class")
+   key.bio <- c("date", "cruise", "set.number", "species", "size.class", "specimen")
+   key.len <- c("date", "cruise", "set.number", "species", "size.class", "sex", "start.length")
    y <- x
 
    # Build catch card information from bio card:
@@ -177,7 +153,7 @@ gsd2card <- function(x, survey = "rv"){
    temp <- x$bio[!is.na(x$bio[, "weight"]), ]
 
    if(dim(temp)[1] > 0){
-      temp <- stats::agregate(list(number.weight = rep(1,dim(temp)[1])), temp[, key.cat], sum)
+      temp <- stats::aggregate(list(number.weight = rep(1,dim(temp)[1])), temp[, key.cat], sum)
       catch <- merge(catch, temp, by = key.cat, all.x = TRUE)
    }else{
       catch$number.weight = NA;

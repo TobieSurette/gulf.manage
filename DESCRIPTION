@@ -2,7 +2,7 @@ Package: gulf.manage
 Type: Package
 Title: Southern Gulf Data Management Functions
 Version: 0.1.0
-Depends: gulf.utils
+Depends: gulf.utils,gulf.metadata,gulf.data
 Authors@R: as.person(c("Tobie Surette <Tobie.Surette@dfo-mpo.gc.ca> [aut, cre]"))
 Description: Data management functions for use in the Southern Gulf of Saint Lawrence
 License: GPL

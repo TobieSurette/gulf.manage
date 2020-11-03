@@ -92,7 +92,7 @@ check.scsbio <- function(x, ...){
    # Check that tow IDs match between biological and tow data:
    vars <- c("date", "tow.number", "tow.id")
    tows <- unique(x[vars])
-   index <- match(tows, s[vars])
+   index <- gulf.utils::match(tows, s[vars])
    index <- which(is.na(index))
    if (length(index) > 0){
       for (i in 1:length(index)){
