@@ -21,6 +21,14 @@
 #' @describeIn gse Convert GSE (Gulf Survey Entry) or ESE (Ecological Survey Entry) data to a Gulf survey data object.
 #' @export
 ese2gsd <- function(x, survey, sort = TRUE){
+   # Define survey:
+   survey <- gulf.metadata::project(survey)
+   
+   # Define index keys for each table:
+   key.set <- c("date", "cruise", "set.number")
+   key.cat <- c("date", "cruise", "set.number", "species", "size.class")
+   key.bio <- c("date", "cruise", "set.number", "species", "size.class", "specimen")
+   
    # Set variable names to lowercase:
    x <- lapply(x, function(x){ names(x) <- gsub("_", ".", tolower(names(x))); return(x) })
    
@@ -66,12 +74,7 @@ ese2gsd <- function(x, survey, sort = TRUE){
    names(x) <- gsub("catch", "cat", names(x))
    names(x) <- gsub("detail", "bio", names(x))
    
-   #survey <- gulf.metadata::project(survey)
 
-   # Define index keys for each table:
-   key.set <- c("date", "cruise", "set.number")
-   key.cat <- c("date", "cruise", "set.number", "species", "size.class")
-   key.bio <- c("date", "cruise", "set.number", "species", "specimen")
 
    # Copy data into appropriate fields:
    x$set$date <- paste0(substr(x$set$date, nchar(x$set$date)-3, nchar(x$set$date)), "-", 
@@ -96,18 +99,9 @@ ese2gsd <- function(x, survey, sort = TRUE){
    
    # Create catch data frame:
    x$cat$date <- x$set$date[match(x$cat$set.number, x$set$set.number)]
-   tmp <- stats::aggregate(list(weight.caught = x$basket$weight), by = x$basket[key.cat], sum)
-   x$cat$weight.caught <- tmp$weight.caught[match(x$cat[key.cat], tmp[key.cat])]
-   index <- which(x$basket$sampled == "Y")
-   tmp <- stats::aggregate(list(sample.weight = x$basket$weight[index]), by = x$basket[index, key.cat], sum)
-   x$cat$weight.sampled <- tmp$sample.weight[match(x$cat[key.cat], tmp[key.cat])] 
-   tmp <- stats::aggregate(list(n = x$basket$set.number), by = x$basket[key.cat], length)
-   x$cat$number.basket <- tmp$n[match(x$cat[key.cat], tmp[key.cat])]
-   x$cat$weight.sampled[is.na(x$cat$weight.sampled)] <- 0
    x$cat$comment[is.na(x$cat$comment)] <- ""
    x$cat$comment <- gsub(",", ";", gulf.utils::deblank(x$cat$comment))
    x$cat <- sort(x$cat, by = key.cat)
-   
    
    # Create biological data frame:
    x$bio$date <- x$set$date[match(x$bio$set.number, x$set$set.number)]
@@ -117,14 +111,23 @@ ese2gsd <- function(x, survey, sort = TRUE){
    x$bio$length.interval <- 1
    x$bio$measurement.type <- 2
    if (survey %in% c("rvs" , "nss")){
-      x$bio$length.interval[y$bio$species == 60] <- 0.5
-      x$bio$measurement.type[y$bio$species == 60] <- 1
+      x$bio$length.interval[x$bio$species == 60] <- 0.5
+      x$bio$measurement.type[x$bio$species == 60] <- 1
    }
    x$bio$weight.unit <- "g"
    x$bio$comment[is.na(x$bio$comment)] <- ""
    x$bio$comment <- gsub(",", ";", gulf.utils::deblank(x$bio$comment))
    x$bio <- sort(x$bio, by = key.bio)
 
+   # Remove irrelevant or redundant variables:
+   remove <- "mission"
+   for (i in 1:length(x)) x[[i]] <- x[[i]][, setdiff(names(x[[i]]), remove)]
+   
+   # Re-order variables:
+   x$set <- x$set[c(key.set, setdiff(names(x$set), key.set))]
+   x$cat <- x$cat[c(key.cat, setdiff(names(x$cat), key.cat))]
+   x$bio <- x$bio[c(key.bio, setdiff(names(x$bio), key.bio))]
+   
    return(x)
 }
 

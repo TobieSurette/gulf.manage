@@ -1,0 +1,126 @@
+year	cruise	set	card	Species	Fish#	Field	Old value	New Value	Added comments	
+2019	140	68	5			latitude.end	46.0055	46.00583333	Wrong coordinate	
+2019	140	98	5			latitude.end	46.14183333	46.142	Wrong coordinate	
+2019	140	99	5			longitude.start	-62.29316667	-62.29333333	Wrong coordinate	
+2019	140	100	5			longitude.start	-62.2945	-62.29466667	Wrong coordinate	
+2019	140	100	5			longitude.end	-62.30333333	-62.3035	Wrong coordinate	
+2019	140	102	5			longitude.end	-61.91733333	-61.9175	Wrong coordinate	
+2019	140	103	5			longitude.end	-62.13183333	-62.132	Wrong coordinate	
+2019	140	104	5			latitude.end	46.0395	46.03966667	Wrong coordinate	
+2019	140	105	5			latitude.end	46.10616667	46.10633333	Wrong coordinate	
+2019	140	106	5			latitude.end	46.13616667	46.13633333	Wrong coordinate	
+2019	140	106	5			longitude.end	-62.23516667	-62.23533333	Wrong coordinate	
+2019	140	6	5			latitude.start	46.45416667	46.4655	Wrong coordinate	
+2019	140	6	5			longitude.start	-46.46566667	-64.15233333	Wrong coordinate	
+2019	140	15	5			latitude.end	46.65633333	46.659	Wrong coordinate	
+2019	140	26	5			latitude.start	46.9625	46.8625	Wrong coordinate	
+2019	140	35	5			longitude.start	-64.8095	-63.8095	Wrong coordinate	
+2019	140	47	5			longitude.start	-63.54966667	-63.383	Wrong coordinate	
+2019	140	51	5			longitude.end	-62.3945	-63.3945	Wrong coordinate	
+2019	140	53	5			latitude.start	45.95466667	45.95866667	Wrong coordinate	
+2019	140	101	5			latitude.end	45.86383333	45.864	Wrong coordinate	
+2019	140	101	5			longitude.end	-61.0175	-62.01766667	Wrong coordinate	
+2019	140	2	5			speed	NA	2.5	missing speed	
+2019	140	4	5			speed	NA	2.5	missing speed	
+2019	140	6	5			speed	NA	2.5	missing speed	
+2019	140	3	5			warp.out.port	NA	45	Missing warp 	
+2019	140	3	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	2	5			warp.out.port	NA	40	Missing warp 	
+2019	140	2	5			warp.out.starboard	NA	40	Missing warp 	
+2019	140	4	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	5	5			warp.out.starboard	NA	46	Missing warp 	
+2019	140	6	5			warp.out.starboard	NA	40	Missing warp 	
+2019	140	7	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	8	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	9	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	10	5			warp.out.starboard	NA	42	Missing warp 	
+2019	140	11	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	12	5			warp.out.starboard	NA	37	Missing warp 	
+2019	140	13	5			warp.out.starboard	NA	41	Missing warp 	
+2019	140	14	5			warp.out.starboard	NA	75	Missing warp 	
+2019	140	15	5			warp.out.starboard	NA	51	Missing warp 	
+2019	140	16	5			warp.out.starboard	NA	43	Missing warp 	
+2019	140	17	5			warp.out.starboard	NA	44	Missing warp 	
+2019	140	18	5			warp.out.starboard	NA	55	Missing warp 	
+2019	140	19	5			warp.out.starboard	NA	67	Missing warp 	
+2019	140	20	5			warp.out.starboard	NA	46	Missing warp 	
+2019	140	21	5			warp.out.starboard	NA	71	Missing warp 	
+2019	140	22	5			warp.out.starboard	NA	75	Missing warp 	
+2019	140	23	5			warp.out.starboard	NA	71	Missing warp 	
+2019	140	24	5			warp.out.starboard	NA	80	Missing warp 	
+2019	140	25	5			warp.out.starboard	NA	83	Missing warp 	
+2019	140	26	5			warp.out.starboard	NA	80	Missing warp 	
+2019	140	27	5			warp.out.starboard	NA	51	Missing warp 	
+2019	140	65	5			warp.out.starboard	NA	113	Missing warp 	
+2019	140	66	5			warp.out.starboard	NA	57	Missing warp 	
+2019	140	67	5			warp.out.starboard	NA	66	Missing warp 	
+2019	140	68	5			warp.out.starboard	NA	71	Missing warp 	
+2019	140	69	5			warp.out.starboard	NA	45	Missing warp 	
+2019	140	70	5			warp.out.starboard	NA	56	Missing warp 	
+2019	140	71	5			warp.out.starboard	NA	104	Missing warp 	
+2019	140	72	5			warp.out.starboard	NA	55	Missing warp 	
+2019	140	73	5			warp.out.starboard	NA	84	Missing warp 	
+2019	140	74	5			warp.out.starboard	NA	70	Missing warp 	
+2019	140	75	5			warp.out.starboard	NA	80	Missing warp 	
+2019	140	76	5			warp.out.starboard	NA	104	Missing warp 	
+2019	140	77	5			warp.out.starboard	NA	109	Missing warp 	
+2019	140	78	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	79	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	80	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	81	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	82	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	83	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	84	5			warp.out.starboard	NA	110	Missing warp 	
+2019	140	85	5			warp.out.starboard	NA	90	Missing warp 	
+2019	140	86	5			warp.out.starboard	NA	106	Missing warp 	
+2019	140	87	5			warp.out.starboard	NA	130	Missing warp 	
+2019	140	88	5			warp.out.starboard	NA	130	Missing warp 	
+2019	140	89	5			warp.out.starboard	NA	130	Missing warp 	
+2019	140	90	5			warp.out.starboard	NA	128	Missing warp 	
+2019	140	91	5			warp.out.starboard	NA	95	Missing warp 	
+2019	140	92	5			warp.out.starboard	NA	78	Missing warp 	
+2019	140	93	5			warp.out.starboard	NA	120	Missing warp 	
+2019	140	94	5			warp.out.starboard	NA	67	Missing warp 	
+2019	140	95	5			warp.out.starboard	NA	91	Missing warp 	
+2019	140	96	5			warp.out.starboard	NA	127	Missing warp 	
+2019	140	97	5			warp.out.starboard	NA	125	Missing warp 	
+2019	140	98	5			warp.out.starboard	NA	77	Missing warp 	
+2019	140	99	5			warp.out.starboard	NA	81	Missing warp 	
+2019	140	100	5			warp.out.starboard	NA	105	Missing warp 	
+2019	140	101	5			warp.out.starboard	NA	104	Missing warp 	
+2019	140	102	5			warp.out.starboard	NA	131	Missing warp 	
+2019	140	103	5			warp.out.starboard	NA	130	Missing warp 	
+2019	140	104	5			warp.out.starboard	NA	131	Missing warp 	
+2019	140	105	5			warp.out.starboard	NA	129	Missing warp 	
+2019	140	106	5			warp.out.starboard	NA	95	Missing warp 	
+2019	140	27	5			experiment	NA	3	"Invalid Tow: Belly torn, head back to port to pick up spare trawl "	
+2019	140	11	8	2550	6742	egg.condition	0	NA		 
+2019	140	99	8	2550	35282	egg.condition	0	NA		
+2019	140	99	8	2550	35422	egg.condition	0	NA		
+2019	140	17	8	2550	9947	egg.condition	0	NA		
+2019	140	17	8	2550	9947	sex	NA	1	Missing SEX	
+2019	140	8	8	2550	4821	length	1	NA	Wrong Length	
+2019	140	7	8	2550	4525	length	5	NA	Wrong Length	
+2019	140	6	8	2550	4050	length	8	NA	Wrong Length	
+2019	140	7	8	2550	4479	length	7	NA	Wrong Length	
+2019	140	12	8	2550	7467	length	6	NA	Wrong Length	
+2019	140	4	8	2550	2160	length	4	NA	Wrong Length	
+2019	140	7	8	2550	4481	length	8	NA	Wrong Length	
+2019	140	9	8	2550	5665	length	4	NA	Wrong Length	
+2019	140	16	8	2550	9149	length	3	NA	Wrong Length	
+2019	140	72	8	2550	27969	length	1	NA	Wrong Length	
+2019	140	3	6	8300		weight.sampled	0.111	0	"Not sampled, should be 0"	
+2019	140	98	8	60	34472	length	95	9.5	Wrong length	
+2019	140	98	8	60	34497	length	1	10	wrong length: 1 followed by a bunch of 10s  so assuming it’s a 10	
+2019	140	2	8	60	818	length	2.8	28	should be 0 or 0.5 . Only one herring caught and the weight  makes sense with new value	
+2019	140	3	8	60	1387	length	1.8	18	should be 0 or 0.5 . Only one herring caught and the weight  makes sense with new value	
+2019	140	4	8	60	2503	length	1.6	16	should be 0 or 0.5 . Only one herring caught and the weight  makes sense with new value	
+2019	140	76	8	60	30136	length	2.1	21	should be 0 or 0.5 . Only one herring caught and the weight  makes sense with new value	
+2019	140	24	8	42	13068	length	2	NA	"wrong length: between lengths 12 and 16. Set without length of 2 (Min 11, Max  22, Average 16)"	
+2019	140	38	8	63	17844	length	1	NA	"wrong length: between lengths 10 and 11. Set without length of 1 (Min: 8, Max: 18, Average: 12)"	
+2019	140	69	8	63	26724	length	1	NA	"wrong length: between lengths 12 and 11. set without length of 1 (Min : 10, Max: 17, Average: 12)"	
+2019	140	32	8	70	15919	length	2	NA	"Wrong length: first measurement followed by 27. Set without length of 2 (Min: 22, Max: 29, Average: 25)"	
+										
+2019	140	22	5			experiment	1	3	Invalid tow	
+2019	140	37	5			gear	14	13	"typo, checked with paper copy"	
+2019	140	54	5			gear	9	13	"typo, checked with paper copy"	
