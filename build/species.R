@@ -42,6 +42,11 @@ v$english <- gsub("snow crab (queen)", "snow crab", v$english)
 v$english[v$code == 62] <- "Gaspereau"
 v$english[v$code == 2527] <- "Greater toad crab"
 
+# Clean-up spacing:
+v$english <- gsub(" +", " ", v$english)
+v$french <- gsub(" +", " ", v$french)
+v$latin <- gsub(" +", " ", v$latin)
+
 # Capitalization:
 v$english <- paste0(toupper(substr(v$english,1,1)), substr(v$english,2,nchar(v$english)))
 v$latin <- paste0(toupper(substr(v$latin,1,1)), tolower(substr(v$latin,2,nchar(v$latin))))
