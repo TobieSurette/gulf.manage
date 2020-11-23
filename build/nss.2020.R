@@ -17,6 +17,12 @@ vars <- c("date", "cruise", "set.number", "experiment", "start.time", "stop.time
 vars <- vars[vars %in% names(y$set)]
 y$set <- y$set[c(vars, setdiff(names(y$set), vars))]
 y$set$comment <- gulf.utils::deblank(y$set$comment)
+y$set$latitude.start[y$set$latitude.start == 4433.81] <- 4633.81
+y$set$latitude.stop[y$set$latitude.stop == 4517.50] <- 4617.50
+y$set$longitude.start[y$set$longitude.start == 6529.30] <- 6429.30    
+y$set$longitude.stop[y$set$longitude.stop == 644618.00] <- 6446.18
+   
+# y$set[y$set$longitude.stop == 640.69, ] <- 6446.18  # Not sure
 
 
 # Basket corrections (indexed by 'set.number', 'species', 'size.class' and sometimes 'weight'):
