@@ -31,14 +31,14 @@ v$english <- gsub("turbot, Greenland halibut", "Greenland halibut(turbot)", v$en
 v$english <- gsub("[(]ns[)]", "unsp.", v$english)
 v$english <- gsub("unident[.]", "unsp.", v$english)
 v$english <- gsub("unid[.]", "unsp.", v$english)
-v$english <- gsub("s[.]f[.]", "unsp.", v$english)
-v$english <- gsub("s[.]o[.]", "unsp.", v$english)
+v$english <- gsub("s[.]f[.]", "f.", v$english)
+v$english <- gsub("s[.]o[.]", "o.", v$english)
 v$english <- gsub("unidentified", "unsp.", v$english)
 v$english <- gsub("Atlantic striped atlantic wolffish", "Atlantic striped wolffish", v$english)
 v$english <- gsub("unseparated", "unsp.", v$english)
-v$english <- gsub("brill/windowpane", "windowpane", v$english)
+v$english <- gsub("brill[/]windowpane", "windowpane", v$english)
 v$english <- gsub("hyas coarctatus", "Lesser toad crab", v$english)
-v$english <- gsub("snow crab (queen)", "snow crab", v$english)
+v$english <- gsub("snow crab [(]queen[)]", "snow crab", v$english)
 v$english[v$code == 62] <- "Gaspereau"
 v$english[v$code == 2527] <- "Greater toad crab"
 
