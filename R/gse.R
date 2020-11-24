@@ -33,8 +33,7 @@ ese2gsd <- function(x, survey, sort = TRUE){
    x <- lapply(x, function(x){ names(x) <- gsub("_", ".", tolower(names(x))); return(x) })
    
    # Eliminate variables with no data:
-   fun <- function(x) return(x[, unlist(lapply(x, function(x) return(!all(is.na(x)))))])
-   x <- lapply(x, fun)
+   x <- lapply(x, squeeze)
    
    # Generate 'cruise' variable:
    for (i in 1:length(x)){
@@ -74,8 +73,6 @@ ese2gsd <- function(x, survey, sort = TRUE){
    names(x) <- gsub("catch", "cat", names(x))
    names(x) <- gsub("detail", "bio", names(x))
    
-
-
    # Copy data into appropriate fields:
    x$set$date <- paste0(substr(x$set$date, nchar(x$set$date)-3, nchar(x$set$date)), "-", 
                         substr(x$set$date, nchar(x$set$date)-5, nchar(x$set$date)-4), "-",
