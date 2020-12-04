@@ -4,7 +4,7 @@
 \alias{as.scsset.scsbio}
 \title{Snow Crab Set Data from Biological Data}
 \usage{
-\method{as.scsset}{scsbio}(x, collapse = FALSE, ...)
+as.scsset.scsbio(x, collapse = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{scsbio} object.}
@@ -12,9 +12,9 @@
 \description{
 Functions to compile snow crab set data from snow crab biological data.
 }
-\section{Methods (by class)}{
+\section{Functions}{
 \itemize{
-\item \code{scsbio}: Compile snow crab set data from snow crab biological data.
+\item \code{as.scsset.scsbio}: Compile snow crab set data from snow crab biological data.
 }}
 
 \examples{

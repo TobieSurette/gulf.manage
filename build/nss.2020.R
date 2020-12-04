@@ -10,6 +10,8 @@ x$set <- x$set[x$set$SETNO != 111, ] # Remove blank tow.
 # Reformat:
 y <- ese2gsd(x, survey = "nss")
 
+y <- lapply(y, squeeze)
+
 # Fix index variables (index variables must all be defined):
 
 # Set card corrections (indexed by 'set.number'):
