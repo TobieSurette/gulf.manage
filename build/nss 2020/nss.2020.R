@@ -1,5 +1,7 @@
+source("R/gse.R")
+
 library(gulf.data)
-library(gulf.manage)
+#library(gulf.manage)
 
 # Load raw data:
 load(locate(file = "nss.ese.2020"))
