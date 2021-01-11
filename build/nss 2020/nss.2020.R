@@ -21,61 +21,60 @@ vars <- c("date", "cruise", "set.number", "experiment", "start.time", "stop.time
 vars <- vars[vars %in% names(y$set)]
 y$set <- y$set[c(vars, setdiff(names(y$set), vars))]
 y$set$comment <- gulf.utils::deblank(y$set$comment)
-# y$set[y$set$latitude.start == 4433.81, ]
-# y$set[y$set$latitude.stop == 4517.50, ] 
-# y$set[y$set$longitude.start == 6529.30, ] 
-# y$set[y$set$longitude.stop == 644618.00, ] 
 
-y$set$longitude.stop[y$set$set.number == 1] <- 6426.14
-y$set$latitude.stop[y$set$set.number == 9] <- 4638.53
-y$set$latitude.start[y$set$set.number == 10] <- 4644
-y$set$experiment[y$set$set.number == 10] <- 1
-y$set$longitude.stop[y$set$set.number == 12] <- 6426.3
-y$set$current[y$set$set.number == 18] <- 1
-y$set$stop.time[y$set$set.number == 23] <- "13:16:00"
-y$set$latitude.stop[y$set$set.number == 23] <- 4643.3
-y$set$longitude.stop[y$set$set.number == 23] <- 6436.96
-y$set$latitude.stop[y$set$set.number == 24] <- 4648.52
-y$set$wind.force[y$set$set.number == 27] <- 3
-y$set$longitude.start[y$set$set.number == 31] <- 6355.55
-y$set$longitude.stop[y$set$set.number == 31] <- 6354.95
-y$set$depth.end[y$set$set.number == 33] <- 10
-y$set$experiment[y$set$set.number == 34] <- 1
-y$set$latitude.start[y$set$set.number == 35] <- 4646.05
-y$set$wind.force[y$set$set.number == 35] <- 3
-y$set$longitude.stop[y$set$set.number == 37] <- 6446.18
-y$set$latitude.stop[y$set$set.number == 41] <- 4700.13
-y$set$depth.start[y$set$set.number == 43] <- 36
-y$set$longitude.start[y$set$set.number == 48] <- 6429.3
+# Set corrections - depth:
 y$set$depth.end[y$set$set.number == 51] <- 10
 y$set$depth.start[y$set$set.number == 53] <- 16
 y$set$depth.end[y$set$set.number == 54] <- 12
 y$set$depth.start[y$set$set.number == 55] <- 10
-y$set$start.time[y$set$set.number == 56] <- "11:37:00"
 y$set$depth.start[y$set$set.number == 58] <- 32
+y$set$depth.end[y$set$set.number == 33] <- 10
+y$set$depth.start[y$set$set.number == 43] <- 36
+y$set$depth.end[y$set$set.number == 110] <- 19
+
+# Set corrections - time:
+y$set$stop.time[y$set$set.number == 23] <- "13:16:00"
+y$set$start.time[y$set$set.number == 56] <- "11:37:00"
+
+# Set corrections - comments:
+y$set$comment[y$set$set.number == 96] <- "Null - Caught chunk of mud"
+y$set$comment[y$set$set.number == 105] <- "The longitude looks fine when mapped and compared to station location. We can double check with GPS"
+
+# Set corrections - Miscellaneous:
+y$set$experiment[y$set$set.number == 10] <- 1
+y$set$experiment[y$set$set.number == 34] <- 1
+y$set$current[y$set$set.number == 18] <- 1
+y$set$station[y$set$set.number == 89] <- "B1"
+y$set$station[y$set$set.number == 102] <- 331
+y$set$wind.force[y$set$set.number == 27] <- 3
+y$set$wind.force[y$set$set.number == 35] <- 3
+
+# Set corrections - coordinates:
+y$set$longitude.stop[y$set$set.number == 1] <- 6426.14
+y$set$latitude.stop[y$set$set.number == 9] <- 4638.53
+y$set$latitude.start[y$set$set.number == 10] <- 4644
+y$set$longitude.stop[y$set$set.number == 12] <- 6426.3
+y$set$latitude.stop[y$set$set.number == 23] <- 4643.3
+y$set$longitude.stop[y$set$set.number == 23] <- 6436.96
+y$set$latitude.stop[y$set$set.number == 24] <- 4648.52
+y$set$longitude.start[y$set$set.number == 31] <- 6355.55
+y$set$longitude.stop[y$set$set.number == 31] <- 6354.95
+y$set$latitude.start[y$set$set.number == 35] <- 4646.05
+y$set$longitude.stop[y$set$set.number == 37] <- 6446.18
+y$set$latitude.stop[y$set$set.number == 41] <- 4700.13
+y$set$longitude.start[y$set$set.number == 48] <- 6429.3
 y$set$longitude.start[y$set$set.number == 66] <- 6428.83
 y$set$latitude.start[y$set$set.number == 67] <- 4633.81
 y$set$latitude.stop[y$set$set.number == 68] <- 4617.5
 y$set$longitude.stop[y$set$set.number == 73] <- 6408.86
 y$set$latitude.start[y$set$set.number == 75] <- 4626.3
 y$set$latitude.start[y$set$set.number == 88] <- 4611.99
-y$set$station[y$set$set.number == 89] <- "B1"
 y$set$latitude.stop[y$set$set.number == 91] <- 4614.45
-y$set$comment[y$set$set.number == 96] <- "Null - Caught chunk of mud"
-y$set$station[y$set$set.number == 102] <- 331
 y$set$longitude.stop[y$set$set.number == 104] <- 6400.69
-y$set$comment[y$set$set.number == 105] <- "The longitude looks fine when mapped and compared to station location. We can double check with GPS"
-y$set$depth.end[y$set$set.number == 110] <- 19
-
-
-# y$set[y$set$longitude.stop == 640.69, ] <- 6446.18  # Not sure
-
 
 # Basket corrections (indexed by 'set.number', 'species', 'size.class' and sometimes 'weight'):
 #y$basket$weight[(y$basket$set.number == 13) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- 0.524 
 #y$basket$sampled[(y$basket$set.number == 23) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- "Y" 
-
-
 
 # Bio card corrections:
 #y$bio$egg.condition[(y$bio$set.number == 11) & (y$bio$species == 2550) & (y$bio$specimen == 6742)] <- 0
