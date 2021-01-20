@@ -64,7 +64,6 @@ y$set$latitude.stop[y$set$set.number == 91] <- 4614.45
 y$set$comment[y$set$set.number == 96] <- "Null - Caught chunk of mud"
 y$set$station[y$set$set.number == 102] <- 331
 y$set$longitude.stop[y$set$set.number == 104] <- 6400.69
-y$set$comment[y$set$set.number == 105] <- "The longitude looks fine when mapped and compared to station location. We can double check with GPS"
 y$set$depth.end[y$set$set.number == 110] <- 19
 
 
