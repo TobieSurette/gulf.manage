@@ -5,8 +5,9 @@ library(gulf.data)
 
 # Load raw data:
 load(locate(file = "nss.ese.2020"))
-x <- ns2020
-rm(ns2020)
+
+x <- NS20
+rm(NS20)
 x$set <- x$set[x$set$SETNO != 111, ] # Remove blank tow.
 
 # Reformat:
@@ -80,6 +81,8 @@ y$set$depth.end[y$set$set.number == 110] <- 19
 # Basket corrections (indexed by 'set.number', 'species', 'size.class' and sometimes 'weight'):
 #y$basket$weight[(y$basket$set.number == 13) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- 0.524
 #y$basket$sampled[(y$basket$set.number == 23) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- "Y"
+
+y$basket$
 
 # Bio card corrections:
 #y$bio$egg.condition[(y$bio$set.number == 11) & (y$bio$species == 2550) & (y$bio$specimen == 6742)] <- 0
