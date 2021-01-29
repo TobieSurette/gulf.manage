@@ -39,7 +39,6 @@ y$set$start.time[y$set$set.number == 56] <- "11:37:00"
 
 # Set corrections - comments:
 y$set$comment[y$set$set.number == 96] <- "Null - Caught chunk of mud"
-y$set$comment[y$set$set.number == 105] <- "The longitude looks fine when mapped and compared to station location. We can double check with GPS"
 
 # Set corrections - Miscellaneous:
 y$set$experiment[y$set$set.number == 10] <- 1
@@ -92,6 +91,19 @@ y$basket$
 
 y$bio$sex[y$bio$set.number == 70] <- 1
 y$bio$egg.condition[y$bio$set.number == 32] <- NA
+y$bio$length[y$bio$set.number == 66] <- NA
+y$bio$length[y$bio$set.number == 87] <- NA
+y$bio$length[y$bio$set.number == 83] <- NA
+y$bio$length[y$bio$set.number == 35] <- NA
+y$bio$length[y$bio$set.number == 35] <- NA
+y$bio$length[y$bio$set.number == 70] <- NA
+y$bio$length[y$bio$set.number == 49] <- NA
+y$bio$length[y$bio$set.number == 68] <- NA
+y$bio$length[y$bio$set.number == 70] <- NA
+y$bio$length[y$bio$set.number == 52] <- NA
+y$bio$length[y$bio$set.number == 54] <- NA
+y$bio$length[y$bio$set.number == 73] <- NA
+
 
 
 y$bio$comment <- gulf.utils::deblank(y$bio$comment)
