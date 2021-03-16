@@ -104,7 +104,7 @@ ese2gsd <- function(x, survey, sort = TRUE){
    x$bio$date <- x$set$date[match(x$bio$set.number, x$set$set.number)]
    x$bio$not.intact[is.na(x$bio$not.intact)] <- 0
    x$bio$length.unit <- "cm"
-   x$bio$length.unit[x$bio$species %in% c(2513, 2520, 2521, 2523, 2526, 2527, 2550, 4321, 4322, 4349, 2539, 6411, 4211)] <- "mm"
+   x$bio$length.unit[x$bio$species %in% c(2513, 2518, 2520, 2521, 2523, 2526, 2527, 2550, 4321, 4322, 4349, 2539, 6411, 4211)] <- "mm"
    x$bio$length.interval <- 1
    x$bio$measurement.type <- 2
    if (survey %in% c("rvs" , "nss")){

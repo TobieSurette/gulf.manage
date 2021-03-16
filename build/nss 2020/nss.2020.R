@@ -1,112 +1,161 @@
 source("R/gse.R")
 
 library(gulf.data)
-#library(gulf.manage)
+library(gulf.spatial)
+
+year <- 2020
 
 # Load raw data:
-load(locate(file = "nss.ese.2020"))
+load(locate(file = paste0("nss.ese.", year)))
+x <- PER2020150
+rm(PER2020150)
 
-x <- NS20
-rm(NS20)
 x$set <- x$set[x$set$SETNO != 111, ] # Remove blank tow.
+
+#Set corrections
+x$set$ELONG[which(x$set$SETNO == 1)] <- 6426.14
+index = x$set$SETNO == 9 
+x$set[which(index),]$ELAT <- 4638.53
+index = x$set$SETNO == 10 
+x$set[which(index),]$SLAT <- 4644
+index = x$set$SETNO == 10 
+x$set[which(index),]$EXPERIMENT_TYPE_CODE <- 1
+index = x$set$SETNO == 12 
+x$set[which(index),]$ELONG <- 6426.3
+index = x$set$SETNO == 18 
+x$set[which(index),]$CURNT <- 1
+index = x$set$SETNO == 23 
+x$set[which(index),]$END_TIME <- 1316
+index = x$set$SETNO == 23 
+x$set[which(index),]$ELAT <- 4643.3
+index = x$set$SETNO == 23 
+x$set[which(index),]$ELONG <- 6436.96
+index = x$set$SETNO == 24 
+x$set[which(index),]$ELAT <- 4648.52
+index = x$set$SETNO == 27 
+x$set[which(index),]$FORCE <- 3
+index = x$set$SETNO == 31 
+x$set[which(index),]$SLONG <- 6355.55
+index = x$set$SETNO == 31 
+x$set[which(index),]$ELONG <- 6354.95
+index = x$set$SETNO == 33 
+x$set[which(index),]$END_DEPTH <- 10
+index = x$set$SETNO == 34 
+x$set[which(index),]$EXPERIMENT_TYPE_CODE <- 1
+index = x$set$SETNO == 35 
+x$set[which(index),]$SLAT <- 4646.05
+index = x$set$SETNO == 35 
+x$set[which(index),]$FORCE <- 3
+index = x$set$SETNO == 37 
+x$set[which(index),]$ELONG <- 6446.18
+index = x$set$SETNO == 41 
+x$set[which(index),]$ELAT <- 4700.13
+index = x$set$SETNO == 43 
+x$set[which(index),]$START_DEPTH <- 36
+index = x$set$SETNO == 48 
+x$set[which(index),]$SLONG <- 6429.3
+index = x$set$SETNO == 51 
+x$set[which(index),]$END_DEPTH <- 10
+index = x$set$SETNO == 53 
+x$set[which(index),]$START_DEPTH <- 16
+index = x$set$SETNO == 54 
+x$set[which(index),]$END_DEPTH <- 12
+index = x$set$SETNO == 55 
+x$set[which(index),]$START_DEPTH <- 10
+index = x$set$SETNO == 56 
+x$set[which(index),]$START_TIME <- 1137
+index = x$set$SETNO == 58 
+x$set[which(index),]$START_DEPTH <- 32
+index = x$set$SETNO == 66 
+x$set[which(index),]$SLONG <- 6428.83
+index = x$set$SETNO == 67 
+x$set[which(index),]$SLAT <- 4633.81
+index = x$set$SETNO == 68 
+x$set[which(index),]$ELAT <- 4617.5
+index = x$set$SETNO == 73 
+x$set[which(index),]$ELONG <- 6408.86
+index = x$set$SETNO == 75 
+x$set[which(index),]$SLAT <- 4626.3
+index = x$set$SETNO == 88 
+x$set[which(index),]$SLAT <- 4611.99
+index = x$set$SETNO == 89 
+x$set[which(index),]$STATION <- "B1"
+index = x$set$SETNO == 91 
+x$set[which(index),]$ELAT <- 4614.45
+index = x$set$SETNO == 96 
+x$set[which(index),]$NOTE <- "Null - Caught chunk of mud"
+index = x$set$SETNO == 102 
+x$set[which(index),]$STATION <- 331
+index = x$set$SETNO == 104 
+x$set[which(index),]$ELONG <- 6400.69
+index = x$set$SETNO == 110
+x$set[which(index),]$END_DEPTH <- 19
+
+
+#Basket corrections
+index = x$basket$SPEC == 599  
+x$basket[which(index),]$SPEC <- 611
+index = x$basket$SETNO == 63 & x$basket$SPEC == 8300
+x$basket[which(index),]$SAMPLED <- "N"
+index = x$basket$SETNO == 76  & x$basket$SPEC == 6511
+x$basket[which(index),]$SAMPLED <- "N"
+index = x$basket$SETNO == 57  & x$basket$SPEC == 2550
+x$basket[which(index),]$SIZE_CLASS  <- 1
+index = x$basket$SETNO == 5  & x$basket$SPEC == 2539
+x$basket[which(index),]$SAMPLED <- "Y"
+
+# Check these svp:
+x$basket[is.na(x$basket$SPEC), ]
+x$basket[is.na(x$basket$SAMPLED), ]
+
+# Detail corrections
+index = x$detail$SETNO == 66 & x$detail$SPECIMEN_ID == 21733 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 87 & x$detail$SPECIMEN_ID == 32083 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 83 & x$detail$SPECIMEN_ID == 30070 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 35 & x$detail$SPECIMEN_ID == 14057 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 35 & x$detail$SPECIMEN_ID == 13878 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 70 & x$detail$SPECIMEN_ID == 24129 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 49 & x$detail$SPECIMEN_ID == 18389 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 68 & x$detail$SPECIMEN_ID == 22641 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 70 & x$detail$SPECIMEN_ID == 23868 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 52 & x$detail$SPECIMEN_ID == 18798 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 54 & x$detail$SPECIMEN_ID == 19197 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 73 & x$detail$SPECIMEN_ID == 26240 
+x$detail[which(index),]$LENGTH <- NA
+index = x$detail$SETNO == 70 & x$detail$SPECIMEN_ID == 23991 
+x$detail[which(index),]$SEX <- 1
+index = x$detail$SETNO == 32 & x$detail$SPECIMEN_ID == 12016 
+x$detail[which(index),]$LOBSTER_EGG_CONDITION <- NA
+
+#x$detail[which(x$detail$SEX),] 
+
+
+# Check : 
+ix <- x$detail$SETNO == 17 & x$detail$SPEC == 60 # Size class 2 change to 1:
+
+# Check herring length units
+y$bio$length[y$bio$species == 60] <- y$bio$length[y$bio$species == 60] / 10
 
 # Reformat:
 y <- ese2gsd(x, survey = "nss")
-
 y <- lapply(y, squeeze)
 
-# Fix index variables (index variables must all be defined):
+# Calculate tow distance:
+y$distance <- (1 / 1.852) * distance(-dmm2deg(y$set$longitude.start), dmm2deg(y$set$latitude.start), -dmm2deg(y$set$longitude.stop), dmm2deg(y$set$latitude.stop), pairwise = FALSE)
+y$distance <- round(y$distance, 3)
 
-# Set card corrections (indexed by 'set.number'):
-vars <- c("date", "cruise", "set.number", "experiment", "start.time", "stop.time", "station", "duration")
-vars <- vars[vars %in% names(y$set)]
-y$set <- y$set[c(vars, setdiff(names(y$set), vars))]
-y$set$comment <- gulf.utils::deblank(y$set$comment)
-
-# Set corrections - depth:
-y$set$depth.end[y$set$set.number == 51] <- 10
-y$set$depth.start[y$set$set.number == 53] <- 16
-y$set$depth.end[y$set$set.number == 54] <- 12
-y$set$depth.start[y$set$set.number == 55] <- 10
-y$set$depth.start[y$set$set.number == 58] <- 32
-y$set$depth.end[y$set$set.number == 33] <- 10
-y$set$depth.start[y$set$set.number == 43] <- 36
-y$set$depth.end[y$set$set.number == 110] <- 19
-
-# Set corrections - time:
-y$set$stop.time[y$set$set.number == 23] <- "13:16:00"
-y$set$start.time[y$set$set.number == 56] <- "11:37:00"
-
-# Set corrections - comments:
-y$set$comment[y$set$set.number == 96] <- "Null - Caught chunk of mud"
-
-# Set corrections - Miscellaneous:
-y$set$experiment[y$set$set.number == 10] <- 1
-y$set$experiment[y$set$set.number == 34] <- 1
-y$set$current[y$set$set.number == 18] <- 1
-y$set$station[y$set$set.number == 89] <- "B1"
-y$set$station[y$set$set.number == 102] <- 331
-y$set$wind.force[y$set$set.number == 27] <- 3
-y$set$wind.force[y$set$set.number == 35] <- 3
-
-# Set corrections - coordinates:
-y$set$longitude.stop[y$set$set.number == 1] <- 6426.14
-y$set$latitude.stop[y$set$set.number == 9] <- 4638.53
-y$set$latitude.start[y$set$set.number == 10] <- 4644
-y$set$longitude.stop[y$set$set.number == 12] <- 6426.3
-y$set$latitude.stop[y$set$set.number == 23] <- 4643.3
-y$set$longitude.stop[y$set$set.number == 23] <- 6436.96
-y$set$latitude.stop[y$set$set.number == 24] <- 4648.52
-y$set$longitude.start[y$set$set.number == 31] <- 6355.55
-y$set$longitude.stop[y$set$set.number == 31] <- 6354.95
-y$set$latitude.start[y$set$set.number == 35] <- 4646.05
-y$set$longitude.stop[y$set$set.number == 37] <- 6446.18
-y$set$latitude.stop[y$set$set.number == 41] <- 4700.13
-y$set$longitude.start[y$set$set.number == 48] <- 6429.3
-y$set$longitude.start[y$set$set.number == 66] <- 6428.83
-y$set$latitude.start[y$set$set.number == 67] <- 4633.81
-y$set$latitude.stop[y$set$set.number == 68] <- 4617.5
-y$set$longitude.stop[y$set$set.number == 73] <- 6408.86
-y$set$latitude.start[y$set$set.number == 75] <- 4626.3
-y$set$latitude.start[y$set$set.number == 88] <- 4611.99
-y$set$latitude.stop[y$set$set.number == 91] <- 4614.45
-y$set$longitude.stop[y$set$set.number == 104] <- 6400.69
-y$set$depth.end[y$set$set.number == 110] <- 19
-
-
-# y$set[y$set$longitude.stop == 640.69, ] <- 6446.18  # Not sure
-
-
-# Basket corrections (indexed by 'set.number', 'species', 'size.class' and sometimes 'weight'):
-#y$basket$weight[(y$basket$set.number == 13) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- 0.524
-#y$basket$sampled[(y$basket$set.number == 23) & (y$basket$species == 2550) & (y$basket$size.class == 1)] <- "Y"
-
-y$basket$
-
-# Bio card corrections:
-#y$bio$egg.condition[(y$bio$set.number == 11) & (y$bio$species == 2550) & (y$bio$specimen == 6742)] <- 0
-#y$bio$sex[(y$bio$set.number == 17) & (y$bio$species == 2550) & (y$bio$specimen == 9947)] <- 1
-# y$bio$sex[which(y$bio$species == 2550 & is.na(y$bio$sex) & (y$bio$egg.condition %in% c(0, 4)))] <- 2
-# y$bio$sex[which(y$bio$species == 2550 & is.na(y$bio$sex) & is.na(y$bio$egg.condition))] <- 1
-
-y$bio$sex[y$bio$set.number == 70] <- 1
-y$bio$egg.condition[y$bio$set.number == 32] <- NA
-y$bio$length[y$bio$set.number == 66] <- NA
-y$bio$length[y$bio$set.number == 87] <- NA
-y$bio$length[y$bio$set.number == 83] <- NA
-y$bio$length[y$bio$set.number == 35] <- NA
-y$bio$length[y$bio$set.number == 35] <- NA
-y$bio$length[y$bio$set.number == 70] <- NA
-y$bio$length[y$bio$set.number == 49] <- NA
-y$bio$length[y$bio$set.number == 68] <- NA
-y$bio$length[y$bio$set.number == 70] <- NA
-y$bio$length[y$bio$set.number == 52] <- NA
-y$bio$length[y$bio$set.number == 54] <- NA
-y$bio$length[y$bio$set.number == 73] <- NA
-
-
-
-y$bio$comment <- gulf.utils::deblank(y$bio$comment)
+# Check tow distance below 0.25nm svp:
 
 # Generate catch table:
 key.cat <- c("date", "cruise", "set.number", "species", "size.class")
@@ -132,3 +181,5 @@ if (file.exists(path)){
 }
 
 # Re-format for Oracle export:
+
+
