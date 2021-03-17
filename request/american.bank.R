@@ -53,6 +53,32 @@ for (i in 1:length(species)){
    by.catch[!is.na(ix), species[i]] <- tmp$weight.caught[ix[!is.na(ix)]]
 } 
 
-# Export to Excel:
+# Length-frequency exports for crab:
+lf.males <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.males, fill = 0) <- freq(b[which(b$sex == 1), ], by = key(s))
+lf.females <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.females, fill = 0) <- freq(b[which(b$sex == 2), ], by = key(s))
+
+# Length-frequency exports for target by-catch species:
+z <- read.scslen(2010:2020, species = c(10, 30, 31))
+z$length.unit[which(year(z) %in% c(2011:2012))] <- "cm"
+z$length[z$length.unit == "mm"] <- z$length[z$length.unit == "mm"] / 10
+z$length.unit <- "cm"
+z$length <- round(z$length)
+
+lf.cod <- s[year(s) >= 2010, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.cod, fill = 0) <- freq(z[z$species == 10, ], by = key(s))
+lf.halibut <- s[year(s) >= 2010, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.halibut, fill = 0) <- freq(z[z$species == 30, ], by = key(s))
+lf.turbot <- s[year(s) >= 2010, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.turbot, fill = 0) <- freq(z[z$species == 31, ], by = key(s))
+
+# Export data to excel:
 excel(s)
 excel(by.catch)
+excel(lf.males)
+excel(lf.females)
+excel(lf.cod)
+excel(lf.halibut)
+excel(lf.turbot)
+
