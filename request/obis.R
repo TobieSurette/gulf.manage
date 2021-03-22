@@ -13,7 +13,7 @@ library(worrms)
 # - Some more metadata?
 
 # Control variables:
-years <- 2020
+years <- 2019
 variable <- "number.caught"
 
 # Load tow data:
@@ -32,12 +32,12 @@ classification <- function(x) return(as.data.frame(as.list(wm_classification(id 
 tmp <- lapply(u, classification) # Takes a while
 names(tmp) <- u
 u <- tmp
-lapply(u, function(x) return(x$rank))
 tab <- data.frame(aphiaID = as.numeric(names(u)))
 tab[unique(unlist(lapply(u, function(x) return(x$rank))))] <- ""
 for (i in 1:length(u)) tab[i, u[[i]]$rank] <- u[[i]]$scientificname
 names(tab) <- tolower(names(tab))
 
+# Re-format for OBIS:
 tab$aphiaID <- tab$aphiaid
 tab$scientificNameID <- paste0("urn:lsid:marinespecies.org:taxname:", tab$aphiaid)
 tab$scientificName   <- tab$species 
@@ -47,60 +47,49 @@ for (i in 1:nrow(tab)){
 }
 tab$specificEpithet <- deblank(tab$specificEpithet)
 
-# Remove irrelevant fields:
+# Import WoRMS information into catch table:
 vars <- c("aphiaID", "scientificNameID", "scientificName", "specificEpithet", "kingdom", "phylum", "class", "order", "family", "genus", "subgenus")                
-tab <- tab[vars]
+ix <- match(y$aphiaID, tab$aphiaID)
+y[vars] <- tab[ix, vars]
+y <- y[!is.na(y$aphiaID), ]
 
-ix<- match(y$aphiaID, tab$aphiaID)
-
-id
-modified
-language                En
-license                 http://data.gc.ca/eng/open-government-licence-canada & http://www.canadensys.net/norms
-rightsHolder            Her Majesty the Queen in right of Canada, as represented by the Minister of Fisheries and Oceans
-institutionID           DFO-GFC
-datasetID               DFO_Gulf_SnowCrabSurveys 
-institutionCode         Gulf Fisheries Centre
-collectionCode          DFO_Gulf_SnowCrabSurveys
-datasetName             Snow crab research trawl survey database (Southern Gulf of St. Lawrence, Gulf region, Canada) from 1988 to 2010
-basisOfRecord           HumanObservation
-dynamicProperties       Sample size = 3098 meters square; Classification=WoRMS
-occurrenceID            DFO_Gulf_SnowCrabSurveys_Zone19-10/18/2006-3-Aspidophoroides monopterygius
-catalogNumber           
-recordedBy
-individualCount        number.caught
-sex
-lifeStage
-samplingProtocol
-eventTime
-year
-month
-day
-fieldNumber
-minimumDepthInMeters
-maximumDepthInMeters             x$depth
-decimalLatitude                  x$latitude
-decimalLongitude                 x$longitude
+# Import tow data info into catch table:
+ix <- match(y[key(x)], x[key(x)])
+y[c("longitude", "latitude", "swept.area", "depth", )] <- x[ix, c("longitude", "latitude", "swept.area", "depth")]
+y$start.time <- substr(time(x, "start"), 12, 19)[ix]  
 
 
-y <- aggregate(y[variable], by = y[key(y)], sum)
-import(x, var = variable, group = "species", fill = 0) <- y
+y$language        <- "En"
+y$license         <- "http://data.gc.ca/eng/open-government-licence-canada & http://www.canadensys.net/norms"
+y$rightsHolder    <- "Her Majesty the Queen in right of Canada, as represented by the Minister of Fisheries and Oceans"
+y$institutionID   <- "DFO-GFC"
+y$datasetID       <- "DFO_Gulf_SnowCrabSurveys" 
+y$institutionCode <- "Gulf Fisheries Centre"
+y$collectionCode  <- "DFO_Gulf_SnowCrabSurveys"
+y$datasetName     <- "Southern Gulf of St. Lawrence Snow crab research trawl survey data (Gulf region, Canada)"
+y$basisOfRecord   <- "HumanObservation"
 
-vars <- c("date", "longitude", "latitude", "swept.area", "species", "name.en", "name.latin", variable)
-x[vars]
-excel(x)
+y$dynamicProperties <- paste0("Sample size = ", round(y$swept.area), " meters square; Classification=WoRMS")
+y$individualCount   <- y$number.caught
 
-scientificNameID
-scientificName
-kingdom
-phylum
-class
-order
-family
-genus
-subgenus
-specificEpithet
-infraspecificEpithet
-scientificNameAuthorship
+y$minimumDepthInMeters <- ""
+y$maximumDepthInMeters <- round(1.8288 * y$depth)
+y$decimalLatitude      <- y$latitude
+y$decimalLongitude     <- y$longitude
+
+y$modified             <- "2021-03-22T12:00:00Z"
+y$occurrenceID <-  paste0(y$institutionCode, "_", y$collectionCode, "_", y$date, "_", y$tow.number, "_", y$aphiaID)
+
+y$catalogNumber        <-    
+
+y$recordedBy           <- ""
+
+samplingProtocol       <- ""
+y$eventTime            <- y$start.time 
+fieldNumber            <- "" 
+
+# Remove or identify variables for export:
+
+# Remove fields with zero or missing 'individualCount'
 
 
