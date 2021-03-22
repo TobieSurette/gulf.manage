@@ -56,6 +56,11 @@ v$english <- deblank(v$english)
 v$french <- deblank(v$french)
 v$latin <- deblank(v$latin)
 
+# Load WoRMS AphiaID codes:
+load(locate(file = "species.names"))
+x <- species.names
+v$aphia.id <- x$aphia.code[match(v$code, x$code)]
+
 # Write:
 path <- gsub("gulf.manage", "gulf.data", getwd())
 path <- paste0(path, "/inst/extdata")
