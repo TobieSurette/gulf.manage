@@ -2,18 +2,8 @@ library(gulf.data)
 library(gulf.spatial)
 library(worrms)
 
-# To do:
-# - Finalize format table
-# - write update.obis function
-# - Write FGP update and export function
-# - Remove species that were not consistently observed throughout 2010-2020
-# - Expand output to 2010:2020.
-# - Add trawl swept areas.
-# - Add gear information.
-# - Some more metadata?
-
 # Control variables:
-years <- 2019
+years <- 2010:2020
 variable <- "number.caught"
 
 # Load tow data:
@@ -24,6 +14,18 @@ x$latitude  <- latitude(x)
 # Load by-catch data from the snow crab survey:
 y <- read.scscat(years, survey = "regular")
 y$tow.id <- tow.id(y)
+
+# Add snow crab counts:
+z <- read.scsbio(years)
+z$tow.id <- tow.id(z)
+z <- catch(z)  
+z$species <- 2526
+z$number.caught <- z$total
+z[setdiff(names(y), names(z))] <- NA
+z <- z[names(y)]
+y <- rbind(y, z)
+
+# Add WoRMS codes:
 y$aphiaID <- species(y$species, output = "worms")
 
 # Compile classification information from WoRMS database:
@@ -49,47 +51,45 @@ tab$specificEpithet <- deblank(tab$specificEpithet)
 
 # Import WoRMS information into catch table:
 vars <- c("aphiaID", "scientificNameID", "scientificName", "specificEpithet", "kingdom", "phylum", "class", "order", "family", "genus", "subgenus")                
+vars <- vars[vars %in% names(tab)]
 ix <- match(y$aphiaID, tab$aphiaID)
 y[vars] <- tab[ix, vars]
 y <- y[!is.na(y$aphiaID), ]
 
 # Import tow data info into catch table:
 ix <- match(y[key(x)], x[key(x)])
-y[c("longitude", "latitude", "swept.area", "depth", )] <- x[ix, c("longitude", "latitude", "swept.area", "depth")]
+y[c("longitude", "latitude", "swept.area", "depth")] <- x[ix, c("longitude", "latitude", "swept.area", "depth")]
 y$start.time <- substr(time(x, "start"), 12, 19)[ix]  
 
+# Sort data table:
+y <- sort(y, by = c("date", "start.time", "tow.id", "aphiaID"))
 
-y$language        <- "En"
-y$license         <- "http://data.gc.ca/eng/open-government-licence-canada & http://www.canadensys.net/norms"
-y$rightsHolder    <- "Her Majesty the Queen in right of Canada, as represented by the Minister of Fisheries and Oceans"
-y$institutionID   <- "DFO-GFC"
-y$datasetID       <- "DFO_Gulf_SnowCrabSurveys" 
-y$institutionCode <- "Gulf Fisheries Centre"
-y$collectionCode  <- "DFO_Gulf_SnowCrabSurveys"
-y$datasetName     <- "Southern Gulf of St. Lawrence Snow crab research trawl survey data (Gulf region, Canada)"
-y$basisOfRecord   <- "HumanObservation"
-
-y$dynamicProperties <- paste0("Sample size = ", round(y$swept.area), " meters square; Classification=WoRMS")
-y$individualCount   <- y$number.caught
-
-y$minimumDepthInMeters <- ""
-y$maximumDepthInMeters <- round(1.8288 * y$depth)
+# Build OBIS fields:
+y$language             <- "En"
+# y$license              <- "http://data.gc.ca/eng/open-government-licence-canada & http://www.canadensys.net/norms"
+# y$rightsHolder         <- "Her Majesty the Queen in right of Canada, as represented by the Minister of Fisheries and Oceans"
+y$institutionID        <- "https://edmo.seadatanet.org/report/5370"
+y$datasetID            <- "DFO_Gulf_SnowCrabSurveys" 
+y$institutionCode      <- "GFC"
+y$collectionCode       <- "SnowCrabSurveys"
+y$datasetName          <- "Southern Gulf of St. Lawrence Snow crab research trawl survey data (DFO Gulf region, Canada)"
+y$basisOfRecord        <- "HumanObservation"
+y$dynamicProperties    <- paste0("Sample size = ", round(y$swept.area), " meters square; Classification = WoRMS")
+y$individualCount      <- y$number.caught
+y$minimumDepthInMeters <- round(1.8288 * y$depth)
+y$maximumDepthInMeters <- y$minimumDepthInMeters
 y$decimalLatitude      <- y$latitude
 y$decimalLongitude     <- y$longitude
-
-y$modified             <- "2021-03-22T12:00:00Z"
-y$occurrenceID <-  paste0(y$institutionCode, "_", y$collectionCode, "_", y$date, "_", y$tow.number, "_", y$aphiaID)
-
-y$catalogNumber        <-    
-
-y$recordedBy           <- ""
-
-samplingProtocol       <- ""
-y$eventTime            <- y$start.time 
-fieldNumber            <- "" 
+y$occurrenceStatus     <- "Present"
+y$catalogNumber        <- paste0(y$date, "_", y$tow.id, "_", y$aphiaID)   
+y$occurrenceID         <- paste0(y$institutionCode, "_", y$collectionCode, "_", y$catalogNumber)
+y$eventDate            <- as.character(y$date) 
+y$eventTime            <- paste0(y$start.time, "AST")
 
 # Remove or identify variables for export:
+remove <- c("date", "tow.number", "tow.id", "species", "number.caught", "weight.caught", "presence", "comment")
+y <- y[, setdiff(names(y), remove)]
 
 # Remove fields with zero or missing 'individualCount'
-
+y <- y[!is.na(y$individualCount), ]
 
