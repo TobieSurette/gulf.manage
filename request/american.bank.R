@@ -54,10 +54,14 @@ for (i in 1:length(species)){
 } 
 
 # Length-frequency exports for crab:
-lf.males <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
-import(lf.males, fill = 0) <- freq(b[which(b$sex == 1), ], by = key(s))
-lf.females <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
-import(lf.females, fill = 0) <- freq(b[which(b$sex == 2), ], by = key(s))
+lf.mature.males <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.mature.males, fill = 0) <- freq(b[which((b$sex == 1) & is.mature(b)), ], by = key(s))
+lf.immature.males <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.immature.males, fill = 0) <- freq(b[which((b$sex == 1) & !is.mature(b)), ], by = key(s))
+lf.mature.females <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.mature.females, fill = 0) <- freq(b[which((b$sex == 2) & is.mature(b)), ], by = key(s))
+lf.immature.females <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")] 
+import(lf.immature.females, fill = 0) <- freq(b[which((b$sex == 2) & !is.mature(b)), ], by = key(s))
 
 # Length-frequency exports for target by-catch species:
 z <- read.scslen(2010:2020, species = c(10, 30, 31))
@@ -76,8 +80,10 @@ import(lf.turbot, fill = 0) <- freq(z[z$species == 31, ], by = key(s))
 # Export data to excel:
 excel(s)
 excel(by.catch)
-excel(lf.males)
-excel(lf.females)
+excel(lf.mature.males)
+excel(lf.immature.males)
+excel(lf.mature.females)
+excel(lf.immature.females)
 excel(lf.cod)
 excel(lf.halibut)
 excel(lf.turbot)
