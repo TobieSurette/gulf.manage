@@ -12,7 +12,7 @@ for (i in 1:length(files)){
    # Determine survey year:
    year <- unique(x$year)
    
-   if (year %in% 2006:2014) x <- cbind(data.frame(date = as.character(date(year = x$year, month = x$month, day = x$day)), stringsAsFactors = FALSE), x)
+   if (year %in% c(2006:2014, 2019)) x <- cbind(data.frame(date = as.character(date(year = x$year, month = x$month, day = x$day)), stringsAsFactors = FALSE), x)
    
    # Read tow data:
    y <- read.scsset(year, valid = 1)
@@ -58,6 +58,9 @@ for (i in 1:length(files)){
    # Append data:
    r <- rbind(r, x)
 }
+
+# Spot corrections:
+r$species[which((r$date == "2019-08-26") & (r$tow.id == "GP135F") & (r$species == 2526))] <- 2560
 
 # Substitute NA values:
 r$comment[is.na(r$comment)] <- ""
