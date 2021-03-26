@@ -87,9 +87,10 @@ y$eventDate            <- as.character(y$date)
 y$eventTime            <- paste0(y$start.time, "AST")
 
 # Remove or identify variables for export:
-remove <- c("date", "tow.number", "tow.id", "species", "number.caught", "weight.caught", "presence", "comment")
+remove <- c("date", "tow.number", "tow.id", "datasetName", "aphiaID", "longitude", "latitude", "swept.area", "start.time", "language", "depth", "species", "number.caught", "weight.caught", "presence", "comment")
 y <- y[, setdiff(names(y), remove)]
 
 # Remove fields with zero or missing 'individualCount'
 y <- y[!is.na(y$individualCount), ]
 
+excel(y)
