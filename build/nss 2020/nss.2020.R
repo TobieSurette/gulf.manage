@@ -91,7 +91,6 @@ x$set[which(index),]$ELONG <- 6400.69
 index = x$set$SETNO == 110
 x$set[which(index),]$END_DEPTH <- 19
 
-
 #Basket corrections
 index = x$basket$SPEC == 599  
 x$basket[which(index),]$SPEC <- 611
@@ -145,15 +144,15 @@ x$detail[which(index),]$LOBSTER_EGG_CONDITION <- NA
 ix <- x$detail$SETNO == 17 & x$detail$SPEC == 60 # Size class 2 change to 1:
 
 # Check herring length units
-y$bio$length[y$bio$species == 60] <- y$bio$length[y$bio$species == 60] / 10
+x$detail$LENGTH[x$detail$SPEC == 60] <- x$detail$LENGTH[x$detail$SPEC == 60] / 10
 
 # Reformat:
 y <- ese2gsd(x, survey = "nss")
 y <- lapply(y, squeeze)
 
 # Calculate tow distance:
-y$distance <- (1 / 1.852) * distance(-dmm2deg(y$set$longitude.start), dmm2deg(y$set$latitude.start), -dmm2deg(y$set$longitude.stop), dmm2deg(y$set$latitude.stop), pairwise = FALSE)
-y$distance <- round(y$distance, 3)
+y$set$distance <- (1 / 1.852) * distance(-dmm2deg(y$set$longitude.start), dmm2deg(y$set$latitude.start), -dmm2deg(y$set$longitude.stop), dmm2deg(y$set$latitude.stop), pairwise = FALSE)
+y$set$distance <- round(y$set$distance, 3)
 
 # Check tow distance below 0.25nm svp:
 
