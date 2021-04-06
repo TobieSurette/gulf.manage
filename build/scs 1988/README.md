@@ -6,7 +6,7 @@ Moriyasu, M., Chiasson, Y., Wade E., DeGrace, P. and Conan, G. 1989. Prince Edwa
 
 A post season trawl survey was conducted on the Southern Gulf of St. Lawrence between August 5th and October 3rd, 1988. 
 
-A standard 20m Nephrops trawl with SCANMAR electronic net sensor was used on a chartered vessel for the research survey. 
+A standard 20-meter Nephrops trawl with Scanmar electronic net sensor was used on a chartered vessel for the research survey. 
 
 Stations were sampled on a twelve hour basis during daylight. 
 
@@ -26,14 +26,13 @@ Carapace condition | Description
  2                 | Intermediate-age shelled crab.
  3                 | Old-shelled crab.
 
-## Snow Crab Survey Build Functions:
+## Snow Crab Survey Build Programs:
 
-Function            | Description
-------------------- | --------------------------
-`scs.set.1988`      | Build snow crab survey set data for 1988.
-`scs.cat.1988`      | Build snow crab survey by-catch data for 1988.
-`scs.bio.1988`      | Build snow crab survey crab biological data for 1988.
-`scs.scanmar.1988`  | Build snow crab survey crab Scanmar acoustic trawl data for 1988.
-`scs.metadata.1988` | Build snow crab survey crab metadata for 1988.
-
+Function              | Description
+--------------------- | --------------------------
+`scs.set.1988.R`      | Build snow crab survey set data for 1988.
+`scs.cat.1988.R`      | Build snow crab survey by-catch data for 1988.
+`scs.bio.1988.R`      | Build snow crab survey crab biological data for 1988.
+`scs.scanmar.1988.R`  | Build snow crab survey crab Scanmar acoustic trawl data for 1988.
+`scs.metadata.1988.R` | Build snow crab survey crab metadata for 1988.
 
