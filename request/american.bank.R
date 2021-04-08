@@ -5,14 +5,26 @@ library(gulf.spatial)
 years <- 1989:2020
 strata <- c(415:417, 424) # Ca vient du September survey, c'est comme des blocks dans le NS survey.
 
+# Read American Bank polygon:
+m <- read.gulf.spatial("mpa")
+m <- m[m$name == "American Bank", ]
+
 # Read tow data:
 s <- read.scsset(year = years, survey = "regular", valid = 1)
 s$longitude <- lon(s)
 s$latitude  <- lat(s)
+
+# Determine points that lie within American Bank:
+s$american.bank <- in.polygon(as.polygon(m$longitude, m$latitude), s$longitude, s$latitude)
+
+# Determine survey strata:
 s$stratum <- stratum(s$longitude, s$latitude) # Determine stratum from coordinates.
 tmp <- attributes(s)
-s <- s[which(s$stratum %in% strata), ]   # # Eliminate irrelevant tows: Le 'which' elimine les NA qui sont agacants.
+
+# Eliminate irrelevant tows and data columns. Le 'which' elimine les NA qui sont agacants.
+s <- s[which((s$stratum %in% strata) | s$american.bank), ]   
 s <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")]
+
 attributes(s) <- c(attributes(s),  tmp[setdiff(names(tmp), names(attributes(s)))])
 by.catch <- s[year(s) %in% 2018:2020, ]
 
