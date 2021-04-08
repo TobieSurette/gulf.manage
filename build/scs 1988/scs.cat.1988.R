@@ -77,7 +77,3 @@ x$species.name[intersect(rep("vide", x$species.name), rep(c("moule", "clam"), x$
 # Add date field:
 x <- cbind(data.frame(date = as.character(date(x))), x[setdiff(names(x), remove)])
 
-
-
-
-
