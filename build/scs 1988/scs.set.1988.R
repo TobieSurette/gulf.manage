@@ -77,7 +77,7 @@ x$latitude[which((x$date == "1988-08-23") & (x$tow.number == 1))] <- 30239.5
 x$latitude[which((x$date == "1988-08-10") & (x$tow.number == 3))] <- NA   
 x$longitude[which((x$date == "1988-08-10") & (x$tow.number == 3))] <- NA 
 
-# Replace redundant coordinates:
+# Remove redundant coordinates:
 x$longitude[which(!is.na(x$longitude.start.logbook) | !is.na(x$longitude.end.logbook))] <- NA
 x$latitude[which(!is.na(x$latitude.start.logbook) | !is.na(x$latitude.end.logbook))] <- NA
 

@@ -1,0 +1,7 @@
+Title: Snow crab survey fish length data.
+
+Descripition: Every year since 2010, fish species are measured for length oboard the Southern Gulf of Saint-Lawrence snow crab survey. Fish are measured in this way at 100 sampling stations from the survey. These sampling stations are randomly selected each year before the survey begins. From 2010 to 2018, measuring boards were used and fish lengths were rounded to the nearest centimeter. From 2018 onward, measurements were made using a Hallprint SciElex electronic measuring board. Though measurements are recorded to two decimal places, it is understood that their precision is omn the order of a few millimeters.
+
+Project.name: Southern Gulf of Saint-Lawrence snow crab survey
+
+Project: "scs"

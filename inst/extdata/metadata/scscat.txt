@@ -1,0 +1,10 @@
+Title: Snow crab survey by-catch data
+
+Description: By-catches aboard the Southern Gulf of Saint-Lawrence snow crab survey, in the form of animal counts, have been recorded since 1988. Catches were sorted by species or group of higher taxa where possible.
+Since 2013, by-catches for identified species have been weighed on-board. Although species identification other than snow crab were recorded since the first year of the survey, the protocol and effort put on other species have not been consistent over the years. Note that it is not possible to count certain species or taxa (e.g. brittle stars).
+
+number.caught : Specimens counted when possible, all fish species counted (e.g. brittle stars not counted)
+weight.caught : 
+weight.unit   : Should be added, varies by year.
+
+project: "scs"
