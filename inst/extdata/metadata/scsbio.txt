@@ -1,4 +1,5 @@
-Title: Snow crab survey crab biological data.
-
-Description: Survey sampling station
-
+title: Snow crab survey crab biological data.
+description: Survey sampling station
+project.id: "scs"
+updated: 2021-04-10
+author: 
