@@ -18,61 +18,61 @@ files <- locate(file = c("1988", "cat", "csv"))
 x <- read.csv(files, header = TRUE)
 
 # French characters:
-x$species.name <- gsub("\x82", "e", x$species.name)
-x$species.name <- gsub("<82>", "e", x$species.name)
-x$species.name <- gsub("\x8a", "e", x$species.name) 
-x$species.name <- gsub("_ufs", "oeufs", x$species.name) 
+x$species.logbook <- gsub("\x82", "e", x$species.logbook)
+x$species.logbook <- gsub("<82>", "e", x$species.logbook)
+x$species.logbook <- gsub("\x8a", "e", x$species.logbook) 
+x$species.logbook <- gsub("_ufs", "oeufs", x$species.logbook) 
 
 # Parentheses:
-x$species.name <- gsub("\\([a-z 0-9?]+\\)", "", x$species.name)
+x$species.logbook <- gsub("\\([a-z 0-9?]+\\)", "", x$species.logbook)
 
 # Move to comments:
-ix <- intersect(grep("blackbook", x$species.name), which(x$comment == ""))
-x$comment[ix] <- x$species.name[ix]
-x$species.name[ix] <- ""
-ix <- intersect(grep("blackbook", x$species.name), which(x$comment != ""))
-x$comment[ix] <- paste0(x$comment[ix], x$species.name[ix])
+ix <- intersect(grep("blackbook", x$species.logbook), which(x$comment == ""))
+x$comment[ix] <- x$species.logbook[ix]
+x$species.logbook[ix] <- ""
+ix <- intersect(grep("blackbook", x$species.logbook), which(x$comment != ""))
+x$comment[ix] <- paste0(x$comment[ix], x$species.logbook[ix])
 
 # Remove pluralizations:
-x$species.name <- gsub("s$", "", x$species.name)
-x$species.name <- gsub("s ", " ", x$species.name)
+x$species.logbook <- gsub("s$", "", x$species.logbook)
+x$species.logbook <- gsub("s ", " ", x$species.logbook)
 
 # Spelling mistakes:
-x$species.name <- gsub("hya", "hyas", x$species.name) 
-x$species.name <- gsub("yellow tail", "yellowtail", x$species.name) 
-x$species.name <- gsub("tettard", "tetard", x$species.name) 
-x$species.name <- gsub("artica", "arctica", x$species.name) 
-x$species.name <- gsub("holoturie", "holothurie", x$species.name) 
-x$species.name[grep("laminaire", x$species.name) ] <- "laminaria"
+x$species.logbook <- gsub("hya", "hyas", x$species.logbook) 
+x$species.logbook <- gsub("yellow tail", "yellowtail", x$species.logbook) 
+x$species.logbook <- gsub("tettard", "tetard", x$species.logbook) 
+x$species.logbook <- gsub("artica", "arctica", x$species.logbook) 
+x$species.logbook <- gsub("holoturie", "holothurie", x$species.logbook) 
+x$species.logbook[grep("laminaire", x$species.logbook) ] <- "laminaria"
 
 # Keyword substitutions:
-x$species.name[intersect(rep("etoile", x$species.name), rep(c("grosse", "mer", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.name, and = FALSE))] <- "etoile"
-x$species.name[intersect(rep("eponge", x$species.name), rep(c("grosse", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.name, and = FALSE))] <- "eponge"
-x$species.name[intersect(rep("mollusque", x$species.name), rep(c("toute", "sorte"), x$species.name, and = FALSE))] <- "mollusque"
-x$species.name[intersect(grep("moule", x$species.name), grep("coque", x$species.name))] <- "bivalve"
-x$species.name[intersect(rep("poisson", x$species.name), rep(c("non", "sorte", "petit"), x$species.name, and = FALSE))] <- "poisson"
-x$species.name[setdiff(grep("bigorneau", x$species.name), grep("oeuf", x$species.name))] <- "buccin"
-x$species.name[intersect(grep("morue", x$species.name), grep("merluche", x$species.name))] <- "gadiformes"
+x$species.logbook[intersect(rep("etoile", x$species.logbook), rep(c("grosse", "mer", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "etoile"
+x$species.logbook[intersect(rep("eponge", x$species.logbook), rep(c("grosse", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "eponge"
+x$species.logbook[intersect(rep("mollusque", x$species.logbook), rep(c("toute", "sorte"), x$species.logbook, and = FALSE))] <- "mollusque"
+x$species.logbook[intersect(grep("moule", x$species.logbook), grep("coque", x$species.logbook))] <- "bivalve"
+x$species.logbook[intersect(rep("poisson", x$species.logbook), rep(c("non", "sorte", "petit"), x$species.logbook, and = FALSE))] <- "poisson"
+x$species.logbook[setdiff(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))] <- "buccin"
+x$species.logbook[intersect(grep("morue", x$species.logbook), grep("merluche", x$species.logbook))] <- "gadiformes"
 
 # Remove unknown species:
-x$species.name[grep("salastere", x$species.name)] <- ""
-x$species.name[grep("llisible", x$species.name)] <- ""               
+x$species.logbook[grep("salastere", x$species.logbook)] <- ""
+x$species.logbook[grep("llisible", x$species.logbook)] <- ""               
 
 # Standardize species names:
-x$species.name[grep("arctica", x$species.name)] <- "arctica islandica"
-x$species.name[rep(c("dollar", "sable"), x$species.name)] <- "sand dollar"
-x$species.name[x$species.name == "crapaud"] <- "crapaud de mer"
-x$species.name[rep(c("concombre", "mer"), x$species.name)] <- "concombre"
-x$species.name[grep("corne", x$species.name)] <- "basketstar"
-x$species.name[rep(c("morue", "pilote"), x$species.name)] <- "morue de roche"
-x$species.name[grep("tetard", x$species.name)] <- "seasnail"
-x$species.name[grep("terassier", x$species.name)] <- "cunner"
+x$species.logbook[grep("arctica", x$species.logbook)] <- "arctica islandica"
+x$species.logbook[rep(c("dollar", "sable"), x$species.logbook)] <- "sand dollar"
+x$species.logbook[x$species.logbook == "crapaud"] <- "crapaud de mer"
+x$species.logbook[rep(c("concombre", "mer"), x$species.logbook)] <- "concombre"
+x$species.logbook[grep("corne", x$species.logbook)] <- "basketstar"
+x$species.logbook[rep(c("morue", "pilote"), x$species.logbook)] <- "morue de roche"
+x$species.logbook[grep("tetard", x$species.logbook)] <- "seasnail"
+x$species.logbook[grep("terassier", x$species.logbook)] <- "cunner"
 
 # Fix spacing issues:
-x$species.name <- tolower(deblank(x$species.name))
+x$species.logbook <- tolower(deblank(x$species.logbook))
 
 # Empty shells:
-x$species.name[intersect(rep("vide", x$species.name), rep(c("moule", "clam"), x$species.name, and = FALSE))] <- "empty shell"
+x$species.logbook[intersect(rep("vide", x$species.logbook), rep(c("moule", "clam"), x$species.logbook, and = FALSE))] <- "empty shell"
 
 # Add date field:
 x <- cbind(data.frame(date = as.character(date(x))), x[setdiff(names(x), remove)])
