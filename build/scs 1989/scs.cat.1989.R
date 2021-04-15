@@ -1,34 +1,20 @@
 library(gulf.data)
 
-# Function to find multiple keywords at a time:
-rep <- function(x, y, and = TRUE){
-   if (and){
-      ix <- 1:length(y) 
-      fun <- intersect
-   }else{
-      ix <- NULL
-      fun = union
-   }
-   for (i in 1:length(x)) ix <- fun(ix, grep(x[i], y))
-   return(ix)
-}
-
 # Load data:
-x <- readLines(locate(file = c("1989", "cat", "txt")))
-fields <- unlist(strsplit(x[1], "\t")[[1]])
-x <- x[-1]
+x <- read.csv(locate(file = c("1989", "cat", "csv")), header = TRUE)
 
-y <- strsplit(x, "\t")
-ix <- which(is.na(unlist(lapply(y, function(x) x[1]))))
-y <- y[-ix]
+# Move to comments:
+ix <- grep("blackbook", x$species.logbook)
+ix <- union(ix, grep("logbook", x$species.logbook))
+ix <- union(ix, grep("llisible", x$species.logbook))
+x$comment[ix] <- paste0(x$comment[ix], "; ", x$species.logbook[ix])
+x$comment <- gsub("^; ", "", x$comment)
+x$species.logbook[ix] <- ""
 
-# Parse data columns:
-for (i in 1:length(fields)){
-   tmp <- data.frame(unlist(lapply(y, function(x) x[i])), stringsAsFactors = FALSE)
-   names(tmp) <- fields[i]
-   if (i == 1) r <- tmp else r <- cbind(r, tmp)
-}
-x <- r
+x$species.logbook <- spelling(x$species.logbook)
+
+
+sort(lexicon(x$species.logbook))
 
 # French character substitutions:
 x$species.logbook <- gsub("\x82", "e", x$species.logbook)
@@ -38,13 +24,6 @@ x$species.logbook <- gsub("_ufs", "oeufs", x$species.logbook)
 
 # Parentheses:
 x$species.logbook <- gsub("\\([a-z 0-9?]+\\)", "", x$species.logbook)
-
-# Move to comments:
-ix <- intersect(grep("blackbook", x$species.name), which(x$comment == ""))
-x$comment[ix] <- x$species.name[ix]
-x$species.name[ix] <- ""
-ix <- intersect(grep("blackbook", x$species.name), which(x$comment != ""))
-x$comment[ix] <- paste0(x$comment[ix], x$species.name[ix])
 
 # Remove pluralizations:
 x$species.name <- gsub("s$", "", x$species.name)
