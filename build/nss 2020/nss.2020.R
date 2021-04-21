@@ -1,3 +1,4 @@
+setwd("~/GitHub/gulf.manage")
 source("R/gse.R")
 
 library(gulf.data)
