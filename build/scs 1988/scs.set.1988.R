@@ -68,7 +68,7 @@ x$latitude.start.logbook[which((x$date == "1988-09-17") & (x$tow.number == 2))] 
 x$latitude.start.logbook[which((x$date == "1988-08-07") & (x$tow.number == 6))] <- 30298.5
 x$latitude.start.logbook[which((x$date == "1988-11-13") & (x$tow.number == 5))] <- 30720.1  
 x$latitude.end.logbook[which((x$date == "1988-08-21") & (x$tow.number == 3))] <- 31029.4 
-x$latitude.end.logbook[which((x$date == "1988-09-02") & (x$tow.number == 2))] < 29335.9
+x$latitude.end.logbook[which((x$date == "1988-09-02") & (x$tow.number == 2))] <- 29335.9
 x$latitude.start.logbook[which((x$date == "1988-08-09") & (x$tow.number == 9))] <- 29644.0
 x$latitude.start.logbook[which((x$date == "1988-08-31") & (x$tow.number == 1))] <- 30151.6
 x$longitude.end.logbook[which((x$date == "1988-08-11") & (x$tow.number == 3))] <- 14963.3
@@ -81,13 +81,14 @@ x$longitude[which((x$date == "1988-08-10") & (x$tow.number == 3))] <- NA
 x$longitude[which(!is.na(x$longitude.start.logbook) | !is.na(x$longitude.end.logbook))] <- NA
 x$latitude[which(!is.na(x$latitude.start.logbook) | !is.na(x$latitude.end.logbook))] <- NA
 
-# Format time fields:
+# Format start time field:
 ix <- which(!is.na(x$start.time.logbook) & (nchar(x$start.time.logbook) == 4))
 x$start.time.logbook[ix] <- paste0("0", x$start.time.logbook[ix])
 ix <- which(nchar(x$start.time.logbook) == 5)
 x$start.time.logbook[ix] <- paste0(x$start.time.logbook[ix], ":00")
 x$start.time.logbook[is.na(x$start.time.logbook)] <- "        "
 
+# Format end time field:
 x$end.time.logbook <- deblank(x$end.time.logbook)
 ix <- which(!is.na(x$end.time.logbook) & (nchar(x$end.time.logbook) == 4))
 x$end.time.logbook[ix] <- paste0("0", x$end.time.logbook[ix])
@@ -99,6 +100,7 @@ x$end.time.logbook[which(is.na(x$end.time.logbook) | x$end.time.logbook == "")] 
 x$comment <- deblank(x$comment)
 x$comment <- gsub("[Mm]\x88tre[s]*", "m ", x$comment)
 x$comment <- gsub("[Mm]\x88[s]*", "meme ", x$comment)
+x$comment <- gsub(" +", " ", x$comment)
 
 # Extract tow duration information from comments:
 ix <- grep("[0-9]*[:]*[0-9][ ]*minu", tolower(x$comment))
@@ -109,33 +111,6 @@ str[gsub("[:]", "", str) == str] <- paste0(str[gsub("[:]", "", str) == str], ":0
 x$duration <- ""
 x$duration[ix] <- str
 
-# Extract wing spread information from comments:
-ix <- grep("[0-9]+[.;,][0-9]", tolower(x$comment))
-x$comment <- gsub("7.5 ms", "7.5m", x$comment)
-x$comment <- gsub("6;4[ ms]", "6.4m ", x$comment)
-x$comment <- gsub("9;2[ ms]*", "9.2m ", x$comment)
-x$comment <- gsub("5;9[ ms]*", "5.9m ", x$comment)
-x$comment <- gsub("5;7[ ms]*", "5.7m ", x$comment)
-x$comment <- gsub(" 7[ ms]*", " 7.0m ", x$comment)
-x$comment <- gsub("6;0[ ms]*", " 6.0m ", x$comment)
-x$comment <- gsub("6;4[ ms]*", " 6.4m ", x$comment)
-x$comment <- gsub("5;4[ ms]*", " 5.4m ", x$comment)
-x$comment <- gsub("5;0[ ms]*", " 5.0m ", x$comment)
-x$comment <- gsub("6;3[ ms]*", " 6.3m ", x$comment)
-x$comment <- gsub("5;5[ ms]*", " 5.5m ", x$comment)
-x$comment <- gsub("5;3[ ms]*", " 5.3m ", x$comment)
-x$comment <- gsub("6;1[ ms]*", " 6.1m ", x$comment)
-x$comment <- gsub("4;0[ ms]*", " 4.0m ", x$comment)
-x$comment <- gsub("8;2[ ms]*", " 8.2m ", x$comment)
-x$comment <- gsub("9;0[ ms]*", " 9.0m ", x$comment)
-x$comment <- gsub("9;3[ ms]*", " 9.3m ", x$comment)
-x$comment <- gsub("3;3[ ms]*", " 3.3m ", x$comment)
-x$comment <- gsub("1;8[ ms]*", " 1.8m ", x$comment)
-x$comment <- gsub("2;3[ ms]*", " 2.3m ", x$comment)
-x$comment <- gsub("8;0[ ms]*", " 8.0m ", x$comment)
-x$comment <- gsub("8;3[ ms]*", " 8.3m ", x$comment)
-x$comment <- gsub("10;0[ ms]*", "10.0m ", x$comment)
-
 # Remove redundant fields:
 remove <- c("year", "month", "day", "season", "vessel", "loranx.start", "loranx.end", "lorany.start", "lorany.end")
 x <- x[setdiff(names(x), remove)]
@@ -143,6 +118,34 @@ x <- x[setdiff(names(x), remove)]
 # Remove empty variables:
 x <- squeeze(x)
 
-x$duration
+# Rename coordinates:
+names(x) <- gsub("longitude", "loran.x", names(x))
+names(x) <- gsub("latitude", "loran.y", names(x))
 
+#  Compare coordinates:
+y <- read.csv(locate(file = c("scs.set", "1988", "csv")), header = TRUE)
+names(y) <- gsub("[.]$", "", names(y))
+y <- cbind(data.frame(date = as.character(date(y)), stringsAsFactors = FALSE), y)
+y$longitude.end.logbook[which(y$longitude.start.logbook == y$longitude.end.logbook)] <- NA
+y$latitude.end.logbook[which(y$latitude.start.logbook == y$latitude.end.logbook)] <- NA
+y$longitude.start.logbook[which(y$longitude.start.logbook == y$longitude)] <- NA
+y$latitude.start.logbook[which(y$latitude.start.logbook == y$latitude)] <- NA
+y <- squeeze(y)
+
+# Start coordinates:
+ix <- which(!is.na(x$loran.x.start.logbook) & !is.na(x$loran.y.start.logbook))
+tmp <- loran2deg(x$loran.x.start.logbook[ix], x$loran.y.start.logbook[ix])
+x$longitude <- NA
+x$latitude <- NA
+x$longitude[ix[tmp$lat == 0]] <- deg2dmm(y$longitude[ix[tmp$lat == 0]])
+x$latitude[ix[tmp$lat == 0]]  <- deg2dmm(y$latitude[ix[tmp$lat == 0]])
+
+# Re-order fields:
+ix <- which(names(x) == "loran.x")
+x <- cbind(x[, 1:(ix-1)], x[, "duration", drop = FALSE], x[c("longitude", "latitude")], 
+           x[, ix:(ncol(x)-5)], x[, "sampler", drop = FALSE], x[, (ncol(x)-4), drop = FALSE])
+
+# Write data to 'gulf.data':
+path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")
+write.csv(x, file = paste0(path, "scs.set.1988.csv"), row.names = FALSE)
 
