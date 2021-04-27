@@ -1,8 +1,9 @@
 library(gulf.data)
 
+year <- 2019
 
 files <- locate(path = "C:/Users/SuretteTJ/Desktop/NSS RawData", file = "*.DAT")
-
+files <- files[grep(year, files)]
 
 # Remove duplicate DAT files:
 names <- unlist(lapply(strsplit(files, "/"), function(x) x[length(x)]))
