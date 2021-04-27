@@ -61,6 +61,29 @@ load(locate(file = "species.names"))
 x <- species.names
 v$aphia.id <- x$aphia.code[match(v$code, x$code)]
 
+# Compile classification information from WoRMS database (takes a long time):
+library(worrms)
+u <- sort(unique(v$aphia.id))
+classification <- function(x) return(as.data.frame(as.list(wm_classification(id = x))))
+tmp <- lapply(u, classification) # Takes a while
+names(tmp) <- u
+u <- tmp
+tab <- data.frame(aphia.id = as.numeric(names(u)))
+tab[unique(unlist(lapply(u, function(x) return(x$rank))))] <- ""
+for (i in 1:length(u)){
+   u[[i]] <- u[[i]][!duplicated(u[[i]]$rank), ]
+   tab[i, u[[i]]$rank] <- u[[i]]$scientificname
+} 
+names(tab) <- tolower(names(tab))
+
+# Add taxonomic information:
+ix <- match(v$aphia.id, tab$aphia.id)
+vars <- setdiff(names(tab), "aphia.id")
+v[vars] <- tab[ix, vars]
+z <- v[vars]
+z[is.na(z)] <- ""
+v[vars] <- z
+
 # Write:
 path <- gsub("gulf.manage", "gulf.data", getwd())
 path <- paste0(path, "/inst/extdata")
