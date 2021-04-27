@@ -13,6 +13,16 @@ rm(PER2020150)
 
 x$set <- x$set[x$set$SETNO != 111, ] # Remove blank tow.
 
+#New corrections - April 2021
+index = x$detail$SETNO == 57 & x$detail$SPEC == "2550"
+x$detail[which(index),]$SIZE_CLASS <- 1
+index = x$basket$SETNO == 57 & x$basket$SPEC == "2550"
+x$basket[which(index),]$SIZE_CLASS <- 1
+index = x$catch$SETNO == 57 & x$catch$SPEC == "2550"
+x$catch[which(index),]$SIZE_CLASS <- 1
+index = x$set$GEAR == 13
+x$set[which(index),]$GEAR <- 16
+
 #Set corrections
 x$set$ELONG[which(x$set$SETNO == 1)] <- 6426.14
 index = x$set$SETNO == 9 
