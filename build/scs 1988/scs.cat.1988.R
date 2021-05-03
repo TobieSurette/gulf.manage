@@ -170,7 +170,6 @@ x$species[x$species.logbook == "basketstar"]             <- 6300
 x$species[x$species.logbook == "sea urchin"]             <- 6400 
 x$species[x$species.logbook == "sand dollar"]            <- 6500 
 
-
 x$species[x$species.logbook == "sea cucumber"]           <- 6600 
 
 x$species[x$species.logbook == "whelk eggs"]             <- 1511 
