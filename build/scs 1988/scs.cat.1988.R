@@ -21,7 +21,8 @@ x <- read.csv(files, header = TRUE)
 x$species.logbook <- gsub("\x82", "e", x$species.logbook)
 x$species.logbook <- gsub("<82>", "e", x$species.logbook)
 x$species.logbook <- gsub("\x8a", "e", x$species.logbook) 
-x$species.logbook <- gsub("_ufs", "oeufs", x$species.logbook) 
+x$species.logbook <- gsub("[_œ]ufs", "oeufs", x$species.logbook) 
+x$species.logbook <- gsub("[éè]", "e", x$species.logbook)
 
 # Parentheses:
 x$species.logbook <- gsub("\\([a-z 0-9?]+\\)", "", x$species.logbook)
@@ -44,14 +45,15 @@ x$species.logbook <- gsub("tettard", "tetard", x$species.logbook)
 x$species.logbook <- gsub("artica", "arctica", x$species.logbook) 
 x$species.logbook <- gsub("holoturie", "holothurie", x$species.logbook) 
 x$species.logbook[grep("laminaire", x$species.logbook) ] <- "laminaria"
+x$species.logbook[grep("co[m]co[nm]bre", x$species.logbook) ] <- "concombre"
 
 # Keyword substitutions:
-x$species.logbook[intersect(rep("etoile", x$species.logbook), rep(c("grosse", "mer", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "etoile"
-x$species.logbook[intersect(rep("eponge", x$species.logbook), rep(c("grosse", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "eponge"
+x$species.logbook[intersect(rep("[eé]toile", x$species.logbook), rep(c("grosse", "mer", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "etoile"
+x$species.logbook[intersect(rep("[eé]ponge", x$species.logbook), rep(c("grosse", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "eponge"
 x$species.logbook[intersect(rep("mollusque", x$species.logbook), rep(c("toute", "sorte"), x$species.logbook, and = FALSE))] <- "mollusque"
 x$species.logbook[intersect(grep("moule", x$species.logbook), grep("coque", x$species.logbook))] <- "bivalve"
 x$species.logbook[intersect(rep("poisson", x$species.logbook), rep(c("non", "sorte", "petit"), x$species.logbook, and = FALSE))] <- "poisson"
-x$species.logbook[setdiff(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))] <- "buccin"
+x$species.logbook[setdiff(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))] <- "whelk eggs"
 x$species.logbook[intersect(grep("morue", x$species.logbook), grep("merluche", x$species.logbook))] <- "gadiformes"
 
 # Remove unknown species:
@@ -73,6 +75,118 @@ x$species.logbook <- tolower(deblank(x$species.logbook))
 
 # Empty shells:
 x$species.logbook[intersect(rep("vide", x$species.logbook), rep(c("moule", "clam"), x$species.logbook, and = FALSE))] <- "empty shell"
+
+# Fish species:
+x$species.logbook[x$species.logbook == "morue"] <- "cod"
+x$species.logbook[x$species.logbook == "hareng"] <- "herring"
+x$species.logbook[x$species.logbook == "poisson rouge"] <- "redfish"
+x$species.logbook[x$species.logbook == "poisson"] <- "fish"
+x$species.logbook[x$species.logbook == "plie canadienne"] <- "American plaice"
+x$species.logbook[x$species.logbook == "plie rouge"] <- "winter flounder"
+x$species.logbook[x$species.logbook == "eperlan"] <- "rainbow smelt"
+x$species.logbook[x$species.logbook == "barbue"] <- "white hake"
+x$species.logbook[x$species.logbook == "crapaud de mer"] <- "sculpin"
+x$species.logbook[x$species.logbook == "poule d'eau"] <- "atlantic lumpfish"
+x$species.logbook[x$species.logbook == "morue de roche"] <- "greenland cod"
+x$species.logbook[x$species.logbook == "loche"] <- "monkfish"
+x$species.logbook[x$species.logbook == "plie grise"] <- "witch flounder"
+x$species.logbook[x$species.logbook == "plie"] <- "plaice"
+x$species.logbook[x$species.logbook == "capelan"] <- "capelin"
+x$species.logbook[x$species.logbook == "raie"] <- "skate" 
+
+# Crustaceans:
+x$species.logbook[x$species.logbook == "bernard l'hermite"] <- "hermit crab"
+x$species.logbook[grep("homard", x$species.logbook)] <- "American lobster"
+x$species.logbook[x$species.logbook == "crevette"] <- "shrimp"
+
+# Mollusks:
+x$species.logbook[x$species.logbook == "limace"] <- "sea slug"
+x$species.logbook[x$species.logbook == "mollusque"] <- "mollusk"
+x$species.logbook[x$species.logbook == "mollusque vide"] <- "empty shells" 
+x$species.logbook[x$species.logbook == "petoncle"] <- "scallop"
+x$species.logbook[x$species.logbook == "petoncle geante"] <- "giant scallop"
+x$species.logbook[x$species.logbook == "petoncle d'islande"] <- "Iceland scallop"
+x$species.logbook[x$species.logbook == "buccin"] <- "whelk"
+x$species.logbook[x$species.logbook == "oeuf de buccin"] <- "whelk eggs" 
+
+# Miscellaneous invertebrates:
+x$species.logbook[x$species.logbook == "etoile"] <- "starfish"
+x$species.logbook[x$species.logbook == "holothurie"] <- "sea cucumber"
+x$species.logbook[x$species.logbook == "concombre"] <- "sea cucumber"
+x$species.logbook[x$species.logbook == "oursin"] <- "sea urchin"
+x$species.logbook[x$species.logbook == "ophiure"] <- "brittle star"
+x$species.logbook[x$species.logbook == "eponge"] <- "sea sponge"
+x$species.logbook[x$species.logbook == "ophiure et eponge"] <- "eponge et ophiure"
+x$species.logbook[x$species.logbook == "eponge et ophiure"] <- "sponges and brittlestars"
+
+
+# Initialize species coding:
+x$species <- NA
+
+# Fish species coding:
+x$species[grep("redfish", x$species.logbook)]         <- species("redfish")[1]
+x$species[grep("American plaice", x$species.logbook)] <- species("American plaice")[1]
+x$species[grep("winter flounder", x$species.logbook)] <- species("winter flounder")[1]
+x$species[grep("witch flounder", x$species.logbook)]  <- species("witch flounder")[1]
+x$species[grep("yellowtail", x$species.logbook)]      <- species("yellowtail")[1] 
+x$species[grep("white hake", x$species.logbook)]      <- species("white hake")[1] 
+x$species[grep("rainbow smelt", x$species.logbook)]   <- species("rainbow smelt")[1] 
+x$species[grep("lumpfish", x$species.logbook)]        <- species("lumpfish")[1]  
+x$species[grep("cunner", x$species.logbook)]          <- species("cunner")[1]  
+x$species[grep("herring", x$species.logbook)]         <- species("herring")[1]  
+x$species[grep("monkfish", x$species.logbook)]        <- species("monkfish")[1]  
+x$species[x$species.logbook == "skate"]               <- 211 # Skates unsp.
+x$species[x$species.logbook == "plaice"]              <- 346 # Flatfish unsp. 
+x$species[x$species.logbook == "fish"]                <- 90  # Unsp. fish"
+x$species[x$species.logbook == "sculpin"]             <- 311 # Sculpin unsp."
+x$species[x$species.logbook == "plaice"]              <- 346 # Flatfish unsp. 
+
+x$species[x$species.logbook == "greenland cod"]       <- 118
+x$species[x$species.logbook == "capelin"]             <- 64
+
+
+
+x$species[x$species.logbook == "American lobster"]        <- 2550
+x$species[x$species.logbook == "rock crab"]               <- 2513
+x$species[grep("hermit crab", x$species.logbook)]         <- 2560
+x$species[x$species.logbook == "hyas"]                    <- 2520 
+
+
+
+x$species[x$species.logbook == "sea slug"] <- 4400
+
+x$species[x$species.logbook == "sea sponge"] <- 8600
+x$species[x$species.logbook == "laminaria"] <- 9321
+
+
+x$species[x$species.logbook == "scallop"]                <- 4320 # scallop"
+x$species[x$species.logbook == "giant scallop"]          <- 4321 # Giant scallop"
+x$species[x$species.logbook == "Iceland scallop"]        <- 4322 # Iceland scallop"
+
+ 
+x$species[x$species.logbook == "brittle star"]           <- 6200 
+x$species[x$species.logbook == "basketstar"]             <- 6300 
+
+x$species[x$species.logbook == "sea urchin"]             <- 6400 
+x$species[x$species.logbook == "sand dollar"]            <- 6500 
+
+
+x$species[x$species.logbook == "sea cucumber"]           <- 6600 
+
+x$species[x$species.logbook == "whelk eggs"]             <- 1511 
+
+x$species[x$species.logbook == "empty shells"]           <- 4348
+
+x$species[x$species.logbook == "arctica islandica"]      <- 4304
+
+x$species[x$species.logbook == "whelk"]                  <- 4210 
+
+x$species[x$species.logbook == "shrimp"]                 <- 2100
+
+
+x$species.logbook[is.na(x$species)]
+
+
 
 # Add date field:
 x <- cbind(data.frame(date = as.character(date(x))), x[setdiff(names(x), remove)])
