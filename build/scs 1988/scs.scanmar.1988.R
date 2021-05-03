@@ -69,6 +69,9 @@ z$wing.spread <- NA
 z$headline.height <- NA
 x <- rbind(z[names(x)], x)
 
+# Tow ID format change:
+x$tow.id <- paste0("GP", gsub(" ", "0", formatC(x$tow.id, width = 3)))
+
 # Write data:
 path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.trawl.data/inst/extdata/scs.scanmar.1988/")
 write.csv(x, file = paste0(path, "scs.scanmar.1988.csv"), row.names = FALSE)

@@ -21,10 +21,10 @@ x$latitude.start.logbook[which(x$latitude.start.logbook == x$latitude)] <- NA
 
 # Import original logbook coordinates:
 y <- read.csv(locate(file = c("scs", "coordinate", "1988", "csv")), header = TRUE)
-y <- squeeze(y)
+y$date <- as.character(date(y))
+y <- compress(y)
 names(y) <- gsub("[.]logbook", "", tolower(names(y)))
 names(y) <- gsub("[.]no", ".number", tolower(names(y)))
-y$date <- as.character(date(y))
 
 # Restructure data:
 r <- aggregate(list(loranx.start = y$loranx), by = y[c("date", "tow.number")], function(x) x[1])
@@ -45,7 +45,7 @@ x$latitude.start.logbook[is.na(x$latitude.start.logbook)]   <- x$lorany.start[is
 x$longitude.end.logbook[is.na(x$longitude.end.logbook)]     <- x$loranx.end[is.na(x$longitude.end.logbook)]
 x$latitude.end.logbook[is.na(x$latitude.end.logbook)]       <- x$lorany.end[is.na(x$latitude.end.logbook)] 
 
-# Extract sampler and coordiante data from biological data:
+# Extract sampler and coordinate data from biological data:
 files <- locate(file = "GCR88")
 b <- read.scsbio(files, drop = FALSE)
 r <- aggregate(b["longitude.start"], by = b[c("date", "tow.number")], unique)
@@ -116,7 +116,7 @@ remove <- c("year", "month", "day", "season", "vessel", "loranx.start", "loranx.
 x <- x[setdiff(names(x), remove)]
 
 # Remove empty variables:
-x <- squeeze(x)
+x <- compress(x)
 
 # Rename coordinates:
 names(x) <- gsub("longitude", "loran.x", names(x))
@@ -130,7 +130,7 @@ y$longitude.end.logbook[which(y$longitude.start.logbook == y$longitude.end.logbo
 y$latitude.end.logbook[which(y$latitude.start.logbook == y$latitude.end.logbook)] <- NA
 y$longitude.start.logbook[which(y$longitude.start.logbook == y$longitude)] <- NA
 y$latitude.start.logbook[which(y$latitude.start.logbook == y$latitude)] <- NA
-y <- squeeze(y)
+y <- compress(y)
 
 # Start coordinates:
 ix <- which(!is.na(x$loran.x.start.logbook) & !is.na(x$loran.y.start.logbook))
@@ -144,6 +144,9 @@ x$latitude[ix[tmp$lat == 0]]  <- deg2dmm(y$latitude[ix[tmp$lat == 0]])
 ix <- which(names(x) == "loran.x")
 x <- cbind(x[, 1:(ix-1)], x[, "duration", drop = FALSE], x[c("longitude", "latitude")], 
            x[, ix:(ncol(x)-5)], x[, "sampler", drop = FALSE], x[, (ncol(x)-4), drop = FALSE])
+
+# Tow ID format change:
+x$tow.id <- paste0("GP", gsub("S88", "", x$tow.id))
 
 # Write data to 'gulf.data':
 path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")

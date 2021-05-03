@@ -21,6 +21,9 @@ x <- read.csv(files, header = TRUE)
 x$species.logbook <- gsub("\x82", "e", x$species.logbook)
 x$species.logbook <- gsub("<82>", "e", x$species.logbook)
 x$species.logbook <- gsub("\x8a", "e", x$species.logbook) 
+x$species.logbook <- gsub("\xe9", "e", x$species.logbook)  
+x$species.logbook <- gsub("\x9c", "oe", x$species.logbook)  
+x$species.logbook <- gsub("\xe8", "e", x$species.logbook)   
 x$species.logbook <- gsub("[_œ]ufs", "oeufs", x$species.logbook) 
 x$species.logbook <- gsub("[éè]", "e", x$species.logbook)
 
@@ -46,6 +49,9 @@ x$species.logbook <- gsub("artica", "arctica", x$species.logbook)
 x$species.logbook <- gsub("holoturie", "holothurie", x$species.logbook) 
 x$species.logbook[grep("laminaire", x$species.logbook) ] <- "laminaria"
 x$species.logbook[grep("co[m]co[nm]bre", x$species.logbook) ] <- "concombre"
+
+# Save species logbook names:
+x$species.name.logbook <- x$species.logbook
 
 # Keyword substitutions:
 x$species.logbook[intersect(rep("[eé]toile", x$species.logbook), rep(c("grosse", "mer", "branche", "filament", "fine", "carr", "brain", "patte", "non", "speci", "tentacule"), x$species.logbook, and = FALSE))] <- "etoile"
@@ -119,11 +125,13 @@ x$species.logbook[x$species.logbook == "eponge"] <- "sea sponge"
 x$species.logbook[x$species.logbook == "ophiure et eponge"] <- "eponge et ophiure"
 x$species.logbook[x$species.logbook == "eponge et ophiure"] <- "sponges and brittlestars"
 
-
 # Initialize species coding:
 x$species <- NA
 
 # Fish species coding:
+x$species[x$species.logbook == "cod"]                 <- 10 
+x$species[x$species.logbook == "gadiformes"]          <- 18 # "Gadiformes"
+x$species[x$species.logbook == "greenland cod"]       <- 118
 x$species[grep("redfish", x$species.logbook)]         <- species("redfish")[1]
 x$species[grep("American plaice", x$species.logbook)] <- species("American plaice")[1]
 x$species[grep("winter flounder", x$species.logbook)] <- species("winter flounder")[1]
@@ -140,53 +148,57 @@ x$species[x$species.logbook == "plaice"]              <- 346 # Flatfish unsp.
 x$species[x$species.logbook == "fish"]                <- 90  # Unsp. fish"
 x$species[x$species.logbook == "sculpin"]             <- 311 # Sculpin unsp."
 x$species[x$species.logbook == "plaice"]              <- 346 # Flatfish unsp. 
-
-x$species[x$species.logbook == "greenland cod"]       <- 118
 x$species[x$species.logbook == "capelin"]             <- 64
 
+x$species[x$species.logbook == "American lobster"]       <- 2550
+x$species[x$species.logbook == "rock crab"]              <- 2513
+x$species[grep("hermit crab", x$species.logbook)]        <- 2560
+x$species[x$species.logbook == "hyas"]                   <- 2520 
+x$species[x$species.logbook == "shrimp"]                 <- 2100 
 
+x$species[x$species.logbook == "sea slug"]               <- 4400
+x$species[x$species.logbook == "seasnail"]               <- 4200 # "Snails and slugs" 
+x$species[x$species.logbook == "mollusk"]                <- 4000 # "Mollusca p."
+x$species[x$species.logbook == "whelk"]                  <- 4210 
+x$species[x$species.logbook == "whelk eggs"]             <- 1511 
 
-x$species[x$species.logbook == "American lobster"]        <- 2550
-x$species[x$species.logbook == "rock crab"]               <- 2513
-x$species[grep("hermit crab", x$species.logbook)]         <- 2560
-x$species[x$species.logbook == "hyas"]                    <- 2520 
+x$species[x$species.logbook == "sea urchin"]             <- 6400 
+x$species[x$species.logbook == "sand dollar"]            <- 6500 
+x$species[x$species.logbook == "sea cucumber"]           <- 6600 
 
-
-
-x$species[x$species.logbook == "sea slug"] <- 4400
-
-x$species[x$species.logbook == "sea sponge"] <- 8600
-x$species[x$species.logbook == "laminaria"] <- 9321
-
-
+x$species[x$species.logbook == "bivalve"]                <- 4300 # "Bivalvia c." 
+x$species[x$species.logbook == "empty shells"]           <- 4348
+x$species[x$species.logbook == "arctica islandica"]      <- 4304 # Ocean quahog
+x$species[x$species.logbook == "clam"]                   <- 4310 # "Clams unsp."
 x$species[x$species.logbook == "scallop"]                <- 4320 # scallop"
 x$species[x$species.logbook == "giant scallop"]          <- 4321 # Giant scallop"
 x$species[x$species.logbook == "Iceland scallop"]        <- 4322 # Iceland scallop"
 
- 
-x$species[x$species.logbook == "brittle star"]           <- 6200 
-x$species[x$species.logbook == "basketstar"]             <- 6300 
-
-x$species[x$species.logbook == "sea urchin"]             <- 6400 
-x$species[x$species.logbook == "sand dollar"]            <- 6500 
-
-x$species[x$species.logbook == "sea cucumber"]           <- 6600 
-
-x$species[x$species.logbook == "whelk eggs"]             <- 1511 
-
-x$species[x$species.logbook == "empty shells"]           <- 4348
-
-x$species[x$species.logbook == "arctica islandica"]      <- 4304
-
-x$species[x$species.logbook == "whelk"]                  <- 4210 
-
-x$species[x$species.logbook == "shrimp"]                 <- 2100
-
+x$species[x$species.logbook == "brittle star"]             <- 6200 
+x$species[x$species.logbook == "basketstar"]               <- 6300 
+x$species[x$species.logbook == "starfish"]                 <- 6100 # "Asteroidea s.c."
+x$species[x$species.logbook == "sponges and brittlestars"] <- 1701 # "Marine invertebrates unsp."
+x$species[x$species.logbook == "sea sponge"]               <- 8600
+x$species[x$species.logbook == "laminaria"]                <- 9321
 
 x$species.logbook[is.na(x$species)]
 
+# Re-order fields:
+x$species.name <- x$species.logbook
+remove <- c("year", "month", "day", "species.logbook")
+x$date <- as.character(date(x))
+x <- x[setdiff(names(x), remove)]
+vars <- c("date", "tow.id", "tow.number", "species", "species.name", "species.name.logbook")
+x <- x[c(vars, setdiff(names(x), c(vars, "comment")), "comment")]
 
+# Delete lines with missing IDs:
+ix <- which(is.na(x$species) & x$species.name.logbook == "")
+x <- x[-ix, ]
 
-# Add date field:
-x <- cbind(data.frame(date = as.character(date(x))), x[setdiff(names(x), remove)])
+# Fix tow.id format:
+x$tow.id <- paste0("GP", gsub("S88", "", x$tow.id))
+
+# Write data:
+path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")
+write.csv(x, file = paste0(path, "scs.cat.1988.csv"), row.names = FALSE)
 
