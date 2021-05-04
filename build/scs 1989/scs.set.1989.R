@@ -5,11 +5,11 @@ library(gulf.spatial)
 publish <- FALSE
 
 # Read original raw set data:
-x <- read.csv(locate(file = c("scs.set", "1988", "csv")), header = TRUE)
+x <- read.csv(locate(file = c("scs.set", "1989", "csv")), header = TRUE)
 
 # Variable name fix:
 names(x) <- gsub("[.]$", "", names(x))
-     
+
 # Add date field:
 x <- cbind(data.frame(date = as.character(date(x)), stringsAsFactors = FALSE), x)
 
@@ -20,11 +20,14 @@ x$longitude.start.logbook[which(x$longitude.start.logbook == x$longitude)] <- NA
 x$latitude.start.logbook[which(x$latitude.start.logbook == x$latitude)] <- NA
 
 # Import original logbook coordinates:
-y <- read.csv(locate(file = c("scs", "coordinate", "1988", "csv")), header = TRUE)
+y <- read.csv(locate(file = c("scs", "coordinate", "1989", "csv")), header = TRUE)
 y$date <- as.character(date(y))
-y <- compress(y)
+y <- y[!is.na(y$year), ]
+y <- y[setdiff(names(y), c("year", "month", "day"))]
+y <- gulf.utils::compress(y)
 names(y) <- gsub("[.]logbook", "", tolower(names(y)))
 names(y) <- gsub("[.]no", ".number", tolower(names(y)))
+y <- y[c("date", setdiff(names(y),  "date"))]
 
 # Restructure data:
 r <- aggregate(list(loranx.start = y$loranx), by = y[c("date", "tow.number")], function(x) x[1])
@@ -39,22 +42,14 @@ x$loranx.end   <- r$loranx.end[ix]
 x$lorany.start <- r$lorany.start[ix]
 x$lorany.end   <- r$lorany.end[ix]
 
-# Substitute start and end coordinates:
-x$longitude.start.logbook[is.na(x$longitude.start.logbook)] <- x$loranx.start[is.na(x$longitude.start.logbook)]
-x$latitude.start.logbook[is.na(x$latitude.start.logbook)]   <- x$lorany.start[is.na(x$latitude.start.logbook)]
-x$longitude.end.logbook[is.na(x$longitude.end.logbook)]     <- x$loranx.end[is.na(x$longitude.end.logbook)]
-x$latitude.end.logbook[is.na(x$latitude.end.logbook)]       <- x$lorany.end[is.na(x$latitude.end.logbook)] 
-
 # Extract sampler and coordinate data from biological data:
-files <- locate(file = "GCR88")
+files <- locate(file = "GCR89")
 b <- read.scsbio(files, drop = FALSE)
 r <- aggregate(b["longitude.start"], by = b[c("date", "tow.number")], unique)
 r$latitude.start <- aggregate(list(x = b$latitude.start), by = b[c("date", "tow.number")], unique)$x
 r$sampler <- aggregate(list(x = b$samplers), by = b[c("date", "tow.number")], function(x) paste(unique(x), collapse = ","))$x
 r <- sort(r, by = c("date", "tow.number"))
 r$sampler <- sampler(r$sampler, project = "scs")
-r$sampler[r$date == "1988-11-09" & r$tow.number == 8] <- "HELENE CHIASSON, RENALD HACHE"
-r$sampler[r$date == "1988-08-23" & r$tow.number == 3] <- "MARCEL HEBERT, RENALD HACHE"
 ix <- match(x[c("date", "tow.number")], r[c("date", "tow.number")])
 x$sampler <- r$sampler[ix]
 x$sampler[is.na(x$sampler)] <- ""
@@ -62,20 +57,30 @@ x$latitude <- r$longitude.start[ix]
 x$longitude  <- r$latitude.start[ix]
 
 # Spot coordinate corrections:
-x$longitude.end.logbook[which((x$date == "1988-08-09") & (x$tow.number == 6))] <- 14929.6
-x$latitude.start.logbook[which((x$date == "1988-08-09") & (x$tow.number == 6))] <- 29917.2
-x$latitude.start.logbook[which((x$date == "1988-09-17") & (x$tow.number == 2))] <- 29626.4
-x$latitude.start.logbook[which((x$date == "1988-08-07") & (x$tow.number == 6))] <- 30298.5
-x$latitude.start.logbook[which((x$date == "1988-11-13") & (x$tow.number == 5))] <- 30720.1  
-x$latitude.end.logbook[which((x$date == "1988-08-21") & (x$tow.number == 3))] <- 31029.4 
-x$latitude.end.logbook[which((x$date == "1988-09-02") & (x$tow.number == 2))] <- 29335.9
-x$latitude.start.logbook[which((x$date == "1988-08-09") & (x$tow.number == 9))] <- 29644.0
-x$latitude.start.logbook[which((x$date == "1988-08-31") & (x$tow.number == 1))] <- 30151.6
-x$longitude.end.logbook[which((x$date == "1988-08-11") & (x$tow.number == 3))] <- 14963.3
-x$longitude.end.logbook[which((x$date == "1988-08-22") & (x$tow.number == 3))] <- 15139.0
-x$latitude[which((x$date == "1988-08-23") & (x$tow.number == 1))] <- 30239.5 
-x$latitude[which((x$date == "1988-08-10") & (x$tow.number == 3))] <- NA   
-x$longitude[which((x$date == "1988-08-10") & (x$tow.number == 3))] <- NA 
+x$loranx.start[which((x$date == "1989-10-09") & (x$tow.number == 1))] <- 14943.4
+x$longitude[which((x$date == "1989-08-27") & (x$tow.number == 3))]    <- 15012.9
+x$longitude[which((x$date == "1989-09-08") & (x$tow.number == 2))]    <- 14785.2
+x$longitude[which((x$date == "1989-09-05") & (x$tow.number == 2))]    <- 14596.3
+x$longitude[which((x$date == "1989-08-23") & (x$tow.number == 2))]    <- 14992.6
+x$loranx.start[which((x$date == "1989-08-21") & (x$tow.number == 2))] <- 15071.9
+x$longitude[which((x$date == "1989-10-26") & (x$tow.number == 2))]    <- 14836.2
+x$loranx.start[which((x$date == "1989-08-18") & (x$tow.number == 5))] <- 15035.3
+x$loranx.start[which((x$date == "1989-08-16") & (x$tow.number == 2))] <- 15127.9
+x$lorany.start[which((x$date == "1989-08-16") & (x$tow.number == 2))] <- 31090.8
+x$lorany.start[which((x$date == "1989-08-16") & (x$tow.number == 3))] <- 31028.7
+x$latitude[which((x$date == "1989-09-08") & (x$tow.number == 2))]     <- 30258.9
+x$latitude[which((x$date == "1989-10-24") & (x$tow.number == 3))]     <- 29731.0
+x$lorany.start[which((x$date == "1989-10-24") & (x$tow.number == 6))] <- 29860.5
+x$lorany.end[which((x$date == "1989-10-29") & (x$tow.number == 4))]   <- 30123.6
+x$loranx.end[which((x$date == "1989-08-16") & (x$tow.number == 3))]   <- 15111.1
+x$loranx.end[which((x$date == "1989-09-06") & (x$tow.number == 4))]   <- 14694.2
+x$loranx.end[which((x$date == "1989-10-18") & (x$tow.number == 3))]   <- 14888.0
+
+# Substitute start and end coordinates:
+x$longitude.start.logbook[is.na(x$longitude.start.logbook)] <- x$loranx.start[is.na(x$longitude.start.logbook)]
+x$latitude.start.logbook[is.na(x$latitude.start.logbook)]   <- x$lorany.start[is.na(x$latitude.start.logbook)]
+x$longitude.end.logbook[is.na(x$longitude.end.logbook)]     <- x$loranx.end[is.na(x$longitude.end.logbook)]
+x$latitude.end.logbook[is.na(x$latitude.end.logbook)]       <- x$lorany.end[is.na(x$latitude.end.logbook)] 
 
 # Remove redundant coordinates:
 x$longitude[which(!is.na(x$longitude.start.logbook) | !is.na(x$longitude.end.logbook))] <- NA
@@ -146,10 +151,10 @@ x <- cbind(x[, 1:(ix-1)], x[, "duration", drop = FALSE], x[c("longitude", "latit
            x[, ix:(ncol(x)-5)], x[, "sampler", drop = FALSE], x[, (ncol(x)-4), drop = FALSE])
 
 # Tow ID format change:
-#x$tow.id <- paste0("GP", gsub("S88", "", x$tow.id))
+# x$tow.id <- paste0("GP", gsub("S88", "", x$tow.id))
 x <- x[setdiff(names(x), "tow.id")]
 
 # Write data to 'gulf.data':
 path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")
-write.csv(x, file = paste0(path, "scs.set.1988.csv"), row.names = FALSE)
+write.csv(x, file = paste0(path, "scs.set.1989.csv"), row.names = FALSE)
 

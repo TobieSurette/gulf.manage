@@ -10,7 +10,7 @@ b <- b[, -grep("samplers", names(b))]
 b <- b[, -grep("maturity", names(b))]
 b <- b[, -grep("depth", names(b))]
 b <- b[, -grep("durometer", names(b))]
-b <- compress(b)
+b <- gulf.utils::compress(b)
 
 # Write data to 'gulf.data':
 path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")

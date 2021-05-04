@@ -1,0 +1,296 @@
+year,month,day,zone,tow.id,tow.number,valid,start.time,end.time,start.time.logbook,end.time.logbook,depth,bottom.temperature,warp,swept.area,swept.area.method,groundfish.sample,water.sample,comment,season,vessel
+1990,6,18,12,001,1,0,        ,        ,11:30,        ,41,0.8,NA,NA,,NA,NA,Le chalut c'est mêlé; lr fond est de la roche,fall,Emy Serge D.
+1990,6,18,12,002,2,1,        ,        ,14:00,        ,43,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,18,12,003,3,1,        ,        ,15:30,        ,47,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,22,PE,004,1,1,        ,        ,9:36,        ,36,0.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,22,PE,005,2,1,        ,        ,10:30,        ,32,2.3,NA,2412,,NA,NA,terrain rought; les sensor indique des valeurs bizarre(height sensor),fall,Emy Serge D.
+1990,6,22,PE,006,3,1,        ,        ,11:25,        ,35,1.3,NA,2412,,NA,NA,Terrain rought; difficulté avec les sensors.  Enlever le sensor de temperature pour voir si il n'y a pas d'interference.,fall,Emy Serge D.
+1990,6,22,PE,007,4,1,        ,        ,12:50,        ,31,1.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,22,18,008,5,1,        ,        ,13:46,        ,33,1.1,NA,2412,,NA,NA,Le height sensor ne fonctionne pas bien.,fall,Emy Serge D.
+1990,6,22,18,009,6,1,        ,        ,14:42,        ,33,2.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,22,18,010,7,1,        ,        ,16:41,        ,45,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,22,18,011,8,1,        ,        ,NA,        ,35,1.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,012,1,1,        ,        ,7:00,        ,48,1.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,013,2,1,        ,        ,7:54,        ,52,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,014,3,1,        ,        ,9:40,        ,46,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,015,4,1,        ,        ,10:57,        ,75,0.4,NA,2412,,NA,NA,plusieurs petites roches ,fall,Emy Serge D.
+1990,6,23,19,016,5,1,        ,        ,12:25,        ,52,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,017,6,1,        ,        ,13:23,,75,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,018,7,1,        ,        ,13:23,        ,67,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,23,19,019,8,0,        ,        ,15:49,        ,54,0.2,NA,NA,,NA,NA,Le chalut n'a pas bien chaluté(mêlé),fall,Emy Serge D.
+1990,6,23,19,020,9,1,        ,        ,16:13,        ,50,0.2,NA,2412,,NA,NA,Bon trait de chalut; une grosse poche.,fall,Emy Serge D.
+1990,6,25,18,021,1,1,        ,        ,12:38,        ,31,0.6,NA,2412,,NA,NA,Bon trait de chalut; une grosse poche.,fall,Emy Serge D.
+1990,6,25,18,022,2,1,        ,        ,13:23,        ,37,0.7,NA,2412,,NA,NA,quelques petites roches,fall,Emy Serge D.
+1990,6,25,19,023,3,1,        ,        ,14:02,        ,34,0.9,NA,2412,,NA,NA,terrain rought; 3 petites roches(100 lbs),fall,Emy Serge D.
+1990,6,25,19,024,4,1,        ,        ,15:07,        ,38,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,25,19,025,5,1,        ,        ,16:21,        ,36,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,25,19,026,6,1,        ,        ,17:30,        ,38,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,25,19,027,7,1,        ,        ,18:48,        ,35,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,028,1,1,        ,        ,7:59,        ,28,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,037,10,1,        ,        ,16:18,        ,27,0.9,NA,2412,,NA,NA,Bon trait de chalut; une grosse poche.,fall,Emy Serge D.
+1990,6,27,18,038,11,1,        ,        ,17:09,        ,30,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,039,12,1,        ,        ,18:00,        ,34,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,029,2,1,        ,        ,8:43,        ,30,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,030,3,0,        ,        ,9:42,        ,32,2.4,NA,NA,,NA,NA,Le chalut n'a pas touché le fond; il naviguait entre deux eaux.,fall,Emy Serge D.
+1990,6,27,18,031,4,1,        ,        ,10:04,        ,33,1.9,NA,2412,,NA,NA,Une grosse roche; quelquespetites roches,fall,Emy Serge D.
+1990,6,27,18,032,5,1,        ,        ,11:07,        ,28,1.4,NA,2412,,NA,NA,Le chalut a bien fonctionné; une grosse poche,fall,Emy Serge D.
+1990,6,27,18,033,6,1,        ,        ,11:58,        ,27,1.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,27,18,034,7,1,        ,        ,13:38,        ,30,2.8,NA,2412,,NA,NA,Terrain vaseux,fall,Emy Serge D.
+1990,6,27,18,035,8,1,        ,        ,14:15,        ,30,2.4,NA,2412,,NA,NA,Terrain tres vaseux,fall,Emy Serge D.
+1990,6,27,18,036,9,1,        ,        ,15:29,        ,32,0.8,NA,2412,,NA,NA,beaucoup de vase,fall,Emy Serge D.
+1990,6,28,19,040,1,1,        ,        ,13:50,        ,36,0.4,NA,2412,,NA,NA,Le height sensor ne fonctionne pas bien.  Faudra carger ce sensor.,fall,Emy Serge D.
+1990,6,28,19,041,2,1,        ,        ,14:55,        ,35,1.0,NA,2412,,NA,NA,Le height sensor est déchargé.  On va faire un autre tow avant d'aller au quai.,fall,Emy Serge D.
+1990,6,28,19,042,3,1,        ,        ,15:30,        ,48,0.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,043,1,1,        ,        ,7:37,        ,58,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,052,10,0,        ,        ,17:52,        ,74,0.1,NA,NA,,NA,NA,Le plotter system a perdu toute configuration ou contact avec le cabinet; donc nous n'avons pas de graphe sur l'imprimante,fall,Emy Serge D.
+1990,6,29,19,044,2,1,        ,        ,8:16,        ,63,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,045,3,1,        ,        ,9:50,        ,38,0.3,NA,2412,,NA,NA,on vient de casser un transfert,fall,Emy Serge D.
+1990,6,29,19,046,4,1,        ,        ,11:05,        ,38,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,047,5,1,        ,        ,11:50,        ,36,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,048,6,1,        ,        ,12:40,        ,35,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,29,19,049,7,0,        ,        ,15:10,        ,86,0.1,NA,NA,,NA,NA,Je crois d'après le scanmar; le chalut n'a chaluté que 30 sec a 1 minute.,fall,Emy Serge D.
+1990,6,29,19,050,8,0,        ,        ,15:49,        ,91,0.1,NA,NA,,NA,NA,Le graphe du scanmar indique que le chalut n'a pas touché le fond avant 15h47 i.e 4 minutes avant qu'elle puisse le touché; la raison que l'on suppose est qu'il ait un courant très fort.  Le chalut a dragué pour les 5 minutes réglementaires.  Grosse roches avec trou.,fall,Emy Serge D.
+1990,6,29,19,051,9,1,        ,        ,16:45,        ,86,0.1,NA,2412,,NA,NA,Le tow # 8 a été positionné dans un autre quadrilatère 4 miles plus loin que le point original du tow 7; alors on a dû recommencer le tow.  Courant très fort; difficile a garder le chalut au fond.,fall,Emy Serge D.
+1990,6,30,19,053,1,1,        ,        ,7:45,        ,74,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,30,19,054,2,1,        ,        ,8:53,        ,75,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,6,30,19,055,3,1,        ,        ,10:15,        ,76,0.5,NA,2412,,NA,NA,Terrain rought; plusieurs petites roches; un très grosse roche,fall,Emy Serge D.
+1990,6,30,19,056,4,1,        ,        ,11:36,        ,37,1.0,NA,2412,,NA,NA,Terrain rought; 2 petites roche(25-30lbs),fall,Emy Serge D.
+1990,7,2,12,057,1,1,        ,        ,5:57,        ,36,0.3,NA,2412,,NA,NA,Terrain rought; on a dû monter le chalut avant le temps réglementaire de 5 minutes.  Bon trait de chalut; on a dragué 4 minutes a cause du terrain rought.  2 roche (50 lbs),fall,Emy Serge D.
+1990,7,2,12,066,10,1,        ,        ,15:53,        ,34,0.9,NA,2412,,NA,NA,Terrain un peu rought; 2 gros cailloux,fall,Emy Serge D.
+1990,7,2,12,067,11,1,        ,        ,16:58,        ,41,0.8,NA,2412,,NA,NA,Terrain rought,fall,Emy Serge D.
+1990,7,2,PE,068,12,1,        ,        ,18:07,        ,38,0.3,NA,2412,,NA,NA,Terrain rought,fall,Emy Serge D.
+1990,7,2,PE,069,13,1,        ,        ,19:23,        ,35,-0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,12,070,14,1,        ,        ,20:01,        ,37,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,12,071,15,1,        ,        ,20:40,        ,36,-0.1,NA,2412,,NA,NA,Terrain rought,fall,Emy Serge D.
+1990,7,2,12,058,2,1,        ,        ,6:56,        ,37,0.2,NA,2412,,NA,NA,Terrain un peu rought.,fall,Emy Serge D.
+1990,7,2,12,059,3,1,        ,        ,8:13,        ,32,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,PE,060,4,1,        ,        ,9:39,        ,38,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,PE,061,5,1,        ,        ,10:19,        ,42,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,PE,062,6,1,        ,        ,11:03,        ,43,0.5,NA,2412,,NA,NA,Nous avons accroché une ligne de trappe carré(ligne de 50 trappes); nous en avons monté une dont 72 crabes a majorité blancs; nous avons coupé le web de la trappe; noter la position; placer une balloune et envoyer l'information au MPO. 2 trappes carré dans le chalut.  Le chalut est brisé pas mal,fall,Emy Serge D.
+1990,7,2,PE,063,7,1,        ,        ,12:40,        ,47,0.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,12,064,8,1,        ,        ,13:58,        ,34,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,2,12,065,9,0,        ,        ,14:53,        ,33,0.9,NA,NA,,NA,NA,Terrain rought; le chalut est pas mal déchirer; les gars vont l'arranger; rien dans la poche; il faut reprendre le trait a une autre position.,fall,Emy Serge D.
+1990,7,3,PE,072,1,1,        ,        ,5:56,        ,35,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,3,PE,073,2,1,        ,        ,7:19,        ,36,0.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,3,PE,074,3,1,        ,        ,8:19,        ,34,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,3,PE,075,4,0,        ,        ,9:07,        ,34,0.1,NA,NA,,NA,NA,Terrain rought; la poche est déchirer; 3 groses pierres de tombe dans le chalut. Il faut reprendre le tow.,fall,Emy Serge D.
+1990,7,3,PE,076,5,0,        ,        ,10:06,        ,36,0.1,NA,NA,,NA,NA,Nous avons du monter le chalut avant les 5 minutes réglementaires car les portes ont accroché sur quelque chose.  Temps de chalutage; 4min 25 sec.  Le chalut est completement brisé; il faut reprendre le tow.,fall,Emy Serge D.
+1990,7,7,12,077,1,0,        ,        ,5:36,        ,33,0.0,NA,NA,,NA,NA,Seulement dragué 2 minutes; le chalut a accroché quelque choses(roches),fall,Emy Serge D.
+1990,7,7,PE,086,10,0,        ,        ,18:25,        ,31,0.5,NA,NA,,NA,NA,Seulement dragué 2 minutes car nous avons accroché deux énormes cailloux; chalut déchirer.,fall,Emy Serge D.
+1990,7,7,PE,087,11,1,        ,        ,19:02,        ,34,0.5,NA,2412,,NA,NA,ligne de trappe avec poche de bouette accroché en montant le chalut.,fall,Emy Serge D.
+1990,7,7,PE,088,12,1,        ,        ,20:09,        ,33,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,PE,089,13,1,        ,        ,21:05,        ,34,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,PE,090,14,1,        ,        ,21:50,        ,34,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,12,078,2,1,        ,        ,5:57,        ,34,0.0,NA,2412,,NA,NA,Le chalut est un peu déchirer; 3 gros cailloux,fall,Emy Serge D.
+1990,7,7,12,079,3,1,        ,        ,7:19,        ,34,-0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,12,080,4,1,        ,        ,8:34,        ,37,-0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,12,081,5,1,        ,        ,9:24,        ,39,0.3,NA,2412,,NA,NA,4 grosses roches dans la poche; le chalut est un peu brisé,fall,Emy Serge D.
+1990,7,7,12,082,6,1,        ,        ,10:52,        ,32,0.1,NA,2412,,NA,NA,3 gros cailloux dans la poche; le chalut est un peu brisé mais le trait est bon,fall,Emy Serge D.
+1990,7,7,PE,083,7,1,        ,        ,12:45,        ,35,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,7,PE,084,8,0,        ,        ,13:29,        ,32,0.3,NA,NA,,NA,NA,3 énormes cailloux dans la poche.  Impossible de le monter a bord; on la soulever a coté du bateau.  Le chalut est en miette.,fall,Emy Serge D.
+1990,7,7,PE,085,9,1,        ,        ,17:14,        ,30,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,8,12,091,1,0,        ,        ,6:13,        ,37,-0.6,NA,NA,,NA,NA,Seulement dragué deux minutes; le chalut a accroché quelque chose.  5 a 6 roches dans la poche.,fall,Emy Serge D.
+1990,7,8,12,092,2,1,        ,        ,6:58,        ,36,-0.4,NA,2412,,NA,NA,Le height sensor n'indique pas les données espérés.,fall,Emy Serge D.
+1990,7,8,12,093,3,1,        ,        ,9:33,        ,33,-0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,8,12,094,4,0,        ,        ,10:39,        ,34,0.5,NA,NA,,NA,NA,le chalut a accroché une grosse roche platte ou une trappe; le chalut est déchirer.,fall,Emy Serge D.
+1990,7,8,12,095,5,0,        ,        ,11:30,        ,34,0.5,NA,NA,,NA,NA,roche dans la poche; poche déchirée,fall,Emy Serge D.
+1990,7,8,12,096,6,1,        ,        ,NA,        ,32,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,8,PE,097,7,1,        ,        ,12:19,        ,32,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,8,PE,098,8,0,        ,        ,14:38,        ,33,1.1,NA,NA,,NA,NA,4 grosses pieres de tombe; le chalut est completement brisé.,fall,Emy Serge D.
+1990,7,23,12,099,1,1,        ,        ,6:50,        ,35,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,23,12,100,2,1,        ,        ,9:25,        ,44,0.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,23,12,101,3,1,        ,        ,10:55,        ,NA,NA,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,23,12,102,4,0,        ,        ,12:45,        ,40,0.3,NA,NA,,NA,NA,Chalut completement endommagé; il faut le changé.,fall,Emy Serge D.
+1990,7,23,12,103,5,1,        ,        ,13:56,        ,42,1.1,NA,2412,,NA,NA,fond très rocheux; il faut levé apres 4 minutes.  3 roche 60 cm,fall,Emy Serge D.
+1990,7,23,12,104,6,1,        ,        ,14:45,        ,44,0.4,NA,2412,,NA,NA,Une porte a accroché après 3 minutes; il faut remonter le chalut,fall,Emy Serge D.
+1990,7,23,12,105,7,1,        ,        ,13:10,        ,44,0.4,NA,2412,,NA,NA,Une porte a accroché après 3 minutes; il faut remonter le chalut,fall,Emy Serge D.
+1990,7,23,12,106,8,1,        ,        ,16:30,        ,47,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,23,12,107,9,1,        ,        ,17:30,        ,45,0.3,NA,2412,,NA,NA,10 cailloux 20 cm diametre,fall,Emy Serge D.
+1990,7,24,12,108,1,1,        ,        ,8:10,        ,51,0.5,NA,2412,,NA,NA,30 cailloux 20 cm,fall,Emy Serge D.
+1990,7,24,12,109,2,1,        ,        ,9:45,        ,61,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,24,12,110,3,1,        ,        ,11:15,        ,53,0.9,NA,2412,,NA,NA,fond très vaseux avec ophiures; grosse poche,fall,Emy Serge D.
+1990,7,25,12,111,1,0,        ,        ,7:10,        ,31,1.3,NA,NA,,NA,NA,Fond très rought; le chalut est très endommagé,fall,Emy Serge D.
+1990,7,25,12,120,10,1,        ,        ,19:40,        ,55,0.3,NA,2412,,NA,NA,2 roches 20 cm,fall,Emy Serge D.
+1990,7,25,12,121,11,1,        ,        ,NA,        ,45,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,25,12,112,2,1,        ,        ,NA,        ,60,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,25,12,113,3,1,        ,        ,10:00,        ,56,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,25,12,114,4,1,        ,        ,11:30,        ,35,0.1,NA,2412,,NA,NA,fond dur,fall,Emy Serge D.
+1990,7,25,12,115,5,1,        ,        ,13:00,        ,44,0.2,NA,2412,,NA,NA,Fond très dur; 3 roches 40 cm,fall,Emy Serge D.
+1990,7,25,12,116,6,1,        ,        ,14:30,        ,47,1.2,NA,2412,,NA,NA,2 cailloux 80 cm pris a la fin du trait,fall,Emy Serge D.
+1990,7,25,12,117,7,1,        ,        ,15:50,        ,52,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,25,12,118,8,1,        ,        ,17:10,        ,46,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,25,12,119,9,1,        ,        ,18:20,        ,52,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,26,12,122,1,1,        ,        ,7:55,        ,44,0.2,NA,2412,,NA,NA,2 tonnes de cailloux c a d 50 roches entre 30 et 50 cm de diametre,fall,Emy Serge D.
+1990,7,26,12,123,2,1,        ,        ,9:35,        ,62,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,26,12,124,3,1,        ,        ,11:15,        ,63,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,26,12,125,4,0,        ,        ,13:00,        ,41,0.9,NA,NA,,NA,NA,Chalut remonté apres 2 min; fond très rought; 1 gros cailloux,fall,Emy Serge D.
+1990,7,26,12,126,5,1,        ,        ,14:50,        ,44,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,28,12,127,1,1,        ,        ,14:00,        ,52,0.3,NA,2412,,NA,NA,100 roches 5-15 cm et un gros cailloux 1000  lbs accroché a la fin du trait,fall,Emy Serge D.
+1990,7,28,12,128,2,1,        ,        ,15:15,        ,61,0.4,NA,2412,,NA,NA,fond très vaseux(molle),fall,Emy Serge D.
+1990,7,28,12,129,3,1,        ,        ,16:30,        ,46,1.0,NA,2412,,NA,NA,10 petits cailloux 20 cm; 1 cailloux 40 cm et 1 de 80 cm,fall,Emy Serge D.
+1990,7,29,12,130,1,0,        ,        ,7:30,        ,69,0.6,NA,NA,,NA,NA,2 gros cailloux; la poche est toute defaite; il faut reprendre le trait,fall,Emy Serge D.
+1990,7,29,12,131,2,1,        ,        ,9:45,        ,68,0.7,NA,2412,,NA,NA,1 gros cailloux,fall,Emy Serge D.
+1990,7,29,12,132,3,1,        ,        ,11:00,        ,90,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,29,12,133,4,1,        ,        ,NA,        ,84,0.0,NA,2412,,NA,NA,1 cailloux 60 cm,fall,Emy Serge D.
+1990,7,29,12,134,5,0,        ,        ,14:10,        ,68,0.4,NA,NA,,NA,NA,ce carré ne sera pas chaluté cette année puisque l'an passé nous avons essayé a 2deux reprise et ca n'a pas fonctionné aussi.,fall,Emy Serge D.
+1990,7,29,12,135,6,1,        ,        ,16:00,        ,69,-0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,29,12,136,7,1,        ,        ,17:15,        ,82,0.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,29,12,137,8,1,        ,        ,18:00,        ,86,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,30,12,138,1,1,        ,        ,7:05,        ,60,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,30,12,139,2,1,        ,        ,9:00,        ,38,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,30,12,140,3,1,        ,        ,12:15,        ,42,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,30,12,141,4,1,        ,        ,13:10,        ,36,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,7,31,12,142,1,1,        ,        ,7:00,        ,45,0.7,NA,2412,,NA,NA,fond très vaseux avec ophiures; grosse poche.,fall,Emy Serge D.
+1990,7,31,12,143,2,1,        ,        ,8:20,        ,53,0.4,NA,2412,,NA,NA,Fond très vaseux avec ophiures,fall,Emy Serge D.
+1990,7,31,12,144,3,1,        ,        ,10:15,        ,45,4.3,NA,2412,,NA,NA,fond de gravier melanger avec vase,fall,Emy Serge D.
+1990,8,4,12,145,1,1,        ,        ,6:30,        ,45,-1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,4,12,146,2,1,        ,        ,8:08,        ,41,0.6,NA,2412,,NA,NA,Fond très vaseux; vase molle avec ophiures,fall,Emy Serge D.
+1990,8,4,12,147,3,1,        ,        ,9:10,        ,41,0.8,NA,2412,,NA,NA,Vase très molle avec ophiures,fall,Emy Serge D.
+1990,8,4,12,148,4,1,        ,        ,10:15,        ,28,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,4,12,149,5,1,        ,        ,11:30,        ,27,2.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,150,1,1,        ,        ,6:45,        ,44,2.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,159,10,1,        ,        ,19:00,        ,38,0.5,NA,2412,,NA,NA,1 gros cailloux,fall,Emy Serge D.
+1990,8,5,12,151,2,1,        ,        ,8:15,        ,42,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,152,3,1,        ,        ,9:45,        ,45,0.0,NA,2412,,NA,NA,1 cailloux 60 cm,fall,Emy Serge D.
+1990,8,5,12,153,4,1,        ,        ,10:50,        ,45,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,154,5,1,        ,        ,12:30,        ,41,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,155,6,1,        ,        ,13:45,        ,38,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,156,7,1,        ,        ,15:00,        ,41,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,157,8,1,        ,        ,16:30,        ,39,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,5,12,158,9,1,        ,        ,17:45,        ,38,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,160,1,1,        ,        ,6:00,        ,40,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,161,2,1,        ,        ,7:15,        ,40,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,162,3,1,        ,        ,8:30,        ,42,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,163,4,1,        ,        ,11:30,        ,35,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,164,5,1,        ,        ,13:30,        ,33,1.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,165,6,1,        ,        ,14:30,        ,41,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,166,7,1,        ,        ,16:30,        ,41,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,167,8,1,        ,        ,18:15,        ,41,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,6,12,168,9,1,        ,        ,19:45,        ,34,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,169,1,1,        ,        ,6:00,        ,33,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,170,2,1,        ,        ,8:00,        ,33,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,171,3,1,        ,        ,9:00,        ,40,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,172,4,1,        ,        ,10:30,        ,36,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,173,5,1,        ,        ,12:40,        ,32,1.0,NA,2412,,NA,NA,3 cailloux 20 cm,fall,Emy Serge D.
+1990,8,7,12,174,6,1,        ,        ,13:30,        ,37,0.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,175,7,1,        ,        ,16:20,        ,35,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,176,8,1,        ,        ,17:15,        ,33,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,7,12,177,9,1,        ,        ,18:30,        ,28,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,8,12,178,1,1,        ,        ,6:00,        ,48,-0.1,NA,2412,,NA,NA,courant tres fort,fall,Emy Serge D.
+1990,8,8,12,179,2,1,        ,        ,7:00,        ,47,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,8,12,180,3,1,        ,        ,8:45,        ,38,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,8,12,181,4,1,        ,        ,10:00,        ,44,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,8,12,182,5,1,        ,        ,11:00,        ,52,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,8,12,183,6,1,        ,        ,14:00,        ,50,1.2,NA,2412,,NA,NA,Le chalut c'est enroché apres 4 min; on l'a remonté,fall,Emy Serge D.
+1990,8,8,12,184,7,1,        ,        ,15:00,        ,57,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,9,12,185,1,1,        ,        ,7:00,        ,48,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,9,12,186,2,1,        ,        ,8:15,        ,40,1.0,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,9,12,187,3,1,        ,        ,9:45,        ,50,NA,NA,2412,,NA,NA,Batterie du thermometre fini,fall,Emy Serge D.
+1990,8,9,12,188,4,1,        ,        ,10:40,        ,NA,NA,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,189,1,1,        ,        ,6:45,        ,34,1.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,198,10,1,        ,        ,16:40,        ,36,1.5,NA,2412,,NA,NA,1 caillou 30 cm de diamètre,fall,Emy Serge D.
+1990,8,16,12,199,11,0,        ,        ,17:45,        ,37,1.6,NA,NA,,NA,NA,Gros cailloux; la poche du chalut a été ouvert a coté du bateau.  Chalut toute déchiré.,fall,Emy Serge D.
+1990,8,16,12,200,12,1,        ,        ,19:10,        ,38,1.7,NA,2412,,NA,NA,Accroché avant la fin du trait.  Trait bon,fall,Emy Serge D.
+1990,8,16,12,201,13,1,        ,        ,20:05,        ,40,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,190,2,1,        ,        ,8:05,        ,33,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,191,3,1,        ,        ,8:50,        ,31,2.0,NA,2412,,NA,NA,Beaucoup de petit cailloux,fall,Emy Serge D.
+1990,8,16,12,192,4,1,        ,        ,10:20,        ,26,3.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,193,5,1,        ,        ,11:25,        ,21,4.3,NA,2412,,NA,NA,plusieurs petit cailloux 20 à 30 cm de diamètre.,fall,Emy Serge D.
+1990,8,16,12,194,6,1,        ,        ,13:20,        ,29,1.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,16,12,195,7,0,        ,        ,14:10,        ,34,1.7,NA,NA,,NA,NA,Chalut brisé,fall,Emy Serge D.
+1990,8,16,12,196,8,0,        ,        ,14:50,        ,34,1.6,NA,NA,,NA,NA,Brisé le chalut encore,fall,Emy Serge D.
+1990,8,16,12,197,9,1,        ,        ,15:45,        ,34,1.6,NA,2412,,NA,NA,plusieurs gros cailloux(50 cm diametre),fall,Emy Serge D.
+1990,8,17,12,202,1,1,        ,        ,6:00,        ,39,-0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,17,12,203,2,0,        ,        ,7:35,        ,32,0.5,NA,NA,,NA,NA,Chalut brisé; grosse roches plate.  Perdu la peau de la poche.,fall,Emy Serge D.
+1990,8,20,12,204,1,1,        ,        ,13:35,        ,58,0.4,NA,2412,,NA,NA,beaucoup de petit cailloux,fall,Emy Serge D.
+1990,8,20,12,205,2,1,        ,        ,15:15,        ,50,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,20,12,206,3,1,        ,        ,16:25,        ,37,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,20,12,207,4,1,        ,        ,18:00,        ,37,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,20,12,208,5,0,        ,        ,19:05,        ,60,0.5,NA,NA,,NA,NA,Changer la position de chalutage d'environ ¼ de mile pour éviter un autre bateau qui fait du chalutage a la position indiquer sur la carte.  On a arrêté de chaluter avant parcque ca accrochait.,fall,Emy Serge D.
+1990,8,20,12,209,6,1,        ,        ,19:25,        ,58,0.5,NA,2412,,NA,NA,2 gros cailloux; le coup est bon,fall,Emy Serge D.
+1990,8,20,12,210,7,1,        ,        ,20:30,        ,42,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,211,1,1,        ,        ,6:00,        ,39,0.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,212,2,1,        ,        ,7:15,        ,47,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,213,3,1,        ,        ,8:20,        ,78,-0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,214,4,1,        ,        ,10:00,        ,40,1.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,215,5,1,        ,        ,11:40,        ,37,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,216,6,0,        ,        ,13:05,        ,36,1.2,NA,NA,,NA,NA,un caillou de 40 a 50 cm de diamètre; chalut brisé d'un bout à l'autre ,fall,Emy Serge D.
+1990,8,21,12,217,7,0,        ,        ,14:10,        ,39,1.2,NA,NA,,NA,NA,accroché avant la fin du coup de chalut a 3 min 30 sec.  Calut brisé,fall,Emy Serge D.
+1990,8,21,12,218,8,1,        ,        ,14:35,        ,38,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,21,12,219,9,1,        ,        ,19:05,        ,44,NA,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,22,12,220,1,0,        ,        ,6:45,        ,28,1.9,NA,NA,,NA,NA,Poche du chalut brisé.  Le height sensor est déchargé.,fall,Emy Serge D.
+1990,8,22,12,221,2,0,        ,        ,9:25,        ,27,2.0,NA,NA,,NA,NA,Chalut déchiré.  Il y avait un gros cailloux de 1 mètre de diamètre qui a été jeté a l'exterieur de la lisse.,fall,Emy Serge D.
+1990,8,23,PE,222,1,1,        ,        ,6:40,        ,32,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,23,PE,231,10,1,        ,        ,17:45,        ,32,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,23,PE,232,11,1,        ,        ,18:30,        ,30,1.1,NA,2412,,NA,NA,10 gros cailloux; coup est bon; chalut pas brisé.,fall,Emy Serge D.
+1990,8,23,PE,233,12,0,        ,        ,19:45,        ,26,2.1,NA,NA,,NA,NA,Chalut déchiré au complet.  On doit reprendre le coup de chalut.,fall,Emy Serge D.
+1990,8,23,PE,223,2,0,        ,        ,7:40,        ,31,0.7,NA,NA,,NA,NA,Chalut brisé; le coup doit être repris.,fall,Emy Serge D.
+1990,8,23,PE,224,3,0,        ,        ,8:25,        ,30,1.7,NA,NA,,NA,NA,Chalut brisé a nouveau.  Plusieurs gros cailloux (50-80 cm),fall,Emy Serge D.
+1990,8,23,PE,225,4,0,        ,        ,NA,        ,33,0.7,NA,NA,,NA,NA,Chalut déchiré.  On doit reprendre le coup.,fall,Emy Serge D.
+1990,8,23,PE,226,5,1,        ,        ,10:10,        ,34,1.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,23,PE,227,6,0,        ,        ,11:00,        ,28,1.2,NA,NA,,NA,NA,Chalut déchiré a plusieurs endroit.  On doit reprendre le coup.,fall,Emy Serge D.
+1990,8,23,PE,228,7,0,        ,        ,13:45,        ,30,0.2,NA,NA,,NA,NA,Chalut encore déchiré.,fall,Emy Serge D.
+1990,8,23,PE,229,8,0,        ,        ,15:00,        ,30,1.7,NA,NA,,NA,NA,Chalut encore déchiré  Il y avait un gros cailloux encore.,fall,Emy Serge D.
+1990,8,23,PE,230,9,0,        ,        ,17:25,        ,32,1.5,NA,NA,,NA,NA,Accroché avant la fin du 5 min.  Chaluter pendant 3 min.,fall,Emy Serge D.
+1990,8,24,12,234,1,1,        ,        ,9:25,        ,35,1.5,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,24,12,235,2,0,        ,        ,10:55,        ,34,1.6,NA,NA,,NA,NA,3 gros cailloux; un aile du chalut est toute brisé.,fall,Emy Serge D.
+1990,8,31,12,236,1,1,        ,        ,6:45,        ,41,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,245,10,1,        ,        ,19:30,        ,36,0.4,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,246,11,1,        ,        ,20:30,        ,NA,NA,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,PE,247,12,1,        ,        ,22:15,        ,33,-0.1,NA,2412,,NA,NA,20 cailloux 15 cm,fall,Emy Serge D.
+1990,8,31,PE,248,13,1,        ,        ,23:30,        ,32,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,237,2,1,        ,        ,8:45,        ,35,0.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,238,3,1,        ,        ,9:30,        ,41,0.3,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,239,4,1,        ,        ,10:30,        ,41,0.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,240,5,1,        ,        ,13:15,        ,46,1.2,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,241,6,1,        ,        ,13:30,        ,48,1.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,242,7,1,        ,        ,14:30,        ,36,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,243,8,1,        ,        ,16:30,        ,33,1.7,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,8,31,12,244,9,1,        ,        ,18:15,        ,36,0.9,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,9,1,PE,249,1,1,        ,        ,0:30,        ,30,0.8,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,9,1,PE,250,2,1,        ,        ,1:30,        ,34,0.6,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,9,1,PE,251,3,1,        ,        ,2:00,        ,34,0.1,NA,2412,,NA,NA,,fall,Emy Serge D.
+1990,10,5,12,252,2,0,        ,        ,NA,        ,60,0.7,NA,NA,,NA,NA,on a du jeter la poche a coté du bateau car elle pesait trop pour l'embarquer. 2 énormes cailloux,fall,Emy Serge D.
+1990,10,5,12,253,5,0,        ,        ,NA,        ,58,-0.1,NA,NA,,NA,NA,On pense que le chalut n'a pas dragué sur le fond pour les 5 minutes réglementaire.  On va recommencer le trait en donnant plus de câble.,fall,Emy Serge D.
+1990,10,5,12,254,8,0,        ,        ,NA,        ,76,0.3,NA,NA,,NA,NA,La poche est rempli de roche; il faut la déchirée car c'est impossible de la monter a bord.,fall,Emy Serge D.
+1990,10,8,PE,255,10,0,        ,        ,NA,        ,50,0.2,NA,NA,,NA,NA,Le trait n'est pas bon; la poche est déchirée(roches),fall,Emy Serge D.
+1990,9,12,12,256,1,1,,,8:47,,64,0.1,,,,,,plusieurs roches,,
+1990,9,12,12,257,2,1,,,9:31,,68,-0.1,,,,,,,,
+1990,9,12,12,258,3,1,,,10:32,,64,-0.1,,,,,,,,
+1990,9,12,12,259,4,1,,,11:15,,70,0.0,,,,,,1 roche (50lbs),,
+1990,9,12,12,260,5,1,,,12:13,,88,-0.1,,,,,,,,
+1990,9,12,12,261,6,1,,,13:26,,95,0.3,,,,,,1 grosse roche,,
+1990,9,12,12,262,7,1,,,14:31,,98,0.4,,,,,,,,
+1990,9,12,12,263,8,1,,,15:35,,100,0.9,,,,,,,,
+1990,9,12,12,264,9,1,,,16:18,,65,0.8,,,,,,,,
+1990,10,5,12,265,1,1,,,NA,,80,-0.1,,,,,,,,
+1990,10,5,12,266,3,1,,,NA,,66,0.0,,,,,,,,
+1990,10,5,12,267,4,1,,,NA,,63,0.5,,,,,,Une grosse poche pleine de pétoncle d'islande,,
+1990,10,5,12,268,6,1,,,NA,,88,0.1,,,,,,,,
+1990,10,5,12,269,7,1,,,NA,,106,0.1,,,,,,,,
+1990,10,6,12,270,1,1,,,NA,,88,0.2,,,,,,beaucoup de petite roche.,,
+1990,10,7,12,271,1,1,,,NA,,105,NA,,,,,,Trop de courant pour la température.,,
+1990,10,7,12,272,2,1,,,NA,,98,NA,,,,,,Trop de courant pour la température.,,
+1990,10,7,12,273,3,1,,,NA,,68,NA,,,,,,Trop de courant pour la température.,,
+1990,10,7,12,274,4,1,,,NA,,121,NA,,,,,,Trop de courant pour la température.,,
+1990,10,8,12,275,1,1,,,NA,,109,1.2,,,,,,,,
+1990,10,8,12,276,2,1,,,NA,,121,1.7,,,,,,,,
+1990,10,8,12,277,3,1,,,NA,,125,1.2,,,,,,,,
+1990,10,8,12,278,4,1,,,NA,,120,NA,,,,,,Trop de courant pour la température,,
+1990,10,8,12,279,5,1,,,NA,,107,NA,,,,,,Trop de courant pour la température,,
+1990,10,8,12,280,6,1,,,NA,,84,1.3,,,,,,,,
+1990,10,8,12,281,7,1,,,NA,,75,1.2,,,,,,,,
+1990,10,8,12,282,8,1,,,NA,,73,0.3,,,,,,,,
+1990,10,8,12,283,9,1,,,NA,,80,0.2,,,,,,,,
+1990,10,8,12,284,11,1,,,NA,,110,0.1,,,,,,,,
+1990,10,8,12,285,12,1,,,NA,,130,-0.1,,,,,,Comparaison avec Opilio,,
+1990,7,17,12,286,1,1,,,8:39,,45,NA,,,,,,Comparaison avec Opilio; Vaseux,,
+1990,7,17,12,287,2,1,,,9:57,,44,NA,,,,,,Comparaison avec Opilio; vaseux,,
+1990,7,17,12,288,3,1,,,10:57,,46,NA,,,,,,Comparaison avec Opilio; vaseux,,
+1990,7,17,12,289,4,1,,,12:08,,43,NA,,,,,,Comparaison avec Opilio,,
+1990,7,17,12,290,5,1,,,13:37,,44,NA,,,,,,Comparaison avec Opilio; vaseux,,
+1990,7,17,12,291,6,1,,,14:53,,47,NA,,,,,,Comparaison avec Opilio; vaseux,,
+1990,7,17,12,292,7,1,,,15:53,,47,NA,,,,,,Comparaison avec Opilio; moins vaseux,,
+1990,7,17,12,293,8,1,,,17:02,,45,NA,,,,,,Comparaison avec Opilio,,
+1990,7,17,12,294,9,1,,,18:45,,46,NA,,,,,,Comparaison avec Opilio,,
+1990,7,17,12,295,10,1,,,19:27,,47,NA,,,,,,Comparaison avec Opilio,,
