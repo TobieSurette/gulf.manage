@@ -120,6 +120,7 @@ x$species.logbook[x$species.logbook == "poisson alligator"] <- "alligatorfish"
 x$species.logbook[x$species.logbook == "chaboisseau bronze"] <- "shorthorn sculpin"
 x$species.logbook[x$species.logbook == "chien de mer"] <- "dogfish"
 x$species.logbook[x$species.logbook == "lompenie"] <- "eelblenny"
+
 # Crustaceans:
 x$species.logbook[x$species.logbook == "bernard l'hermite"] <- "hermit crab"
 x$species.logbook[grep("homard", x$species.logbook)] <- "American lobster"
@@ -136,8 +137,11 @@ x$species.logbook[x$species.logbook == "buccin"] <- "whelk"
 x$species.logbook[x$species.logbook == "oeuf de buccin"] <- "whelk eggs" 
 x$species.logbook[x$species.logbook == "pieuvre"] <- "octopus"
 x$species.logbook[x$species.logbook == "calmar"] <- "squid"
+"palourde"
 
 # Miscellaneous invertebrates:
+"algue"
+"anemone" 
 x$species.logbook[x$species.logbook == "etoile"] <- "starfish"
 x$species.logbook[x$species.logbook == "holothurie"] <- "sea cucumber"
 x$species.logbook[x$species.logbook == "concombre"] <- "sea cucumber"
