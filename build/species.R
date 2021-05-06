@@ -39,6 +39,7 @@ v$english <- gsub("unseparated", "unsp.", v$english)
 v$english <- gsub("brill[/]windowpane", "windowpane", v$english)
 v$english <- gsub("hyas coarctatus", "Lesser toad crab", v$english)
 v$english <- gsub("snow crab [(]queen[)]", "snow crab", v$english)
+v$english <- gsub("4-line snake blenny", "fourline snakeblenny", v$english)
 v$english[v$code == 62] <- "Gaspereau"
 v$english[v$code == 2527] <- "Greater toad crab"
 

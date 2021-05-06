@@ -15,7 +15,7 @@ rep <- function(x, y, and = TRUE){
    return(ix)
 }
 
-# Load data:
+# Load raw data:
 files <- locate(file = c(year, "cat", "csv"))
 x <- read.csv(files, header = TRUE)
 names(x) <- tolower(names(x))
