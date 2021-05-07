@@ -4,7 +4,7 @@ year <- 1988  # Survey year.
 
 # Extract sampler and coordinate data from biological data:
 files <- locate(file = paste0("GCR", substr(year, 3,4)))
-b <- read.scsbio(files, drop = FALSE, verbose = TRUE)
+b <- read.scsbio(files, drop = TRUE, verbose = TRUE)
 
 # Process numerical codes:
 b$eggs.remaining <- gsub("[*]", "", b$eggs.remaining)
