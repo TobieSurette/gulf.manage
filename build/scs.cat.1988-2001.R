@@ -1,6 +1,6 @@
 library(gulf.data)
 
-year <- 1997  # Survey year
+year <- 1998  # Survey year
 
 # Function to find multiple keywords at a ime:
 rep <- function(x, y, and = TRUE){
@@ -25,19 +25,29 @@ names(x) <- gsub("towid", "tow.id", names(x))
 names(x) <- gsub("numbercaught", "number.caught", names(x))
 names(x) <- gsub("weightcaught", "weight.caught", names(x))
 names(x) <- gsub("species[.]1", "species.logbook", names(x))
+names(x) <- gsub("species_bb", "species.logbook", names(x))
 
 # French characters:
-x$species.logbook <- gsub("\x82", "e", x$species.logbook)
-x$species.logbook <- gsub("<82>", "e", x$species.logbook)
-x$species.logbook <- gsub("\x8a", "e", x$species.logbook) 
-x$species.logbook <- gsub("\x8e", "e", x$species.logbook)  
-x$species.logbook <- gsub("\x8f", "e", x$species.logbook)  
-x$species.logbook <- gsub("\xe9", "e", x$species.logbook)  
-x$species.logbook <- gsub("\xc9", "e", x$species.logbook)  
-x$species.logbook <- gsub("\x9c", "oe", x$species.logbook)  
-x$species.logbook <- gsub("\xe8", "e", x$species.logbook)   
-x$species.logbook <- gsub("[_œ]ufs", "oeufs", x$species.logbook) 
-x$species.logbook <- gsub("[éè]", "e", x$species.logbook)
+unaccent <- function(x){
+   x <- gsub("\x82", "e", x)
+   x <- gsub("<82>", "e", x)
+   x <- gsub("\x8a", "e", x) 
+   x <- gsub("\x8e", "e", x)  
+   x <- gsub("\x8f", "e", x)  
+   x <- gsub("\xe9", "e", x)  
+   x <- gsub("\xc9", "e", x)  
+   x <- gsub("\x9c", "oe", x) 
+   x <- gsub("\xe8", "e", x)   
+   x <- gsub("_œ", "oe", x) 
+   x <- gsub("œ", "oe", x)
+   x <- gsub("\xcf", "oe", x)  
+   x <- gsub("[éè]", "e", x)
+   return(x)
+}
+
+# Remove odd characters:
+x$species.logbook <- unaccent(x$species.logbook)
+x$comment <- unaccent(x$comment)
 
 # Lowercase:
 x$species.logbook <- tolower(x$species.logbook)
@@ -70,13 +80,16 @@ x$species.logbook <- gsub("ar[e]*a[n]*e[n]*u[s]*", "araneus", x$species.logbook)
 x$species.logbook <- gsub("areanu[s]*", "araneus", x$species.logbook)   
 
 x$species.logbook <- gsub("bar[l]*b[o]*u", "barbu", x$species.logbook) 
+
 x$species.logbook <- gsub("blenni[e]*", "blenny", x$species.logbook) 
 x$species.logbook <- gsub("bigorneaux", "bigorneau", x$species.logbook)  
 x$species.logbook <- gsub("ca[n]+adie[n]+e", "canadienne", x$species.logbook) 
 x$species.logbook <- gsub("caod", "cod", x$species.logbook) 
 x$species.logbook <- gsub("cock[l]*e[r]*", "cockle", x$species.logbook) 
 x$species.logbook[grep("co[m]co[nm]bre", x$species.logbook) ] <- "concombre"
-x$species.logbook <- gsub("coarctatu$", "coarctatus", x$species.logbook) 
+x$species.logbook <- gsub("coarcta[ct]u$", "coarctatus", x$species.logbook) 
+
+x$species.logbook <- gsub("centiped$", "centipede", x$species.logbook) 
 
 x$species.logbook <- gsub("dollar[ds]*", "dollar", x$species.logbook)
 x$species.logbook <- gsub("etoi[l]+e", "etoile", x$species.logbook)  
@@ -88,35 +101,69 @@ x$species.logbook <- gsub("h[ae][r]+[ie]ng", "herring", x$species.logbook)
 x$species.logbook <- gsub("haddeck", "haddock", x$species.logbook) 
 x$species.logbook <- gsub("h[eo]lot[h]*urie", "holothurie", x$species.logbook) 
 x$species.logbook <- gsub("hermit[e]*[ ]+crab", "hermit crab", x$species.logbook)  
+x$species.logbook[rep(c("hermit", "crab"), x$species.logbook)] <- "hermit crab"  
 
 x$species.logbook <- gsub("gelatinou ", "gelatinous ", x$species.logbook)  
 x$species.logbook[grep("laminaire", x$species.logbook) ] <- "laminaria"
 x$species.logbook <- gsub("l[a]mp[eo]nie", "lompenie", x$species.logbook) 
-x$species.logbook <- gsub("pa[l]+ourde", "palourde", x$species.logbook)  
+
+x$species.logbook <- gsub("nerei[s]*[ ]+viren[s]*", "nereis virens", x$species.logbook) 
+
+x$species.logbook <- gsub("pa[l]+[ou]+rde", "palourde", x$species.logbook)  
 x$species.logbook <- gsub("potato.", "potato", x$species.logbook) 
 x$species.logbook <- gsub("pandalu$", "pandalus", x$species.logbook)  
 x$species.logbook <- gsub("p[ao]lype", "polyp", x$species.logbook)
 x$species.logbook <- gsub("^blie", "plie", x$species.logbook)
 
-x$species.logbook[x$species.logbook == "pep"]   <- "pepin"
-x$species.logbook[x$species.logbook == "ophiu"] <- "ophiure"  
+x$species.logbook <- gsub("skete egg", "skate egg", x$species.logbook)
 
+x$species.logbook <- gsub("serpen ", "serpent ", x$species.logbook)
+x$species.logbook <- gsub("souri ", "souris ", x$species.logbook)
+x$species.logbook <- gsub("morue thoma ", "morue thomas", x$species.logbook)
+x$species.logbook <- gsub("morue thoma$", "morue thomas", x$species.logbook)
+
+x$species.logbook[x$species.logbook == "pep"]   <- "pepin"
+x$species.logbook[x$species.logbook %in% c("oursin mou", "ousin", "oursin etoile")]   <- "oursin"
+
+x$species.logbook[deblank(x$species.logbook) == "pou"]   <- "puce de mer"
+
+x$species.logbook[x$species.logbook == "crev"]  <- "crevette"
+x$species.logbook[x$species.logbook %in% c("mor", "moru")]  <- "morue"
+x$species.logbook[x$species.logbook == "barb"]  <- "barbu"
+x$species.logbook[x$species.logbook == "ophiu"] <- "ophiure"  
+x$species.logbook[x$species.logbook == "squi"]  <- "squid"  
+x$species.logbook[x$species.logbook == "pillot"]  <- "morue pilote"  
+x$species.logbook[x$species.logbook == "anglefin"]  <- "aiglefin"   
+x$species.logbook[x$species.logbook %in% c("our", "sea urchin type b", "sea urch")]  <- "sea urchin"  
+
+x$species.logbook[x$species.logbook == "pito"] <- "piteau"
 x$species.logbook <- gsub("je[l]+y[ ]+fish", "jellyfish", x$species.logbook)
 x$species.logbook <- gsub("quohag", "quahog", x$species.logbook)   
 x$species.logbook <- gsub("sea[ ]rav[iae]*n", "sea raven", x$species.logbook) 
  
 x$species.logbook <- gsub("s[ao]l[ao]ster[e]*", "solaster", x$species.logbook) 
+x$species.logbook <- gsub("spinny", "spiny", x$species.logbook) 
+
+x$species.logbook <- gsub("cohaugs", "quahog", x$species.logbook)  
+
+
+x$species.logbook <- gsub("sea mouce", "sea mouse", x$species.logbook)  
 x$species.logbook <- gsub(" tigle", " trigle", x$species.logbook) 
 x$species.logbook <- gsub("te[t]+ard", "tetard", x$species.logbook)
+x$species.logbook <- gsub("3 spined", "three-spined", x$species.logbook) 
 x$species.logbook <- gsub("turbo.*", "turbot", x$species.logbook) 
 x$species.logbook <- gsub("yellow tail", "yellowtail", x$species.logbook) 
+x$species.logbook <- gsub("welk ", "whelk ", x$species.logbook) 
 x$species.logbook[x$species.logbook == "irish mos"] <- "irish moss" 
+
 
 # Save species logbook names:
 x$species.name.logbook <- x$species.logbook
 
 # Keyword substitutions:
+x$species.logbook[intersect(grep("palourde", x$species.logbook), grep("mer", x$species.logbook))]  <- "palourde"
 x$species.logbook[x$species.logbook == "eponges(video)"] <- "eponge"
+x$species.logbook[intersect(grep("etoile", x$species.logbook), grep("brittle", x$species.logbook))] <- "ophiure"
 x$species.logbook[intersect(grep("etoile", x$species.logbook), grep("violet", x$species.logbook))] <- "solaster"
 x$species.logbook[intersect(grep("chaboisse", x$species.logbook), grep("18", x$species.logbook))] <- "longhorn sculpin"
 x$species.logbook[intersect(grep("tetard", x$species.logbook), grep("sculpin", x$species.logbook))] <- "sculpin"
@@ -133,21 +180,30 @@ x$species.logbook[intersect(grep("clam", x$species.logbook), grep("shell", x$spe
 
 x$species.logbook[intersect(rep("poisson", x$species.logbook), rep(c("non", "sorte", "petit"), x$species.logbook, and = FALSE))] <- "poisson"
 x$species.logbook[intersect(grep("bigorneau", x$species.logbook), grep("plusieur", x$species.logbook))] <- "whelk"
-x$species.logbook[intersect(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))] <- "whelk eggs"
-x$species.logbook[intersect(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))] <- "whelk eggs"
-x$species.logbook[intersect(grep("large", x$species.logbook), grep("star", x$species.logbook))]  <- "starfish"
-x$species.logbook[intersect(grep("long", x$species.logbook), grep("sponge", x$species.logbook))] <- "sponge"
-x$species.logbook[x$species.logbook == "lumpsucker"]   <- "spiny lumpsucker"
-x$species.logbook[intersect(grep("poule", x$species.logbook), grep("petite", x$species.logbook))]   <- "spiny lumpsucker"
-x$species.logbook[intersect(grep("merluche", x$species.logbook), grep("morue", x$species.logbook))] <- "gadiformes"
+x$species.logbook[intersect(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))]     <- "whelk eggs"
+x$species.logbook[intersect(grep("bigorneau", x$species.logbook), grep("oeuf", x$species.logbook))]     <- "whelk eggs"
+x$species.logbook[rep(c("whelk", "egg"), x$species.logbook)]                                            <- "whelk eggs"
+
+x$species.logbook[rep(c("skate", "egg"), x$species.logbook)]                                            <- "skate eggs"
+x$species.logbook[rep(c("oeuf", "raie"), x$species.logbook)]                                            <- "skate eggs"
+
+x$species.logbook[intersect(grep("large", x$species.logbook), grep("star", x$species.logbook))]         <- "starfish"
+x$species.logbook[intersect(grep("long", x$species.logbook), grep("sponge", x$species.logbook))]        <- "sponge"
+x$species.logbook[x$species.logbook == "lumpsucker"]                                                    <- "spiny lumpsucker"
+x$species.logbook[intersect(grep("poule", x$species.logbook), grep("petite", x$species.logbook))]       <- "spiny lumpsucker"
+x$species.logbook[intersect(grep("merluche", x$species.logbook), grep("morue", x$species.logbook))]     <- "gadiformes"
 
 
 x$species.logbook[grep("barbu", x$species.logbook)] <- "white hake"
+x$species.logbook[x$species.logbook == "brosme"]    <- "white hake"
 x$species.logbook[grep("plaice", x$species.logbook)] <- "American plaice"
 
 x$species.logbook[setdiff(union(grep("winkle", x$species.logbook), grep("whelk", x$species.logbook)), grep("egg", x$species.logbook))] <- "whelk"
 x$species.logbook[rep("pieuvre", x$species.logbook)] <- "octopus"
-x$species.logbook[rep(c("stimpson", "clam"), x$species.logbook)] <- "Stimpson's surf clam"
+x$species.logbook[rep(c("stimpson", "clam"), x$species.logbook)]   <- "Stimpson's surf clam"
+x$species.logbook[rep(c("stimpson", "mactre"), x$species.logbook)] <- "Stimpson's surf clam"
+
+x$species.logbook[grep("nerei[sd]", x$species.logbook)] <- "nereis"
 
 # Special cases:
 x$species.logbook[x$species.logbook == "flounder(plie blanche)"] <- "American plaice"
@@ -175,7 +231,10 @@ x$species.logbook[grep("terassier", x$species.logbook)] <- "cunner"
 x$species.logbook <- gsub("crapeau", "crapaud", x$species.logbook)
 x$species.logbook <- gsub("pelotte de mer", "sea mouse", x$species.logbook) 
 x$species.logbook[rep(c("eponge", "main"), x$species.logbook)] <- "dead man's fingers"
+x$species.logbook[rep(c("eponge", "mer"), x$species.logbook)] <- "eponge"
+x$species.logbook[rep(c("eponge", "algue"), x$species.logbook)] <- "eponge"
 x$species.logbook[rep(c("gosse", "mer"), x$species.logbook)] <- "sea potato"
+x$species.logbook[x$species.logbook == "patate"]             <- "sea potato"
 
 # Fix spacing issues:
 x$species.logbook <- deblank(x$species.logbook)
@@ -185,24 +244,27 @@ x$species.logbook[intersect(rep("vide", x$species.logbook), rep(c("moule", "clam
 x$species.logbook[grep("coquille", x$species.logbook)] <- "empty shells"
 
 # Fish species:
-x$species.logbook[x$species.logbook == "morue"]                 <- "cod"
-x$species.logbook[x$species.logbook %in% c("pepin", "small green cod", "rock cod", "morue de roche", "black cod")] <- "Greenland cod"
+x$species.logbook[x$species.logbook %in% c("morue", "morue franche", "atlantic cod")]     <- "cod"
+x$species.logbook[x$species.logbook %in% c("tommy cod", "morue thomas")]  <- "tomcod"
+x$species.logbook[x$species.logbook %in% c("morue charboniere", "morue charbonniere", "pepin", "small green cod", "rock cod", "morue de roche", "black cod")] <- "Greenland cod"
 
 x$species.logbook[x$species.logbook == "hake"]                  <- "white hake"
+x$species.logbook[x$species.logbook == "fletan"]                <- "halibut"
 
-x$species.logbook[x$species.logbook %in% c("plie blanche", "plie canadienne", "americain plaice", "plie americaine")] <- "American plaice"
-x$species.logbook[x$species.logbook %in% c("yellowtail", "plie a queue jaune", "limande a queue jaune")] <- "yellowtail flounder"
+x$species.logbook[x$species.logbook %in% c("plie du canada", "plie blanche", "plie canadienne", "americain plaice", "plie americaine")] <- "American plaice"
+x$species.logbook[x$species.logbook %in% c("plie jaune", "yellowtail", "plie a queue jaune", "limande a queue jaune")] <- "yellowtail flounder"
 
 x$species.logbook[x$species.logbook == "plie rouge"]            <- "winter flounder"
 x$species.logbook[x$species.logbook == "plie grise"]            <- "witch flounder"
-x$species.logbook[x$species.logbook == "plie"]                  <- "plaice"
+x$species.logbook[x$species.logbook %in% c("plie", "place")]    <- "plaice"
+
 x$species.logbook[x$species.logbook == "plie grise et blanche"] <- "flatfish"
 x$species.logbook[x$species.logbook == "plie blanche et grise"] <- "flatfish"
 x$species.logbook[x$species.logbook == "plie grise canadienne"] <- "flatfish"
 x$species.logbook[x$species.logbook == "fletan du groenland"]   <- "turbot"
 x$species.logbook[x$species.logbook == "small flounder"]        <- "flounder"
 
-x$species.logbook[x$species.logbook %in% c("poisson rouge", "red fish", "sebaste")] <- "redfish"
+x$species.logbook[x$species.logbook %in% c("ocean perch", "poisson rouge", "red fish", "sebaste")] <- "redfish"
 x$species.logbook[which(x$date == "1994-08-24" & x$species.logbook == "red")]       <- "redfish"
 x$species.logbook[x$species.logbook %in% c("poisson alligator", "alligator fish")]  <- "alligatorfish"
 
@@ -210,12 +272,13 @@ x$species.logbook[x$species.logbook == "crapet de mer"]         <- "crapaud de m
 x$species.logbook[x$species.logbook == "goberge"]               <- "pollock"
 x$species.logbook[x$species.logbook == "poisson"]               <- "fish"
 x$species.logbook[x$species.logbook == "quelque poisson"]       <- "fish"
+x$species.logbook[x$species.logbook == "aiglefin"]              <- "haddock"
 
 x$species.logbook[x$species.logbook == "capelan"]               <- "capelin"
 x$species.logbook[x$species.logbook == "caplan"]                <- "capelin"
-x$species.logbook[x$species.logbook == "truite de mer"]         <- "salmon" 
+x$species.logbook[x$species.logbook %in% c("sea trout", "truite d'eau salee", "truite de mer")] <- "salmon" 
 x$species.logbook[x$species.logbook == "maquereau"]             <- "mackerel"
-x$species.logbook[x$species.logbook == "eperlan"]               <- "rainbow smelt"
+x$species.logbook[x$species.logbook %in% c("smelt", "eperlan")] <- "rainbow smelt"
 x$species.logbook[x$species.logbook == "faux trigle"]           <- "mailed sculpin"
 x$species.logbook[x$species.logbook == "agone"]                 <- "sea poacher"
 
@@ -225,12 +288,14 @@ x$species.logbook[x$species.logbook == "lump fish"]             <- "Atlantic lum
 x$species.logbook[x$species.logbook == "loup atlantique"]       <- "Atlantic wolffish"
 x$species.logbook[x$species.logbook %in% c("wolf", "loup de mer")] <- "wolffish"
 
-x$species.logbook[x$species.logbook == "diable de mer"]         <- "monkfish"
+x$species.logbook[x$species.logbook %in% c("baudroie", "baudroie d'amerique", "diable de mer")] <- "monkfish"
 x$species.logbook[x$species.logbook == "loche"]                 <- "ocean pout"
 x$species.logbook[x$species.logbook == "small & slim eelpout"]  <- "eelpout"
 x$species.logbook[x$species.logbook == "lompenie"]              <- "eelblenny"
 
 x$species.logbook[x$species.logbook == "snakeblenny"]           <- "snake blenny" 
+x$species.logbook[rep("serpent blenny", x$species.logbook)]     <- "snake blenny"
+
 x$species.logbook[x$species.logbook %in% c("sea snail")]        <- "seasnail"
 x$species.logbook[x$species.logbook == "chaboisseau bronze"]     <- "shorthorn sculpin"
 x$species.logbook[x$species.logbook == "chaboisseau a 18 epine"] <- "sculpin"
@@ -245,15 +310,20 @@ x$species.logbook[x$species.logbook == "spine belly lumpsucker"]     <- "spiny l
 x$species.logbook[rep(c("chat de mer"), x$species.logbook)]          <- "fourline snakeblenny"
 x$species.logbook[rep(c("catfish"), x$species.logbook)]              <- "fourline snakeblenny"
 x$species.logbook[rep(c("round nose grenadier"), x$species.logbook)] <- "roundnose grenadier"
+x$species.logbook[rep(c("grenadier", "roche"), x$species.logbook)]   <- "grenadier"
 
 x$species.logbook[x$species.logbook %in% c("raie", "raie blanche", "raie grise")]   <- "skate" 
-x$species.logbook[x$species.logbook %in% c("raie epineuse")]                        <- "thorny skate" 
+x$species.logbook[x$species.logbook %in% c("raie epineuse", "spiny skate")]         <- "thorny skate" 
+x$species.logbook[x$species.logbook %in% c("raie lisse")]                           <- "smooth skate" 
 
 # Crustaceans:
 x$species.logbook[grep("homard", x$species.logbook)]         <- "American lobster"
 x$species.logbook[x$species.logbook == "bernard l'hermite"]  <- "hermit crab"
-x$species.logbook[x$species.logbook == "crabe epineux"]      <- "northern stone crab"
-x$species.logbook[x$species.logbook == "crevette"]           <- "shrimp"
+x$species.logbook[x$species.logbook == "bernard hermit"]     <- "hermit crab"
+x$species.logbook[x$species.logbook == "bernard hermite"]    <- "hermit crab"
+
+x$species.logbook[x$species.logbook %in% c("thorny crab", "crabe epineux")]      <- "northern stone crab"
+x$species.logbook[x$species.logbook %in% c("creve", "crevette blanche", "red shrimp", "pink shrimp", "white shrimp", "crevette")] <- "shrimp"
 x$species.logbook[x$species.logbook %in% c("pandalus", "crevette pandalus")] <- "Pandalus borealis"
 x$species.logbook[x$species.logbook == "casque de police"]   <- "toad crab"
 x$species.logbook[x$species.logbook == "balane"]             <- "barnacle"
@@ -261,7 +331,9 @@ x$species.logbook[x$species.logbook == "hyas aneanu"]        <- "hyas araneus"
 x$species.logbook[x$species.logbook == "araignee de mer"]    <- "sea spider"
 x$species.logbook[x$species.logbook == "ecrevisse"]          <- "crangon"
 
-# Mollusks:
+# Molluscs:
+x$species.logbook[grep("palourde noir", x$species.logbook)]  <- "arctica islandica" 
+x$species.logbook[x$species.logbook %in% c("piteau")] <- "propeller clam"
 x$species.logbook[x$species.logbook == "huitre"]             <- "oyster" 
 x$species.logbook[x$species.logbook == "limace"]             <- "sea slug"
 x$species.logbook[x$species.logbook == "limace arc en ciel"] <- "sea slug"
@@ -282,6 +354,8 @@ x$species.logbook[x$species.logbook == "sea clam"]           <- "clam"
 x$species.logbook[x$species.logbook == "palourde"]           <- "clam"
 x$species.logbook[x$species.logbook == "espece de palourde"] <- "clam"
 x$species.logbook[x$species.logbook == "coque"]              <- "clam" 
+x$species.logbook[x$species.logbook == "bar"]              <- "clam" 
+
 x$species.logbook[x$species.logbook == "oeuf de palourde"]   <- "clam eggs" 
 x$species.logbook[x$species.logbook == "moule noir"]         <- "mussel"
 x$species.logbook[x$species.logbook == "moule"]              <- "mussel"
@@ -290,9 +364,9 @@ x$species.logbook[rep(c("ecaille", "peton"), x$species.logbook)] <- "empty shell
 x$species.logbook[x$species.logbook %in% c("snail")]             <- "snail"
 
 # Miscellaneous invertebrates:
-x$species.logbook[x$species.logbook %in% c("pou de mer", "puce de mer", "puceron")] <- "amphipod"
+x$species.logbook[x$species.logbook %in% c("pou de mer", "poux de mer", "puce de mer", "puceron")] <- "amphipod"
 
-x$species.logbook[x$species.logbook %in% c("soleil de mer")] <- "jellyfish"  
+x$species.logbook[x$species.logbook %in% c("poisson du soleil", "meduse", "poisson de soleil", "soleil de mer")] <- "jellyfish"  
 x$species.logbook[x$species.logbook == "sponge"]             <- "sea sponge" 
 x$species.logbook[rep("sea star", x$species.logbook)]        <- "starfish"
 x$species.logbook[x$species.logbook %in% c("sun star", "solaster", "etoile solaster")]  <- "sunstar" 
@@ -303,7 +377,7 @@ x$species.logbook[x$species.logbook %in% c("dollar", "dollar de mer")] <- "sand 
 x$species.logbook[x$species.logbook == "etoile"]             <- "starfish"
 x$species.logbook[x$species.logbook == "holothurie"]         <- "sea cucumber"
 x$species.logbook[x$species.logbook == "concombre de mer"]   <- "sea cucumber"
-x$species.logbook[x$species.logbook == "oursin"]             <- "sea urchin"
+x$species.logbook[x$species.logbook %in%  c("oursin", "oursin vert")]  <- "sea urchin"
 x$species.logbook[x$species.logbook == "oursin de mer"]      <- "sea urchin"
 x$species.logbook[x$species.logbook == "ophiure"]            <- "brittle star"
 x$species.logbook[x$species.logbook == "ophiure de mer"]     <- "brittle star"
@@ -314,10 +388,15 @@ x$species.logbook[x$species.logbook == "etoile eponge"]      <- "sponges and sta
 x$species.logbook[x$species.logbook == "mousse"]             <- "bryozoan" 
 x$species.logbook[grep("balane", x$species.logbook)]         <- "barnacle"  
 x$species.logbook[grep("corail", x$species.logbook)]         <- "coral"  
+x$species.logbook[grep("coraux", x$species.logbook)]         <- "coral"  
+
 x$species.logbook[grep("patate de mer", x$species.logbook)]  <- "sea potato"   
+x$species.logbook[x$species.logbook == "patate"]             <- "sea potato"   
+
 x$species.logbook[grep("cocon", x$species.logbook)]          <- "whelk eggs"  
 x$species.logbook[grep("sea mice", x$species.logbook)]       <- "sea mouse"  
-x$species.logbook[x$species.logbook %in% c("ver de mer", "verre de mer")] <- "annelid"  
+x$species.logbook[x$species.logbook %in% c("souris de mer")] <- "sea mouse" 
+x$species.logbook[x$species.logbook %in% c("larve de sangsue", "leech", "sea centipede", "ver", "ver turbicole", "sea worm", "ver de mer", "verre de mer")] <- "annelid"  
 
 # Algae:
 x$species.logbook[x$species.logbook %in% c("algue marine", "algue verte", "algue", "kelp", "seaweed")]  <- "algae" 
@@ -334,12 +413,16 @@ x$species <- NA
 
 # Fish species coding:
 x$species[x$species.logbook == "cod"]                 <- 10 
+x$species[x$species.logbook == "tomcod"]              <- 17
 x$species[x$species.logbook == "haddock"]             <- 11  
 x$species[x$species.logbook == "pollock"]             <- 16 
 x$species[x$species.logbook == "gadiformes"]          <- 18 # "Gadiformes"
+x$species[x$species.logbook == "halibut"]             <- 30
 x$species[x$species.logbook == "Greenland cod"]       <- 118
 x$species[x$species.logbook == "mackerel"]            <- 70
 x$species[x$species.logbook == "flounder"]            <- 49
+
+x$species[x$species.logbook == "skipjack"]            <- 172
 
 x$species[x$species.logbook == "flatfish"]            <- 346 
 x$species[x$species.logbook == "turbot"]              <- 31
@@ -350,19 +433,20 @@ x$species[x$species.logbook == "sea raven"]           <- 320
 x$species[x$species.logbook == "thorny skate"]        <- 201
 x$species[grep("gasp[ea]reau", x$species.logbook)]    <- 62
 
-x$species[grep("redfish", x$species.logbook)]         <- species("redfish")[1]
-x$species[grep("American plaice", x$species.logbook)] <- species("American plaice")[1]
-x$species[grep("winter flounder", x$species.logbook)] <- species("winter flounder")[1]
-x$species[grep("witch flounder", x$species.logbook)]  <- species("witch flounder")[1]
-x$species[grep("yellowtail", x$species.logbook)]      <- species("yellowtail")[1] 
-x$species[grep("white hake", x$species.logbook)]      <- species("white hake")[1] 
-x$species[grep("red hake", x$species.logbook)]        <- species("red hake")[1] 
-x$species[grep("rainbow smelt", x$species.logbook)]   <- species("rainbow smelt")[1] 
-x$species[grep("lumpfish", x$species.logbook)]        <- species("lumpfish")[1]  
-x$species[grep("cunner", x$species.logbook)]          <- species("cunner")[1]  
-x$species[grep("herring", x$species.logbook)]         <- species("herring")[1]  
-x$species[grep("monkfish", x$species.logbook)]        <- species("monkfish")[1]  
+x$species[grep("redfish", x$species.logbook)]         <- 20
+x$species[grep("American plaice", x$species.logbook)] <- 40
+x$species[grep("winter flounder", x$species.logbook)] <- 43
+x$species[grep("witch flounder", x$species.logbook)]  <- 41
+x$species[grep("yellowtail", x$species.logbook)]      <- 42
+x$species[grep("white hake", x$species.logbook)]      <- 12
+x$species[grep("red hake", x$species.logbook)]        <- 13
+x$species[grep("rainbow smelt", x$species.logbook)]   <- 63 
+x$species[grep("lumpfish", x$species.logbook)]        <- 501  
+x$species[grep("cunner", x$species.logbook)]          <- 122
+x$species[grep("herring", x$species.logbook)]         <- 60
+x$species[grep("monkfish", x$species.logbook)]        <- 400
 x$species[x$species.logbook == "skate"]               <- 211 # Skates unsp.
+x$species[x$species.logbook == "smooth skate"]        <- 202 
 x$species[x$species.logbook == "plaice"]              <- 346 # Flatfish unsp. 
 x$species[x$species.logbook == "fish"]                <- 90  # Unsp. fish"
 x$species[x$species.logbook == "sculpin"]             <- 311 # Sculpin unsp."
@@ -376,6 +460,8 @@ x$species[x$species.logbook == "Atlantic wolffish"]   <- 50
 x$species[x$species.logbook == "wolffish"]            <- 59  # "Wolffish, unsp."
 x$species[x$species.logbook == "shorthorn sculpin"]   <- 301
 x$species[x$species.logbook == "spatulate sculpin"]   <- 314    
+x$species[x$species.logbook == "three-spined stickleback"] <- 361
+
 x$species[x$species.logbook == "longhorn sculpin"]    <- 300    
 x$species[x$species.logbook == "ocean pout"]          <- 640                 
 x$species[x$species.logbook == "slender eelblenny"]   <- 631    
@@ -390,11 +476,11 @@ x$species[x$species.logbook == "fourline snakeblenny"]<- 626
 x$species[x$species.logbook == "dusky seasnail"]      <- 512
 x$species[x$species.logbook == "seasnail"]            <- 500 # "Seasnail unsp." 
 x$species[x$species.logbook == "gelatinous seasnail"] <- 505 # "Seasnail, gelatinous" 
-
+x$species[x$species.logbook == "skate eggs"]          <- 1224 
 
 # Crustacean species coding:
 x$species[x$species.logbook == "American lobster"]       <- 2550
-x$species[x$species.logbook == "rock crab"]              <- 2513
+x$species[x$species.logbook %in% c("rock crab", "crabe de roche")] <- 2513
 x$species[grep("hermit crab", x$species.logbook)]        <- 2560
 x$species[x$species.logbook == "hyas"]                   <- 2520
 x$species[x$species.logbook %in% c("tiger shrimp", "shrimp")] <- 2100 
@@ -406,7 +492,9 @@ x$species[x$species.logbook == "Pandalus borealis"]      <- 2210
 x$species[x$species.logbook == "crangon"]                <- 2400 # Crangonidae f.
 
 # Molluscan species coding:
-x$species[x$species.logbook == "annelid"]                <- 3000
+x$species[x$species.logbook == "propeller clam"]         <- 4310 # Clams unsp.
+x$species[x$species.logbook %in% c("couteau", "razor clam")]  <- 4315
+x$species[x$species.logbook == "bar clam"]               <- 4317 # Clams unsp.
 x$species[x$species.logbook == "sea slug"]               <- 4400
 x$species[x$species.logbook == "snail"]                  <- 4200 # "Snails and slugs" 
 x$species[x$species.logbook == "mollusk"]                <- 4000 # "Mollusca p."
@@ -428,6 +516,9 @@ x$species[x$species.logbook == "Stimpson's surf clam"]   <- 4355
 x$species[x$species.logbook == "oyster"]                 <- 4326 # "American cupped oyster"
 
 # Miscellaneous species coding:
+x$species[x$species.logbook == "nematode"]                  <- 7100
+x$species[x$species.logbook %in% c("nereis", "nereis virens")] <- 3130
+x$species[x$species.logbook == "annelid"]                  <- 3000
 x$species[x$species.logbook == "sea potato"]               <- 1823
 x$species[x$species.logbook == "bryozoan"]                 <- 1900
 x$species[x$species.logbook == "sunstar"]                  <- 6121  # Solaster
@@ -508,6 +599,8 @@ if (length(remove) > 0) x <- x[-remove, ]
 # Comment clean-up:
 x$comment <- gsub("^; ", "", x$comment)
 x$comment <- gsub(";[ ]*$", "", x$comment)
+
+x$species.name.logbook <- gulf.utils::deblank(x$species.name.logbook)
 
 # Write data:
 path <- paste0(unlist(strsplit(getwd(), "gulf"))[1], "gulf.data/inst/extdata/")

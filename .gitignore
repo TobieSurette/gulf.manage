@@ -40,3 +40,5 @@ build/.DS_Store
 .Rproj.user/C3D160F8/sources/prop/INDEX
 inst/extdata/.DS_Store
 .Rproj.user/shared/notebooks/paths
+inst/.DS_Store
+.DS_Store

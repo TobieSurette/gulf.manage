@@ -40,6 +40,13 @@ v$english <- gsub("brill[/]windowpane", "windowpane", v$english)
 v$english <- gsub("hyas coarctatus", "Lesser toad crab", v$english)
 v$english <- gsub("snow crab [(]queen[)]", "snow crab", v$english)
 v$english <- gsub("4-line snake blenny", "fourline snakeblenny", v$english)
+v$english <- gsub("Paguroidea f.", "Hermit crabs", v$english)  
+v$english <- gsub("Sea cucumber (unsp.)", "Sea cucumbers", v$english)  
+v$english <- gsub("Bivalvia c.", "Bivalves", v$english)  
+v$english <- gsub("Ocean pout(common)", "Ocean pout", v$english)  
+v$english <- gsub("Asteroidea s.c.", "Starfish", v$english) 
+v$english <- gsub("Mollusca p.", "Molluscs", v$english) 
+
 v$english[v$code == 62] <- "Gaspereau"
 v$english[v$code == 2527] <- "Greater toad crab"
 
