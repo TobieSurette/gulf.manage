@@ -10,6 +10,9 @@ x <- read.csv(locate(file = c("scs.set", "1990", "csv")), header = TRUE)
 # Variable name fix:
 names(x) <- gsub("[.]$", "", names(x))
 
+# Remove accents:
+x$comment <- unaccent(x$comment)
+
 # Add date field:
 x <- cbind(data.frame(date = as.character(date(x)), stringsAsFactors = FALSE), x)
 
@@ -32,11 +35,11 @@ names(y) <- gsub("[.]no", ".number", tolower(names(y)))
 y <- y[c("date", setdiff(names(y),  "date"))]
 
 # Restructure data:
-r <- aggregate(list(loranx.start = y$loranx), by = y[c("date", "tow.number")], function(x) x[1])
-r$loranx.end <- aggregate(list(x = y$loranx), by = y[c("date", "tow.number")], function(x) if (length(x) > 1) return(x[length(x)]) else return(NA))$x
+r <- aggregate(list(loranx.start = y$loranx),   by = y[c("date", "tow.number")], function(x) x[1])
+r$loranx.end   <- aggregate(list(x = y$loranx), by = y[c("date", "tow.number")], function(x) if (length(x) > 1) return(x[length(x)]) else return(NA))$x
 r$lorany.start <- aggregate(list(x = y$lorany), by = y[c("date", "tow.number")], function(x) x[1])$x
-r$lorany.end <- aggregate(list(x = y$lorany), by = y[c("date", "tow.number")], function(x) if (length(x) > 1) return(x[length(x)]) else return(NA))$x
-r$start.time <- aggregate(list(x = y$time), by = y[c("date", "tow.number")], function(x){ t <- x[!is.na(x)]; t <- t[t != ""]; if (length(t) == 0) return("     ") else return(t)})$x
+r$lorany.end   <- aggregate(list(x = y$lorany), by = y[c("date", "tow.number")], function(x) if (length(x) > 1) return(x[length(x)]) else return(NA))$x
+r$start.time   <- aggregate(list(x = y$time),   by = y[c("date", "tow.number")], function(x){ t <- x[!is.na(x)]; t <- t[t != ""]; if (length(t) == 0) return("     ") else return(t)})$x
 
 # Import Loran coordinates:
 ix <- match(x[c("date", "tow.number")], r[c("date", "tow.number")])
@@ -57,33 +60,35 @@ r$sampler <- sampler(r$sampler, project = "scs")
 ix <- match(x[c("date", "tow.number")], r[c("date", "tow.number")])
 x$sampler <- r$sampler[ix]
 x$sampler[is.na(x$sampler)] <- ""
-x$latitude <- r$longitude.start[ix]
+x$latitude   <- r$longitude.start[ix]
 x$longitude  <- r$latitude.start[ix]
+
+# Move odd Loran Z coordinates tow new colummn:
+ix <- which(x$lorany.end > 40000)
+x$lorany.start[ix]
+x$loranz.start <- NA
+x$loranz.start[ix] <- x$lorany.start[ix]
+x$loranz.end <- NA
+x$loranz.end[ix] <- x$lorany.end[ix]
+x$lorany.start[ix] <- x$loranx.start[ix]
+x$lorany.end[ix]   <- x$loranx.end[ix]
+x$loranx.start[ix] <- NA
+x$loranx.end[ix] <- NA
 
 # Test for large differences in coordinates:
 ix <- which((x$loranx.start - x$loranx.end) > 4)
 x[ix, ]
-ix <- which((x$lorany.start - x$lorany.end) > 4)
+ix <- which((x$lorany.start - x$lorany.end) > 10)
+
+vars <- c("date", "tow.number", "lorany.start", "lorany.end", "latitude")
+x[ix, vars]
 
 # Spot coordinate corrections:
-x$loranx.start[which((x$date == "1989-10-09") & (x$tow.number == 1))] <- 14943.4
-x$longitude[which((x$date == "1989-08-27") & (x$tow.number == 3))]    <- 15012.9
-x$longitude[which((x$date == "1989-09-08") & (x$tow.number == 2))]    <- 14785.2
-x$longitude[which((x$date == "1989-09-05") & (x$tow.number == 2))]    <- 14596.3
-x$longitude[which((x$date == "1989-08-23") & (x$tow.number == 2))]    <- 14992.6
-x$loranx.start[which((x$date == "1989-08-21") & (x$tow.number == 2))] <- 15071.9
-x$longitude[which((x$date == "1989-10-26") & (x$tow.number == 2))]    <- 14836.2
-x$loranx.start[which((x$date == "1989-08-18") & (x$tow.number == 5))] <- 15035.3
-x$loranx.start[which((x$date == "1989-08-16") & (x$tow.number == 2))] <- 15127.9
-x$lorany.start[which((x$date == "1989-08-16") & (x$tow.number == 2))] <- 31090.8
-x$lorany.start[which((x$date == "1989-08-16") & (x$tow.number == 3))] <- 31028.7
-x$latitude[which((x$date == "1989-09-08") & (x$tow.number == 2))]     <- 30258.9
-x$latitude[which((x$date == "1989-10-24") & (x$tow.number == 3))]     <- 29731.0
-x$lorany.start[which((x$date == "1989-10-24") & (x$tow.number == 6))] <- 29860.5
-x$lorany.end[which((x$date == "1989-10-29") & (x$tow.number == 4))]   <- 30123.6
-x$loranx.end[which((x$date == "1989-08-16") & (x$tow.number == 3))]   <- 15111.1
-x$loranx.end[which((x$date == "1989-09-06") & (x$tow.number == 4))]   <- 14694.2
-x$loranx.end[which((x$date == "1989-10-18") & (x$tow.number == 3))]   <- 14888.0
+x$loranx.start[which((x$date == "1990-09-12") & (x$tow.number == 3))]  <- 15148.8
+x$loranx.end[which((x$date == "1990-08-04") & (x$tow.number == 4))]    <- 15126.6
+x$lorany.start[which((x$date == "1990-06-27") & (x$tow.number == 10))] <- 29334.3  
+x$lorany.start[which((x$date == "1990-06-29") & (x$tow.number == 8))]  <- 28817.5
+x$lorany.start[which((x$date == "1990-10-08") & (x$tow.number == 2))]  <- 30705.9 
 
 # Substitute start and end coordinates:
 x$longitude.start.logbook[is.na(x$longitude.start.logbook)] <- x$loranx.start[is.na(x$longitude.start.logbook)]
