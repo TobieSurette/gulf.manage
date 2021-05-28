@@ -92,6 +92,16 @@ z <- v[vars]
 z[is.na(z)] <- ""
 v[vars] <- z
 
+# Fix name fields:
+names(v) <- gsub("[.]+", ".", names(v))
+names(v) <- gsub("[.]$", "", names(v))
+
+# Re-order taxonomic fields:
+vars <- c("kingdom", "subkingdom", "infrakingdom", "phylum", "phylum.division.", "subphylum", "subphylum.subdivision.", "infraphylum", 
+          "superclass", "class", "subclass", "infraclass", "subterclass", "superorder", "order", "suborder", "infraorder", "parvorder", 
+          "superfamily", "family", "subfamily", "tribe", "subtribe",  
+          "section", "subsection",  "genus", "subgenus", "species", "subspecies")
+
 # Write:
 path <- gsub("gulf.manage", "gulf.data", getwd())
 path <- paste0(path, "/inst/extdata")
