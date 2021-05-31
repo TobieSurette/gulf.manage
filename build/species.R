@@ -57,7 +57,7 @@ v$latin <- gsub(" +", " ", v$latin)
 
 # Capitalization:
 v$english <- paste0(toupper(substr(v$english,1,1)), substr(v$english,2,nchar(v$english)))
-v$latin <- paste0(toupper(substr(v$latin,1,1)), tolower(substr(v$latin,2,nchar(v$latin))))
+v$latin   <- paste0(toupper(substr(v$latin,1,1)), tolower(substr(v$latin,2,nchar(v$latin))))
 
 # Correct blanks:
 v$english <- deblank(v$english)
@@ -96,11 +96,22 @@ v[vars] <- z
 names(v) <- gsub("[.]+", ".", names(v))
 names(v) <- gsub("[.]$", "", names(v))
 
-# Re-order taxonomic fields:
-vars <- c("kingdom", "subkingdom", "infrakingdom", "phylum", "phylum.division.", "subphylum", "subphylum.subdivision.", "infraphylum", 
+# Combine redundant field names:
+ix <- which(v$"phylum (division)" != "")
+v$phylum[ix] <- v$"phylum (division)"[ix]
+ix <- which(v$"subphylum (subdivision)" != "")
+v$subphylum[ix] <- v$"subphylum (subdivision)"[ix]
+v <- v[, -grep("division", names(v))]
+
+# Re-order table fields:
+vars <- c("code", "english", "latin", "french", "aphia.id", 
+          "kingdom", "subkingdom", "infrakingdom", "phylum", "subphylum", "infraphylum", 
           "superclass", "class", "subclass", "infraclass", "subterclass", "superorder", "order", "suborder", "infraorder", "parvorder", 
           "superfamily", "family", "subfamily", "tribe", "subtribe",  
           "section", "subsection",  "genus", "subgenus", "species", "subspecies")
+
+ix <- match(names(v), vars)
+v <- v[,c(vars[ix], setdiff(names(v), vars[ix]))]
 
 # Write:
 path <- gsub("gulf.manage", "gulf.data", getwd())
