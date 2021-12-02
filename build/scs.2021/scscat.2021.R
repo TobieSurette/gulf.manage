@@ -6,9 +6,9 @@ year <- 2021
 x <- read.csv(paste0("inst/extdata/raw/scs.cat.", year, ".csv"), header = TRUE, stringsAsFactors = FALSE)
 
 names(x) <- tolower(names(x))
-
-# Parse date:
 x$tow.id <- toupper(x$gpnum)
+
+# Parse comments:
 x$comment <- gsub("\n", ", ", x$comment)
 x$comment[x$comment == ", "] <- ""
 
