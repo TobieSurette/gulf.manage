@@ -13,7 +13,7 @@ x$shell.condition <- deblank(gsub("[*]", "", x$shell.condition))
 # Extract time stamp:
 x$time <- unlist(lapply(strsplit(x$timestamp, " "), function(x) x[2]))
 
-x$missing.legs <- apply(x[, c(paste0("l", 1:5), paste0("l", 1:5))], 1, paste0, collapse = "")
+x$missing.legs <- apply(x[, c(paste0("l", 1:5), paste0("r", 1:5))], 1, paste0, collapse = "")
 x$year  <- as.numeric(substr(x$date, 1, 4))
 x$month <- as.numeric(substr(x$date, 6, 7))
 x$day   <- as.numeric(substr(x$date, 9, 10))

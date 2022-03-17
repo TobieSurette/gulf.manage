@@ -1,8 +1,7 @@
 library(gulf.data)
 
-path <- "/Users/crustacean/Desktop/gulf.manage/inst/extdata/scs.2021/"
-x <- read.table(paste0(path, "scs.bio.2021.csv"), header = TRUE, sep =",", stringsAsFactors = FALSE)
-y <- read.table(paste0(path, "scs.bio.2021.experiment.csv"), header = TRUE, sep =",", stringsAsFactors = FALSE)
+x <- read.table("inst/extdata/scs.2021/scs.bio.2021.csv", header = TRUE, sep =",", stringsAsFactors = FALSE)
+y <- read.table("inst/extdata/scs.2021/scs.bio.2021.experiment.csv", header = TRUE, sep =",", stringsAsFactors = FALSE)
 x <- rbind(y, x)
 names(x)          <- gsub("_", ".", tolower(names(x)))
 x$tow.id          <- deblank(toupper(x$gpnumber))
@@ -12,12 +11,12 @@ x$egg.colour      <- as.numeric(gsub("[*]", "", x$egg.color))
 x$eggs.remaining  <- as.numeric(gsub("[*]", "", x$percent.eggs))
 x$gonad.colour    <- as.numeric(gsub("[*]", "", x$gonade))
 x$shell.condition <- deblank(gsub("[*]", "", x$shell.condition))
-x$missing.legs <- apply(x[, c(paste0("l", 1:5), paste0("l", 1:5))], 1, paste0, collapse = "")
+x$missing.legs    <- apply(x[, c(paste0("l", 1:5), paste0("r", 1:5))], 1, paste0, collapse = "")
 
 # Tow ID correction:
 x$tow.id <- gsub("TEST", "XP0", x$tow.id)
 
-# Remove blank entries:
+# Remove blak entries:
 x <- x[x$tow.id != "GP000F", ]
 
 # Define date field:
