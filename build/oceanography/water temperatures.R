@@ -2,14 +2,18 @@ library(gulf.data)
 library(gulf.spatial)
 library(gulf.graphics)
 
-year <- 1998
+year <- 1997
+month <- "Jun"
+
 # Extract NAFO area 4T bounds:
 p <- read.gulf.spatial("nafo")
 p <- p[unlist(lapply(p, function(x) x$label)) == "4T"][[1]]
 p <- as.polygon(p$longitude, p$latitude)
 
 # Read text file:
-file <- paste0(options()$gulf.path$snow.crab$root, "/Databases/Temperatures/TEMP_3D_Sep_", year, ".llv")
+#file <- paste0(options()$gulf.path$snow.crab$root, "/Databases/Temperatures/TEMP_3D_Sep_", year, ".llv")
+file <- paste0("C:/Users/SuretteTJ/Desktop/Joel temperature data/TEMP_3D_", month, "_", year, ".llv")
+
 y <- readLines(file)
 y <- y[-1]
 
@@ -76,6 +80,13 @@ for (i in 1:length(dd)){
 
 # Write to file:
 x <- zz
-save(x, file = paste0("//ent.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/Crab/Databases/Temperatures/water.temperature.september.", year, ".rdata"))
-save(x, file = paste0(gsub("manage", "data", getwd()), "/inst/extdata/water.temperature.september.", year, ".rdata"))
+if (month == "Jun"){
+   save(x, file = paste0("//ent.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/Crab/Databases/Temperatures/water.temperature.june.", year, ".rdata"))
+   save(x, file = paste0(gsub("manage", "data", getwd()), "/inst/extdata/water.temperature.june.", year, ".rdata"))
+}
+if (month == "Sep"){
+   save(x, file = paste0("//ent.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/Crab/Databases/Temperatures/water.temperature.september.", year, ".rdata"))
+   save(x, file = paste0(gsub("manage", "data", getwd()), "/inst/extdata/water.temperature.september.", year, ".rdata"))
+} 
+   
 
