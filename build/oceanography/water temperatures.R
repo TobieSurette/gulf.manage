@@ -2,7 +2,7 @@ library(gulf.data)
 library(gulf.spatial)
 library(gulf.graphics)
 
-year <- 1997
+year <- 2022
 month <- "Jun"
 
 # Extract NAFO area 4T bounds:

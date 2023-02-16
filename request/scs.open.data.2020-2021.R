@@ -2,7 +2,7 @@ library(gulf.data)
 library(gulf.spatial)
 
 # variables:
-years <- 2020:2021
+years <- 2020:2022
 
 # Load tow data:
 x <- read.scsset(years, valid = 1, survey = "regular")
@@ -21,7 +21,7 @@ x$snow.crab.male <- x$m
 x$snow.crab.female <- x$f
 
 # Load by-catch data from the snow crab survey:
-y <- read.scscat(2021, survey = "regular") 
+y <- read.scscat(2022, survey = "regular") 
 v <- read.csv("W:/Crab/Offshore Crab Common/Fishing Year 2021/Trawl Data/South Western Gulf/scs.cat.2021.csv", header = TRUE, stringsAsFactors = FALSE) #getting 2021 another way
 y <- rbind(y, v) #binding 2020 and 2021
 
