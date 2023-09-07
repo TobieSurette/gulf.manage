@@ -102,16 +102,6 @@ x <- x[vars]
 # Remove empty data rows:
 x <- x[x$date != "2020-07-10", ]
 
-# Time corrections:
-x$stop.time.logbook[x$tow.id  == "GP158F"] <- "16:54:13"
-x$start.time.logbook[x$tow.id == "GP055F"] <- "05:40:30"
-x$stop.time.logbook[x$tow.id  == "GP055F"] <- "05:45:30"
-x$stop.time.logbook[x$tow.id  == "GP176F"] <- "15:34:34"
-x$start.time.logbook[x$tow.id == "GP159F"] <- "06:52:49"
-x$stop.time.logbook[x$tow.id  == "GP159F"] <- "06:57:49"
-x$start.time.logbook[x$tow.id == "GP147F"] <- "05:33:46"
-x$stop.time.logbook[x$tow.id  == "GP147F"] <- "05:38:46"
-
 # Standardize time formats:
 x$start.time.logbook <- time(x$start.time.logbook)
 x$stop.time.logbook  <- time(x$stop.time.logbook)
@@ -138,6 +128,7 @@ ix <- match(x$tow.id, t$tow.id)
 x$liftoff.time[!is.na(ix)] <- t$time[ix[!is.na(ix)]]
 ix <- is.na(x$liftoff.time) & x$valid == 1
 x$liftoff.time[ix] <- x$stop.time.logbook[ix]
+x$liftoff.time[is.na(x$liftoff.time)] <- "        "
 
 # Update bottom temperatures using headline Star Oddi files:
 files <- locate.star.oddi(x[i,], location = "headline", position = "center", year = year)
