@@ -25,7 +25,7 @@ x$date  <- unlist(lapply(strsplit(x$date.tow, "-"), function(x) x[1]))
 x$year  <- as.numeric(unlist(lapply(strsplit(x$date, "/"), function(x) x[3])))
 x$month <- as.numeric(unlist(lapply(strsplit(x$date, "/"), function(x) x[1])))
 x$day   <- as.numeric(unlist(lapply(strsplit(x$date, "/"), function(x) x[2])))
-x$date <- as.character(date(year = x$year, month = x$month, day = x$day))
+x$date  <- as.character(date(year = x$year, month = x$month, day = x$day))
    
 # Remove columns:
 remove <- c("gpnumandcrabnum", "date.tow", "gpnumber.clean", "lencw", 
@@ -37,6 +37,16 @@ remove <- c("gpnumandcrabnum", "date.tow", "gpnumber.clean", "lencw",
             names(x)[grep("check", names(x))], names(x)[grep("maturity", names(x))],
             names(x)[grep("trimmed", names(x))])
 x <- x[, !(names(x) %in% remove)]
+
+# Fix mix-ups for snow crab and hyas biological data:
+x$tow.id[x$tow.id == "GP154F"] <- "GP170F"
+x$tow.id[x$tow.id == "GP170FR2"] <- "GP154R2"
+x$tow.id[x$tow.id == "GP287F"] <- "GPXXX"
+x$tow.id[x$tow.id == "GP290F"] <- "GP287F"
+x$tow.id[x$tow.id == "GPXXX"]  <- "GP290F"
+x$tow.id[x$tow.id == "GP006F"] <- "GPXXX"
+x$tow.id[x$tow.id == "GP004F"] <- "GP006F"
+x$tow.id[x$tow.id == "GPXXX"]  <- "GP004F"
 
 # Extract time stamp:
 x$time <- substr(time(unlist(lapply(strsplit(x$timestamp, " "), function(x) x[2]))), 1, 8)
@@ -63,6 +73,7 @@ x$comment <- paste0(toupper(substr(x$comment, 1, 1)), tolower(substr(x$comment, 
 table(unlist((strsplit(x$missing.legs, ""))))
 
 # Check for inconsistencies is sex measurements:
+x$chela.height[which(x$chela.height < 0)] <- NA
 ix <- which(x$sex == 2 & !is.na(x$chela.height))
 x$chela.height[ix] <- NA
 ix <- which((x$sex == 1) & ((!is.na(x$gonad.colour)) | (!is.na(x$egg.colour)) | (!is.na(x$eggs.remaining))))

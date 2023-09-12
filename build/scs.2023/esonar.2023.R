@@ -139,9 +139,16 @@ for (i in 1:length(files)){
    tmp$time <- gsub("Jul", "07", tmp$time)
    tmp$time <- gsub("Aug", "08", tmp$time)
    tmp$time <- gsub("Sep", "09", tmp$time)
-   tmp$date <- unlist(lapply(strsplit(tmp$time, " "), function(x) paste(x[3:1], collapse = "-")))
-   tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
-
+   if (as.numeric(strsplit(tmp$time[1], "[ -]")[[1]][1]) != year){
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[- ]"), function(x) paste(x[3:1], collapse = "-")))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
+   }else{
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[ ]"), function(x) x[1]))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[2]))
+   }
+   ix <- which(nchar(tmp$time) == 5)
+   tmp$time <- paste0(tmp$time, ":00")
+   
    ix <- which((t >= time(tmp[1,])) & (t <= time(tmp[nrow(tmp),])))
    tow.id <- ""
    if (length(ix) == 1) tow.id <- x$tow.id[ix] 
@@ -186,9 +193,17 @@ for (i in 1:length(files)){
    tmp$time <- gsub("Jul", "07", tmp$time)
    tmp$time <- gsub("Aug", "08", tmp$time)
    tmp$time <- gsub("Sep", "09", tmp$time)
-   tmp$date <- unlist(lapply(strsplit(tmp$time, " "), function(x) paste(x[3:1], collapse = "-")))
-   tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
-
+   if (as.numeric(strsplit(tmp$time[1], "[ -]")[[1]][1]) != year){
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[- ]"), function(x) paste(x[3:1], collapse = "-")))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
+   }else{
+      print("problem with time")
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[ ]"), function(x) x[1]))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[2]))
+   }
+   ix <- which(nchar(tmp$time) == 5)
+   tmp$time <- paste0(tmp$time, ":00")
+   
    ix <- which((t >= time(tmp[1,])) & (t <= time(tmp[nrow(tmp),])))
    tow.id <- ""
    if (length(ix) == 1) tow.id <- x$tow.id[ix] 
@@ -235,9 +250,17 @@ for (i in 1:length(files)){
    tmp$time <- gsub("Jul", "07", tmp$time)
    tmp$time <- gsub("Aug", "08", tmp$time)
    tmp$time <- gsub("Sep", "09", tmp$time)
-   tmp$date <- unlist(lapply(strsplit(tmp$time, " "), function(x) paste(x[3:1], collapse = "-")))
-   tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
-
+   if (as.numeric(strsplit(tmp$time[1], "[ -]")[[1]][1]) != year){
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[- ]"), function(x) paste(x[3:1], collapse = "-")))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[4]))
+   }else{
+      print("problem with time")
+      tmp$date <- unlist(lapply(strsplit(tmp$time, "[ ]"), function(x) x[1]))
+      tmp$time <- unlist(lapply(strsplit(tmp$time, " "), function(x) x[2]))
+   }
+   ix <- which(nchar(tmp$time) == 5)
+   tmp$time <- paste0(tmp$time, ":00")
+   
    ix <- which((t >= time(tmp[1,])) & (t <= time(tmp[nrow(tmp),])))
    tow.id <- ""
    if (length(ix) == 1) tow.id <- x$tow.id[ix] 

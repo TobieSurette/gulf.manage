@@ -39,6 +39,17 @@ x$maturity[grep("mat", x$comment)] <- "mature"
 # Spot corrections:
 x$tow.id[which(x$tow.id == "GP044FR180.74")] <- "GP044FR1"
 x$chela.height[which(x$carapace.width >= 35 & x$carapace.width <= 45 & x$chela.height >= 25)] <- NA
+x$carapace.width[which(x$tow.id == "GP173F" & x$crab.number == 1)] <- 82.26
+
+# Fix mix-ups for snow crab and hyas biological data:
+x$tow.id[x$tow.id == "GP154F"] <- "GP170F"
+x$tow.id[x$tow.id == "GP170FR2"] <- "GP154R2"
+x$tow.id[x$tow.id == "GP287F"] <- "GPXXX"
+x$tow.id[x$tow.id == "GP290F"] <- "GP287F"
+x$tow.id[x$tow.id == "GPXXX"]  <- "GP290F"
+x$tow.id[x$tow.id == "GP006F"] <- "GPXXX"
+x$tow.id[x$tow.id == "GP004F"] <- "GP006F"
+x$tow.id[x$tow.id == "GPXXX"]  <- "GP004F"
 
 # Output to gulf data package:
 file <- paste0(gsub("gulf.manage", "gulf.data", getwd(), fixed = TRUE), "/inst/extdata/scs.bio.hyas.", year, ".csv")

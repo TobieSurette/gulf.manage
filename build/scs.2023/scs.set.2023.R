@@ -58,6 +58,18 @@ x$mid.time.logbook[nchar(x$mid.time.logbook) > 8]     <- "        "
 x$stop.time.logbook[nchar(x$stop.time.logbook) > 8]   <- "        "
 x$haul.time <- x$net.end
 
+# Stop time fixes:
+x$stop.time.logbook[x$tow.id == "GP158F"]  <- "16:54:13"
+x$stop.time.logbook[x$tow.id == "GP176F"]  <- "15:34:34"
+x$start.time.logbook[x$tow.id == "GP147F"] <- "05:33:18"
+x$stop.time.logbook[x$tow.id == "GP147F"]  <- "05:40:08"
+x$start.time.logbook[x$tow.id == "GP159F"] <- "06:52:25"
+x$stop.time.logbook[x$tow.id == "GP159F"]  <- "06:58:33"
+x$start.time.logbook[x$tow.id == "GP055F"] <- "05:40:28"
+x$stop.time.logbook[x$tow.id == "GP055F"]  <- "05:46:37"
+x$start.time.logbook[x$tow.id == "GP269F"] <- "19:26:29"
+x$stop.time.logbook[x$tow.id == "GP269F"]  <- "19:40:59"
+
 # Quick coordinate fixes:
 x$gpa.lon.end             <- as.numeric(x$gpa.lon.end)
 x$gpa.lon.start           <- as.numeric(x$gpa.lon.start)
@@ -100,7 +112,7 @@ head(x[setdiff(names(x), vars)])
 x <- x[vars]
 
 # Remove empty data rows:
-x <- x[x$date != "2020-07-10", ]
+x <- x[x$tow.id != "GP000F", ]
 
 # Standardize time formats:
 x$start.time.logbook <- time(x$start.time.logbook)
@@ -109,7 +121,6 @@ x$haul.time <- time(x$haul.time)
 
 # Assign fishing captain:
 x$captain <- "Ghislain Bourgeois"
-#x$captain[(as.POSIXct(x$date) >= as.POSIXct("2022-08-10")) & (as.POSIXct(x$date) <= as.POSIXct("2022-08-17"))] <- "Denis Eloquin"
 
 # Load touchdown times:
 t <- read.csv(paste0(gsub("manage", "data", "C:/Users/SuretteTJ/Desktop/gulf.manage"), "/inst/extdata/scs.event.times.", year, ".csv"))
@@ -131,7 +142,7 @@ x$liftoff.time[ix] <- x$stop.time.logbook[ix]
 x$liftoff.time[is.na(x$liftoff.time)] <- "        "
 
 # Update bottom temperatures using headline Star Oddi files:
-files <- locate.star.oddi(x[i,], location = "headline", position = "center", year = year)
+files <- locate.star.oddi(location = "headline", position = "center", year = year)
 files <- files[grep("center", files)]
 for (i in 1:nrow(x)){
    if (x$valid[i] == 1){
