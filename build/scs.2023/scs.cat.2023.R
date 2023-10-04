@@ -1,11 +1,16 @@
 library(gulf.data)
 
-year <- 2022
+year <- 2023
 
 # Files to treat:
-x <- read.csv(paste0("build/scs.2022/data/scs.cat.", year, ".csv"), header = TRUE, stringsAsFactors = FALSE)
+x <- read.csv(paste0("build/scs.", year, "/data/scs.cat.", year, ".csv"), header = TRUE, stringsAsFactors = FALSE)
 names(x) <- tolower(names(x))
-x$tow.id <- toupper(x$gpnum)
+x$tow.id <- gulf.utils::deblank(toupper(x$gpnum))
+x$tow.id <- gsub("\n", "", x$tow.id)
+
+# Tows with no ID:
+which(x$tow.id == "")
+x <- x[x$tow.id != "", ]
 
 # Parse comments:
 x$comment <- gsub("\n", ", ", x$comment)
@@ -39,15 +44,21 @@ y$presence[is.na(y$presence) & (!is.na(y$weight.caught) | !is.na(y$number.caught
 # Read set of valid tows:
 s <- compress(read.scsset(year = year))
 
+# Spot corrections:
+y$tow.id[y$tow.id == "GP049F"] <- "GP049FR1"
+
 # Check that tow IDs exist:
-index <- match(y$tow.id, s$tow.id)
-y[is.na(index), ]
+ix <- match(y$tow.id, s$tow.id)
+y[is.na(ix), ]
 
 # Check that dates match:
-all(y$month == s$month[index] & y$day == s$day[index])
+all(y$month == s$month[ix] & y$day == s$day[ix])
 
 # Import tow number:
-y$tow.number <- s$tow.number[index]
+y$tow.number <- s$tow.number[ix]
+
+# Check that catches match to a valid tow:
+table(s$valid[ix])
 
 # Re-order columns:
 y <- y[c("date", "tow.number", "tow.id", "species", "number.caught", "weight.caught", "presence", "comment")]
@@ -72,12 +83,14 @@ y$number.caught[which(y$number.caught == 0)] <- NA
 y$weight.caught[which(y$weight.caught == 0)] <- NA
 
 # Check individual species entries:
-i = 3
+i = 24
 species(species[i])
-tmp <- y[y$species == species[i], ]
+tmp <- y[y$species == 40, ]
 tmp$ratio <- round(tmp$weight.caught / tmp$number.caught, 3)
 tmp[order(tmp$ratio), ]
-y[y$tow.id == "GP320F", ]
+
+# Find values:
+y$weight.caught[(y$tow.id == "GP042F") & (y$species == 40 )] <- 5.7  # Approximate value (0.06 * 95).
 
 y <- sort(y, by = c("date", "tow.number", "tow.id", "species"))
 rownames(y) <- NULL

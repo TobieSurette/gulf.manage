@@ -1,14 +1,17 @@
 library(gulf.data)
 library(gulf.spatial)
 
-year <- 2022
+year <- 2023
 
 # Regular survey measurements:
-x <- read.csv(paste0("build/scs.2022/data/scs.len.", year, ".csv"), header = TRUE, stringsAsFactors = FALSE)
+x <- read.csv(paste0("build/scs.", year, "/data/scs.len.", year, ".csv"), header = TRUE, stringsAsFactors = FALSE)
+z <- read.csv(paste0("build/scs.", year, "/data/scs.len.", year, ".lobster.csv"), header = TRUE, stringsAsFactors = FALSE) # Lobster.
+x <- rbind(x, z)
 names(x) <- gsub("[m]easurements*", "", names(x))
 names(x) <- gsub("^[.]+", "", names(x))
 names(x) <- tolower(names(x))
-x$tow.id <- toupper(x$gpnum)
+x$tow.id <- gulf.utils::deblank(toupper(x$gpnum))
+x$tow.id <- gsub("\n", "", x$tow.id)
 
 # Parse data and time:
 x$date <- unlist(lapply(strsplit(x$datetime, " "), function(x) x[1]))
@@ -19,12 +22,40 @@ x$length.unit <- gsub("[0-9.]", "", x$measurement)
 x$length <- (gsub("m", "", x$measurement))
 x$length <- as.numeric(gsub(";Male", "", x$length))
 
+# Remove empty rows:
+x[is.na(x$length), ]
+x <- x[!is.na(x$length), ]
+
 # Define length precision:
 x$length.precision <- 1
 
+# Comments:
+x$comment <- x$measurement.comment
+x$comment <- gsub("\n", "", x$comment)
+
+# Extract lobster sexes:
+x$sex <- ""
+ix <- which(x$species == 2550)
+x$sex[ix] <- toupper(substr(x$comment[ix], 1, 1))
+tows <- unique(x$tow.id[ix])
+for (i in 1:length(tows)){
+   sex <- NA
+   iy <- which(x$tow.id[ix] == tows[i])
+   if (length(iy) > 1){
+      sex <- x$sex[ix][iy[1]]
+      for (j in 2:length(iy)){
+         if (x$sex[ix][iy[j]] == "") x$sex[ix][iy[j]] <- sex else sex <- x$sex[ix][iy[j]]
+      }
+   }
+}
+
 # Remove irrelevant fields:
-vars <- c("date", "time", "tow.id", "species", "length", "length.unit", "length.precision")
+vars <- c("date", "time", "tow.id", "species", "sex", "length", "length.unit", "length.precision", "comment")
 x <- x[vars]
+
+# Spot corrections:
+x$tow.id[x$tow.id == "GP049F"] <- "GP049FR1"
+x <- x[x$length != 0.02, ]
 
 # Read set of valid tows:
 s <- compress(read.scsset(year = year))
