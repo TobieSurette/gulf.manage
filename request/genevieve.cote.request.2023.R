@@ -2,7 +2,7 @@ library(gulf.data)
 library(gulf.spatial) 
 
 # Snow crab data:
-years <- 1989:2022
+years <- 2021:2022
 strata <- c(415:417, 424) # Ca vient du September survey, c'est comme des blocks dans le NS survey.
 
 # Read tow data:
@@ -11,10 +11,10 @@ s$longitude <- lon(s)
 s$latitude  <- lat(s)
 s$stratum <- stratum(s$longitude, s$latitude) # Determine stratum from coordinates.
 tmp <- attributes(s)
-s <- s[which(s$stratum %in% strata), ]   # # Eliminate irrelevant tows: Le 'which' elimine les NA qui sont agacants.
+#s <- s[which(s$stratum %in% strata), ]   # # Eliminate irrelevant tows: Le 'which' elimine les NA qui sont agacants.
 s <- s[, c("date", "tow.id", "tow.number", "swept.area", "longitude", "latitude", "stratum")]
 attributes(s) <- c(attributes(s),  tmp[setdiff(names(tmp), names(attributes(s)))])
-by.catch <- s[year(s) %in% 1989:2020, ]
+by.catch <- s[year(s) %in% years, ]
 
 # Prepare snow crab data:
 b <- read.scsbio(year = years, survey = "regular")
@@ -38,7 +38,7 @@ str[str %in% vars] <- paste0(category(vars), ".kg")
 names(s) <- str
 
 # Load snow crab survey by-catch data:
-c <- read.scscat(year = 2018:2020, survey = "regular")
+c <- read.scscat(year = 2018:2022, survey = "regular")
 c$tow.id <- tow.id(c)                # Ensure 'tow.id' is defined.
 c$species.name <- species(c$species) # Add species names.
 c <- c[!is.na(c$species.name), ]
@@ -64,7 +64,7 @@ lf.immature.females <- s[, c("date", "tow.id", "tow.number", "swept.area", "long
 import(lf.immature.females, fill = 0) <- freq(b[which((b$sex == 2) & !is.mature(b)), ], by = key(s))
 
 # Length-frequency exports for target by-catch species:
-z <- read.scslen(2010:2020, species = c(10, 30, 31))
+z <- read.scslen(2010:2022, species = c(10, 30, 31))
 z$length.unit[which(year(z) %in% c(2011:2012))] <- "cm"
 z$length[z$length.unit == "mm"] <- z$length[z$length.unit == "mm"] / 10
 z$length.unit <- "cm"
