@@ -86,9 +86,14 @@ x$carapace.width <- abs(x$carapace.width)
 
 # Female size corrections:
 x$carapace.width[which(x$sex == 2 & is.mature.scsbio(x) & x$carapace.width < 30)] <- NA
+x$species <- 2526
+
+# Remove chela heights that are too large:
+ix <- which((x$carapace.width < 95) & (log(x$chela.height) > (-2.88 + 1.35 * log(x$carapace.width))))
+x$chela.height[ix] <- NA
 
 # Delete irrelevant data and re-order variables:
-vars <- c("date", "time", "tow.id", "tow.number", "crab.number", "sex",
+vars <- c("date", "time", "tow.id", "tow.number", "species", "crab.number", "sex",
           "carapace.width", "chela.height", "abdomen.width", "durometer", "weight",
           "shell.condition", "missing.legs", "shell.condition.mossy",
           "gonad.colour", "egg.colour", "eggs.remaining", "samplers", "tag.number", "trap.code", "comment")

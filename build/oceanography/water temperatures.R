@@ -2,7 +2,7 @@ library(gulf.data)
 library(gulf.spatial)
 library(gulf.graphics)
 
-year <- 2022
+year <- 2023
 month <- "Jun"
 
 # Extract NAFO area 4T bounds:
@@ -81,12 +81,10 @@ for (i in 1:length(dd)){
 # Write to file:
 x <- zz
 if (month == "Jun"){
-   save(x, file = paste0("//ent.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/Crab/Databases/Temperatures/water.temperature.june.", year, ".rdata"))
-   save(x, file = paste0(gsub("manage", "data", getwd()), "/inst/extdata/water.temperature.june.", year, ".rdata"))
+   save(x, file = paste0("C:/Users/SuretteTJ/Desktop/gulf.data/inst/extdata/water.temperature.june.", year, ".rdata"))
 }
 if (month == "Sep"){
-   save(x, file = paste0("//ent.dfo-mpo.ca/dfo-mpo/GROUP/GLF/Regional_Shares/AquaRes_Common/Crab/Databases/Temperatures/water.temperature.september.", year, ".rdata"))
-   save(x, file = paste0(gsub("manage", "data", getwd()), "/inst/extdata/water.temperature.september.", year, ".rdata"))
+   save(x, file = paste0("C:/Users/SuretteTJ/Desktop/gulf.data/inst/extdata/water.temperature.september.", year, ".rdata"))
 } 
    
 
