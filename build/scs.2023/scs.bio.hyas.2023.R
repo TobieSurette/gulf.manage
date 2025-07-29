@@ -2,6 +2,7 @@
 
 #Define survey year:
 year <- 2023
+source(paste0(gsub("[.]manage", ".data", getwd()), "/R/maturity.R"))
 
 # Read hyas data:
 x <- read.csv(paste0("build/scs.", year, "/data/scs.bio.hyas.", year, ".csv"))
@@ -43,7 +44,7 @@ x$carapace.width[which(x$tow.id == "GP173F" & x$crab.number == 1)] <- 82.26
 
 # Fix mix-ups for snow crab and hyas biological data:
 x$tow.id[x$tow.id == "GP154F"] <- "GP170F"
-x$tow.id[x$tow.id == "GP170FR2"] <- "GP154R2"
+x$tow.id[x$tow.id == "GP170FR2"] <- "GP154FR2"
 x$tow.id[x$tow.id == "GP287F"] <- "GPXXX"
 x$tow.id[x$tow.id == "GP290F"] <- "GP287F"
 x$tow.id[x$tow.id == "GPXXX"]  <- "GP290F"

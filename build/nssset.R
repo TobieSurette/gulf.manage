@@ -1,17 +1,25 @@
-# Read raw ascii data:
-v <- read.nssset(source = "ascii")
+library(gulf.data)
 
-# Corrections here:
-
-
-# Define local gulf.data repository path:
-path <- gsub("gulf.manage", "gulf.data", getwd())
-path <- paste0(path, "/inst/extdata")
-if (file.exists(path)){
-   years <- sort(unique(year(v)))
-   for (i in 1:length(years)){
-      v[which(year(v) == years[i]), ]
-      file <- paste0(path, "/", "nss.set.", years[i], ".csv") 
-      write.csv(v[which(year(v) == years[i]), ], file = file, row.names = FALSE)
+years <- 1999:2024
+for (i in 1:length(years)){
+   year <- years[i]
+   
+   # Read from Oracle:
+   v <- read.gulf.set(year = year, password = password, survey = "ns")
+   v <- compress(v)
+   
+   # Remove redundant variables:
+   remove <- c("location", "stratum", "unit.area")
+   v <- v[setdiff(names(v), remove)]
+   
+   # Corrections:
+   
+   
+   # Write to file:
+   path <- "C:/Users/SuretteTJ/Desktop/github/gulf.data/inst/extdata"
+   if (file.exists(path)){
+      file <- paste0(path, "/", "nss.set.", year, ".csv") 
+      write.csv(v, file = file, row.names = FALSE)
    }
 }
+

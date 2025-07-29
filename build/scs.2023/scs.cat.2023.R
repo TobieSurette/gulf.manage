@@ -46,6 +46,8 @@ s <- compress(read.scsset(year = year))
 
 # Spot corrections:
 y$tow.id[y$tow.id == "GP049F"] <- "GP049FR1"
+y$date[y$tow.id == "GP049FR1"] <- "2023-07-31"
+y$date[y$tow.id == "GP309F"]  <- "2023-09-01"
 
 # Check that tow IDs exist:
 ix <- match(y$tow.id, s$tow.id)

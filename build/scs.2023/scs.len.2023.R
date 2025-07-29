@@ -55,6 +55,7 @@ x <- x[vars]
 
 # Spot corrections:
 x$tow.id[x$tow.id == "GP049F"] <- "GP049FR1"
+x$date[x$tow.id == "GP174F"]   <- "2023-07-27" 
 x <- x[x$length != 0.02, ]
 
 # Read set of valid tows:

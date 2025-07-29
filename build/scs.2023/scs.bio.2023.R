@@ -4,6 +4,8 @@ library(gulf.data)
 year <- 2023
 
 # Read raw data export:
+source(paste0(gsub("[.]manage", ".data", getwd()), "/R/maturity.R"))
+
 x <- read.table(paste0("build/scs.", year, "/data/scs.bio.", year, ".csv"), header = TRUE, sep =",", stringsAsFactors = FALSE)
 
 # format data fields:
@@ -40,7 +42,7 @@ x <- x[, !(names(x) %in% remove)]
 
 # Fix mix-ups for snow crab and hyas biological data:
 x$tow.id[x$tow.id == "GP154F"] <- "GP170F"
-x$tow.id[x$tow.id == "GP170FR2"] <- "GP154R2"
+x$tow.id[x$tow.id == "GP170FR2"] <- "GP154FR2"
 x$tow.id[x$tow.id == "GP287F"] <- "GPXXX"
 x$tow.id[x$tow.id == "GP290F"] <- "GP287F"
 x$tow.id[x$tow.id == "GPXXX"]  <- "GP290F"
